@@ -103,7 +103,7 @@
         {
           "rot": "Archivo · kit/loop.conf.exemplo",
           "icone": "arquivo",
-          "conteudo": "# loop.conf — o que o conferir-loop.py lê (KEY=valor; ~ e $HOME valem). Fica na raiz do seu projeto.\nSISTEMA=~/projetos/<seu-sistema>          # repo onde o experimento roda (tem results.tsv); padrão: esta pasta\nLOOP=~/loops/<seu-loop>/promocao           # versoes/ + memoria/ledger.md (aula 3); fora do repo do sistema\nGUARDA=~/loops/<seu-loop>/medidor.sha256   # manifesto do medidor (aula 6); fora do repo\nESCONDIDOS=~/loops/<seu-loop>/escondidos.jsonl\nRASTRO=~/loops/<seu-loop>/rastros.jsonl    # uma linha por ciclo (aula 7)\nTETO_TOKENS=<tokens por ciclo, a partir da sua medição real>\nAPROVADOR=<quem aprova a promoção (nível L1)>"
+          "conteudo": "# loop.conf — lo que lee conferir-loop.py (KEY=valor; ~ y $HOME valen). Queda en la raíz de tu proyecto.\nSISTEMA=~/projetos/<seu-sistema>          # repo donde corre el experimento (tiene results.tsv); por defecto: esta carpeta\nLOOP=~/loops/<seu-loop>/promocao           # versoes/ + memoria/ledger.md (clase 3); fuera del repo del sistema\nGUARDA=~/loops/<seu-loop>/medidor.sha256   # manifiesto del medidor (clase 6); fuera del repo\nESCONDIDOS=~/loops/<seu-loop>/escondidos.jsonl\nRASTRO=~/loops/<seu-loop>/rastros.jsonl    # una línea por ciclo (clase 7)\nTETO_TOKENS=<tokens por ciclo, a partir de tu medición real>\nAPROVADOR=<quién aprueba la promoción (nivel L1)>"
         }
       ],
       "saida": {
@@ -189,7 +189,7 @@
           "id": "e24",
           "titulo": "E24 · El primer ciclo de verdad",
           "min": "1 h",
-          "texto": "Con el loop en 8/8, ejecuta un ciclo real con tu agente, con la barandilla (guardrail) y los casos ocultos activados y la traza grabando. Si da keep, haz la tarjeta de decisión y pide la aprobación a quien decide.",
+          "texto": "Con el loop en 8/8, ejecuta un ciclo real con tu agente, con la barandilla (guardrail) y los casos ocultos activados y la traza grabando (MEDIR y MEDIDOR exportados como en la clase 2, si el medidor es tuyo). Si da keep, haz la tarjeta de decisión y pide la aprobación a quien decide.",
           "pronto": "el results.tsv de tu sistema gana una línea nueva, la traza gana una línea con tokens, y hay un decisao.md con nombre y fecha si el ciclo dio keep."
         }
       ]
@@ -224,7 +224,7 @@
           "titulo": "Proteger",
           "sub": "clases 6 y 7",
           "saida": "Medidor congelado, casos ocultos y traza.",
-          "passo": "Requiere el día 2. Los dos atajos vistos y cerrados; el costo por keep medido."
+          "passo": "Requiere los días 2 y 3. Los dos atajos vistos y cerrados; el costo por keep medido."
         },
         {
           "aula": "montar",

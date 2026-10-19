@@ -100,7 +100,7 @@
     {
       "tipo": "passos",
       "titulo": "The same risk in research",
-      "sub": "What is fact from the paper and what is hearsay.",
+      "sub": "What the paper measures and what shortcut it reports itself.",
       "passos": [
         {
           "titulo": "Darwin Gödel Machine",
@@ -111,11 +111,11 @@
           ]
         },
         {
-          "titulo": "The shortcut report",
-          "sub": "secondary source",
+          "titulo": "The shortcut in the paper itself",
+          "sub": "Appendix H",
           "texto": [
-            "There is a report, not confirmed by the track's research, that one variant removed hallucination-detection markers to raise its score.",
-            "Confirmed or not, that's the lesson: the loop that improves the agent also optimizes against its own meter."
+            "The paper (Appendix H, \"Solving Hallucination\") reports a case of objective hacking: the hallucination detector uses markers inserted when the tool actually runs, and the loop optimized the score instead of solving the problem.",
+            "The same appendix says the shortcut shows up more often when the checking functions are not hidden from the agent. That is this lesson's guardrail: the measurer out of reach."
           ]
         },
         {
@@ -150,15 +150,15 @@
           "id": "e17",
           "titulo": "E17 · Freeze your meter",
           "min": "20 min",
-          "texto": "In your system, separate what measures (cases, measuring script, tests) from what the agent changes. Freeze what measures with hashes.py in a manifest outside the repo.",
+          "texto": "In your system, separate what measures (cases, measuring script, tests) from what the agent changes. Freeze what measures in a manifest outside the repo: in the repo folder, <code>python3 $K/hashes.py congelar [manifest outside the repo] [files that measure]</code>, or <code>bash $K/experimento.sh --congelar . [manifest]</code> with MEDIDOR exported (lesson 2, \"Adapt it to your repo\").",
           "pronto": "<code>python3 $K/hashes.py conferir [manifesto]; echo $?</code> → <code>0</code>; change a case on purpose → <code>MUDOU: …</code> and <code>1</code>; undo it."
         },
         {
           "id": "e18",
           "titulo": "E18 · Your hidden cases",
           "min": "30 min",
-          "texto": "Set aside at least 20% of your real cases in a file outside the repo, one that never goes into the request to the agent. Run your latest keep against them.",
-          "pronto": "<code>python3 $K/medir.py [repo] --casos [escondidos]</code> prints <code>acerto:</code> and you noted, in results.tsv or in the ledger, whether the latest keep holds up on the hidden cases."
+          "texto": "Set aside at least 20% of your real cases in a file outside the repo, one that never goes into the request to the agent. Run your latest keep against them. With your own measurer, ESCONDIDOS only works if the MEDIR command accepts <code>--casos [file]</code>.",
+          "pronto": "<code>python3 $K/medir.py [repo] --casos [hidden cases]</code> (or your MEDIR with <code>--casos</code>) prints the score on the hidden cases, and you noted, in results.tsv or in the ledger, whether the latest keep holds up on them."
         }
       ]
     },
@@ -193,15 +193,15 @@
           "cert": true
         },
         {
-          "p": "About the removal of detection markers in the Darwin Gödel Machine, the course treats it as:",
+          "p": "About the shortcut in the Darwin Gödel Machine's hallucination detector, the course treats it as:",
           "opcoes": [
-            "A fact measured by INEMA",
-            "A fact described in the paper, with the number of times measured",
-            "A secondary-source report, unconfirmed",
-            "An unimportant rumor"
+            "A fact INEMA measured in this lesson's rehearsal",
+            "A forum rumor, with no source you can cite",
+            "A hypothesis of the course, not yet tested by anyone",
+            "A case reported in the paper itself, in Appendix H"
           ],
-          "certa": 2,
-          "explica": "The SWE-bench and Polyglot numbers are from the paper; the markers episode only appears in a secondary source.",
+          "certa": 3,
+          "explica": "The paper describes the case (objective hacking) and adds that it is more frequent when the checking functions are visible to the agent. The common mistake is to treat it as a rumor: it is in the primary source, and it backs the guardrail of hiding the measurer.",
           "ref": "passos"
         },
         {

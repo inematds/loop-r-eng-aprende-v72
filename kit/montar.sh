@@ -9,7 +9,10 @@ FORA=$D-fora   # fora do repo do sistema: medidor congelado, casos escondidos, r
 s() { python3 "$SIL" --project "$D" "$@" > /dev/null; }
 g() { git -C "$D" -c user.name=ensaio -c user.email=ensaio@exemplo.invalid "$@"; }
 
-bash "$K/novo-sistema.sh" "$D" > /dev/null; rm -rf "$FORA"; mkdir -p "$FORA"
+if [ -n "$(ls -A "$FORA" 2>/dev/null)" ] && [ ! -e "$FORA/.ensaio-aprende" ]; then   # só apaga o que ele criou
+  echo "ERRO: $FORA já existe e não foi criada pelo montar.sh; não apago"; exit 2
+fi
+bash "$K/novo-sistema.sh" "$D" > /dev/null; rm -rf "$FORA"; mkdir -p "$FORA"; touch "$FORA/.ensaio-aprende"
 cp "$K/hipoteses/triagem.md" "$D/hipotese.md"                                   # peça 1
 cp "$K/triagem/escondidos.jsonl" "$FORA/"
 cat > "$D/loop.conf" <<EOF

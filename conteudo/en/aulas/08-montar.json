@@ -189,7 +189,7 @@
           "id": "e24",
           "titulo": "E24 · The first real cycle",
           "min": "1 h",
-          "texto": "With the loop at 8/8, run a real cycle with your agent, with the guardrail and hidden cases on and the trace recording. If it ends in keep, make the card and ask the person who decides for approval.",
+          "texto": "With the loop at 8/8, run a real cycle with your agent, with the guardrail and hidden cases on and the trace recording (MEDIR and MEDIDOR exported as in lesson 2, if the measurer is your own). If it ends in keep, make the card and ask the person who decides for approval.",
           "pronto": "your system's results.tsv gets a new line, the trace gets a line with tokens, and there is a decisao.md with a name and date if the cycle ended in keep."
         }
       ]
@@ -224,7 +224,7 @@
           "titulo": "Protect",
           "sub": "lessons 6 and 7",
           "saida": "Frozen meter, hidden cases, and trace.",
-          "passo": "Requires day 2. Both shortcuts seen and closed; the cost per keep measured."
+          "passo": "Requires days 2 and 3. Both shortcuts seen and closed; the cost per keep measured."
         },
         {
           "aula": "montar",

@@ -215,8 +215,8 @@
           "id": "e9",
           "titulo": "E9 · O cartão do seu teste",
           "min": "20 min",
-          "texto": "Para a hipótese da aula 1, escreva as tolerâncias de cada \"sem piorar\" e o N mínimo antes de rodar. Para evento raro, use pelo menos 2 erros-padrão da taxa-base na amostra planejada (loop-r/docs/05 §2).",
-          "pronto": "<code>git log -1 --format=%cs -- hipotese.md</code> mostra uma data anterior à do primeiro ciclo do seu results.tsv, e o hipotese.md tem uma tolerância numérica por \"sem piorar\"."
+          "texto": "Para a hipótese da aula 1, escreva as tolerâncias de cada \"sem piorar\" e o N mínimo antes de rodar. Para evento raro, use pelo menos 2 erros-padrão da taxa-base na amostra planejada (loop-r/docs/05 §2). Commite o hipotese.md com as tolerâncias antes do próximo ciclo.",
+          "pronto": "<code>H=$(git log --diff-filter=A --format=%ct -- hipotese.md | tail -1); C=$(git log --reverse --format=%ct --grep='^keep:' | head -1); [ -n \"$H\" ] &amp;&amp; { [ -z \"$C\" ] || [ \"$H\" -lt \"$C\" ]; }; echo \"saída: $?\"</code> → <code>saída: 0</code> (o hipotese.md entrou no git antes do primeiro keep), e o hipotese.md commitado tem uma tolerância numérica por \"sem piorar\"."
         }
       ]
     },

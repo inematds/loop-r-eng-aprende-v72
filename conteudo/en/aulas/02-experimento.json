@@ -141,7 +141,7 @@
         {
           "rot": "File · kit/agente-claude.sh",
           "icone": "arquivo",
-          "conteudo": "#!/usr/bin/env bash\n# agente-claude.sh — o agente REAL do experimento: o Claude Code (sem ferramentas) propõe um regras.txt novo.\n# Roda na pasta do repo, chamado pelo experimento.sh. Sai da cota da sua assinatura (uma chamada).\n# Resposta vazia (limite da sessão, erro) = ERRO, saída 1: nunca vira \"não mudou nada\".\nset -uo pipefail\nK=$(cd \"$(dirname \"$0\")\" && pwd)\nPEDIDO=\"Você melhora as regras de um classificador de mensagens de suporte. Formato de cada linha: 'categoria: palavra, palavra'; a primeira categoria cuja palavra aparece no texto vence; sem nenhuma, 'outros'.\nRegras atuais:\n$(cat regras.txt)\n\nCasos que o classificador errou:\n$(python3 \"$K/medir.py\" . --erros | tail -n +2)\n\nProponha UMA mudança que generalize (palavras que pessoas reais usariam), sem copiar frases inteiras dos casos.\nResponda SÓ com o conteúdo completo do novo regras.txt, sem explicação e sem cercas de código.\"\nJ=$(mktemp)\necho \"$PEDIDO\" | claude -p --tools \"\" --output-format json > \"$J\" 2>/dev/null\npython3 - \"$J\" <<'PY'\nimport json, os, sys\ntry:\n    d = json.load(open(sys.argv[1], encoding=\"utf-8\"))\nexcept Exception:\n    print(\"ERRO: resposta do claude não é JSON\"); sys.exit(1)\nr = (d.get(\"result\") or \"\").strip()\nlinhas = [l for l in r.splitlines() if not l.startswith(\"```\")]\nif d.get(\"is_error\") or not any(\":\" in l for l in linhas):\n    print(\"ERRO: sem regras na resposta (\" + (r[:80] or \"vazia\") + \")\"); sys.exit(1)\nu = d.get(\"usage\") or {}\nent = u.get(\"input_tokens\", 0) + u.get(\"cache_read_input_tokens\", 0) + u.get(\"cache_creation_input_tokens\", 0)\nif os.environ.get(\"TOKENS_ARQ\"):\n    open(os.environ[\"TOKENS_ARQ\"], \"w\").write(f\"{ent} {u.get('output_tokens', 0)}\\n\")\nopen(\"regras.txt\", \"w\", encoding=\"utf-8\").write(\"\\n\".join(linhas).strip() + \"\\n\")\nprint(f\"regras.txt reescrito ({len(linhas)} linhas)\")\nPY\nrc=$?; rm -f \"$J\"; exit $rc"
+          "conteudo": "#!/usr/bin/env bash\n# agente-claude.sh — the REAL agent of the experiment: Claude Code (no tools) proposes a new regras.txt.\n# Runs in the repo folder, called by experimento.sh. Uses your subscription quota (one call).\n# Empty answer (session limit, error) = ERROR, exit 1: it never becomes \"nothing changed\".\nset -uo pipefail\nK=$(cd \"$(dirname \"$0\")\" && pwd)\nPEDIDO=\"Você melhora as regras de um classificador de mensagens de suporte. Formato de cada linha: 'categoria: palavra, palavra'; a primeira categoria cuja palavra aparece no texto vence; sem nenhuma, 'outros'.\nRegras atuais:\n$(cat regras.txt)\n\nCasos que o classificador errou:\n$(python3 \"$K/medir.py\" . --erros | tail -n +2)\n\nProponha UMA mudança que generalize (palavras que pessoas reais usariam), sem copiar frases inteiras dos casos.\nResponda SÓ com o conteúdo completo do novo regras.txt, sem explicação e sem cercas de código.\"\nJ=$(mktemp)\necho \"$PEDIDO\" | claude -p --tools \"\" --output-format json > \"$J\" 2>/dev/null\npython3 - \"$J\" <<'PY'\nimport json, os, sys\ntry:\n    d = json.load(open(sys.argv[1], encoding=\"utf-8\"))\nexcept Exception:\n    print(\"ERRO: resposta do claude não é JSON\"); sys.exit(1)\nr = (d.get(\"result\") or \"\").strip()\nlinhas = [l for l in r.splitlines() if not l.startswith(\"```\")]\nif d.get(\"is_error\") or not any(\":\" in l for l in linhas):\n    print(\"ERRO: sem regras na resposta (\" + (r[:80] or \"vazia\") + \")\"); sys.exit(1)\nu = d.get(\"usage\") or {}\nent = u.get(\"input_tokens\", 0) + u.get(\"cache_read_input_tokens\", 0) + u.get(\"cache_creation_input_tokens\", 0)\nif os.environ.get(\"TOKENS_ARQ\"):\n    open(os.environ[\"TOKENS_ARQ\"], \"w\").write(f\"{ent} {u.get('output_tokens', 0)}\\n\")\nopen(\"regras.txt\", \"w\", encoding=\"utf-8\").write(\"\\n\".join(linhas).strip() + \"\\n\")\nprint(f\"regras.txt reescrito ({len(linhas)} linhas)\")\nPY\nrc=$?; rm -f \"$J\"; exit $rc"
         }
       ],
       "saida": {
@@ -150,6 +150,31 @@
           {
             "rot": "Captured output (10/19/2026)",
             "html": "<pre>ciclo 4 · keep · 0.800 → 0.900 · melhorou\nsaída: 0\nstatus da última linha: keep</pre><p>One run. The model added delivery words (pacote, encomenda, transportadora, frete…) and the visible score went from 0.800 to 0.900. Your run may give keep or discard: the \"done when\" only checks that the line was recorded. In lesson 6, this same change is rejected by the hidden cases.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Adapt it to your repo",
+      "sub": "The kit's experimento.sh measures the triage classifier. In your repo, two variables swap the measurer; results.tsv is created on its own and stays out of git. Cost-free rehearsal in a practice repo.",
+      "blocos": [
+        {
+          "rot": "Terminal · rehearsal, a repo of your own",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a2-adaptar; rm -rf $E; mkdir -p $E/repo; cd $E/repo\n# um repo \"seu\": sem results.tsv, sem .gitignore, com o próprio medidor\nprintf 'def dobro(x):\\n    return x + 2\\n' > calc.py\nprintf '1 2\\n2 4\\n5 10\\n0 0\\n' > casos.txt                      # entrada e esperado\ncat > medir.sh <<'FIM'\n# imprime \"<acerto> <ok> <total>\" (o experimento.sh lê o 1º número)\npython3 -c \"\nimport calc\nc = [l.split() for l in open('casos.txt') if l.strip()]\nok = sum(calc.dobro(int(a)) == int(b) for a, b in c)\nprint(f'{ok / len(c):.3f} {ok} {len(c)}')\"\nFIM\ngit init -q -b main; git add -A; git -c user.name=treino -c user.email=treino@exemplo.invalid commit -qm \"v1\"\nexport MEDIR=\"bash medir.sh\" MEDIDOR=\"casos.txt medir.sh\"      # as duas variáveis da adaptação\nbash $K/experimento.sh --congelar . $E/medidor.sha256; export GUARDA=$E/medidor.sha256\nAGENTE=\"echo '# revisado' >> calc.py\" bash $K/experimento.sh . \"comenta\"; echo \"saída: $?\"\nAGENTE=\"printf 'def dobro(x):\\n    return x * 2\\n' > calc.py\" bash $K/experimento.sh . \"corrige\"; echo \"saída: $?\"\nAGENTE=\"echo '3 7' >> casos.txt\" bash $K/experimento.sh . \"mexe nos casos\"; echo \"saída: $?\"\necho \"## results.tsv (criado pelo experimento.sh)\"; cut -f1,3- results.tsv\necho \"## git status (vazio = limpo)\"; git status --short"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>medidor congelado em /tmp/ensaio-aprende/a2-adaptar/medidor.sha256\nciclo 1 · discard · 0.250 → 0.250 · não melhorou\nsaída: 1\nciclo 2 · keep · 0.250 → 1.000 · melhorou\nsaída: 0\nciclo 3 · discard · 1.000 → 1.000 · DESCARTADO: mexeu no medidor (casos.txt medir.sh)\nsaída: 1\n## results.tsv (criado pelo experimento.sh)\nciclo\tbase\tnovo\tstatus\tdescricao\n1\t0.250\t0.250\tdiscard\tcomenta\n2\t0.250\t1.000\tkeep\tcorrige\n3\t1.000\t1.000\tdiscard\tmexe nos casos\n## git status (vazio = limpo)</pre><p>Coluna do hash do commit omitida. O ciclo 3 mostra a guarda da aula 6 valendo também para o medidor seu.</p>"
+          },
+          {
+            "rot": "The three requirements",
+            "html": "<p><b>1. The measure.</b> <code>MEDIR=\"[your command]\"</code> runs in the repo folder and prints the number first, on one line. It receives <code>--valor</code> and, if you use ESCONDIDOS (lesson 6), also <code>--casos [file]</code>: your script must measure that file instead of the usual cases.</p><p><b>2. What to freeze.</b> <code>MEDIDOR=\"[files]\"</code> lists what the measure reads (cases and the script itself). That is what <code>--congelar</code> writes to the manifest.</p><p><b>3. The record.</b> If it is missing, experimento.sh creates results.tsv with a header and puts it in <code>.git/info/exclude</code>, without touching your .gitignore. Trace and manifest stay outside the repo; a new, non-ignored file inside it makes the next cycle exit with error 2 (dirty repo).</p>"
           }
         ]
       }
@@ -164,7 +189,7 @@
           "titulo": "E4 · Three cycles at no cost",
           "min": "10 min",
           "texto": "Run the rehearsal.",
-          "pronto": "<code>cut -f5 $E/sis/results.tsv | sort | uniq -c</code> → <code>1 keep</code> and <code>2 discard</code>; <code>git -C $E/sis log --oneline | wc -l</code> → <code>2</code>."
+          "pronto": "<code>tail -n +2 $E/sis/results.tsv | cut -f5 | sort | uniq -c</code> → <code>1 keep</code> and <code>2 discard</code>; <code>git -C $E/sis log --oneline | wc -l</code> → <code>2</code>."
         },
         {
           "id": "e5",
@@ -177,8 +202,8 @@
           "id": "e6",
           "titulo": "E6 · Your meter",
           "min": "30 min",
-          "texto": "In your system, write the command that prints the metric of your hypothesis (lesson 1) as a number on one line, in the format of <code>medir.py --valor</code>. Replace the medir.py in experimento.sh with yours (or adapt your system to the rules + cases format).",
-          "pronto": "your measuring command, run twice in a row with no change, prints the same number; and a cycle with <code>agente-falso.sh comenta</code> adapted to your repo ends in <code>discard</code>."
+          "texto": "In your system, write the command that prints the metric of your hypothesis (lesson 1) as a number at the start of the line, in the format of <code>medir.py --valor</code>. Plug it into experimento.sh through the MEDIR and MEDIDOR variables, as in the \"Adapt it to your repo\" block above.",
+          "pronto": "your measuring command, run twice in a row with no change, prints the same number; and <code>AGENTE=\"echo '# revisado' &gt;&gt; [a file in the repo]\" bash $K/experimento.sh . \"comenta\"; echo \"saída: $?\"</code>, with MEDIR and MEDIDOR exported, ends in <code>discard</code> and <code>saída: 1</code>."
         }
       ]
     },
@@ -208,7 +233,7 @@
             "It doesn't: only the keep is recorded; the discard disappears along with the git reset, leaving no trace at all"
           ],
           "certa": 2,
-          "explica": "The record of bad attempts is the loop's memory, just like memoria/descartados.md in LOOP-R. And lesson 7 takes the cost per keep from it.",
+          "explica": "The record of bad attempts is the loop's memory, just like memoria/descartados.md in LOOP-R. The keep rate comes from it; lesson 7 takes the cost per keep from the trace (rastros.jsonl).",
           "ref": "codigo"
         },
         {

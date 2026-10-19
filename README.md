@@ -13,7 +13,7 @@ Scripts pequenos (python3 + bash + git, sem pip). Os ensaios não chamam modelo;
 |---|---|---|
 | `hipotese.py`, `hipoteses/` | 1 | confere os sete campos da hipótese e calcula a amostra mínima de um A/B |
 | `triagem/`, `novo-sistema.sh`, `medir.py` | 2, 6 | sistema de ensaio (classificador de triagem, 40 casos + 30 escondidos, sintéticos) e a métrica única |
-| `experimento.sh`, `agente-falso.sh`, `agente-claude.sh` | 2, 6, 7 | um ciclo keep/discard com git; `GUARDA`, `ESCONDIDOS` e `RASTRO` opcionais |
+| `experimento.sh`, `agente-falso.sh`, `agente-claude.sh` | 2, 6, 7 | um ciclo keep/discard com git; `GUARDA`, `ESCONDIDOS` e `RASTRO` opcionais; `MEDIR`/`MEDIDOR` para o medidor do seu repo (o results.tsv nasce sozinho, fora do git) |
 | `loopr.py` | 3 | veredito (teste z), cartão, decidir, promover, reverter |
 | `contar-licoes.py` | 4 | mede o loop de lições em prosa (LESSONS/FALHAS/LIMITES), só contagens |
 | `hooks/settings-sessionstart.json` | 5 | hook que injeta `sil.py context --brief` em cada sessão |

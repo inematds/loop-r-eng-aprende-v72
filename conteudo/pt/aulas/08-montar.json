@@ -189,7 +189,7 @@
           "id": "e24",
           "titulo": "E24 · O primeiro ciclo de verdade",
           "min": "1 h",
-          "texto": "Com o loop 8/8, rode um ciclo real com o seu agente, guarda e escondidos ligados e o rastro gravando. Se der keep, faça o cartão e peça a aprovação a quem decide.",
+          "texto": "Com o loop 8/8, rode um ciclo real com o seu agente, guarda e escondidos ligados e o rastro gravando (MEDIR e MEDIDOR exportados como na aula 2, se o medidor é seu). Se der keep, faça o cartão e peça a aprovação a quem decide.",
           "pronto": "o results.tsv do seu sistema ganha uma linha nova, o rastro ganha uma linha com tokens, e há um decisao.md com nome e data se o ciclo deu keep."
         }
       ]
@@ -224,7 +224,7 @@
           "titulo": "Proteger",
           "sub": "aulas 6 e 7",
           "saida": "Medidor congelado, escondidos e rastro.",
-          "passo": "Requer o dia 2. Os dois atalhos vistos e fechados; o custo por keep medido."
+          "passo": "Requer os dias 2 e 3. Os dois atalhos vistos e fechados; o custo por keep medido."
         },
         {
           "aula": "montar",

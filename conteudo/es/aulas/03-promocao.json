@@ -215,8 +215,8 @@
           "id": "e9",
           "titulo": "E9 · La tarjeta de decisión de tu prueba",
           "min": "20 min",
-          "texto": "Para la hipótesis de la lección 1, escribe las tolerancias de cada \"sem piorar\" y la N mínima antes de ejecutar. Para un evento raro, usa al menos 2 errores estándar de la tasa base en la muestra planificada (loop-r/docs/05 §2).",
-          "pronto": "<code>git log -1 --format=%cs -- hipotese.md</code> muestra una fecha anterior a la del primer ciclo de tu results.tsv, y el hipotese.md tiene una tolerancia numérica por cada \"sem piorar\"."
+          "texto": "Para la hipótesis de la clase 1, escribe las tolerancias de cada \"sem piorar\" y la N mínima antes de ejecutar. Para un evento raro, usa al menos 2 errores estándar de la tasa base en la muestra planificada (loop-r/docs/05 §2). Haz commit del hipotese.md con las tolerancias antes del próximo ciclo.",
+          "pronto": "<code>H=$(git log --diff-filter=A --format=%ct -- hipotese.md | tail -1); C=$(git log --reverse --format=%ct --grep='^keep:' | head -1); [ -n \"$H\" ] &amp;&amp; { [ -z \"$C\" ] || [ \"$H\" -lt \"$C\" ]; }; echo \"saída: $?\"</code> → <code>saída: 0</code> (el hipotese.md entró en git antes del primer keep), y el hipotese.md con commit tiene una tolerancia numérica por cada \"sem piorar\"."
         }
       ]
     },

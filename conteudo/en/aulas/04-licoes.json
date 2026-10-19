@@ -149,7 +149,7 @@
           "titulo": "What the analysis proposed",
           "sub": "progress",
           "texto": [
-            "Of the analysis recommendations, only the SIL promotion was done (v1.1.0, 10/05). The others (gates hook, clock in LIMITES, IDs on lessons, post-translation probe) remain proposals.",
+            "Of the analysis recommendations, only the SIL promotion was done (v1.1.0, 10/05). The others (ports hook, clock in LIMITES, IDs on lessons, post-translation probe) remain proposals.",
             "SIL has not been started in wifi yet: the case serves as a diagnosis, not a showcase."
           ]
         }
@@ -163,7 +163,7 @@
         {
           "rot": "Terminal · in your project",
           "icone": "terminal",
-          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\ncd ~/projetos/<seu-projeto>   # a pasta onde ficam o seu CLAUDE.md/AGENTS.md e as suas lições\npython3 $K/contar-licoes.py ."
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\ncd ~/projetos/<your-project>   # the folder where your CLAUDE.md/AGENTS.md and your lessons live\npython3 $K/contar-licoes.py ."
         }
       ],
       "saida": {

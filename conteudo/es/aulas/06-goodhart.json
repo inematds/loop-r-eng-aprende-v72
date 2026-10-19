@@ -100,7 +100,7 @@
     {
       "tipo": "passos",
       "titulo": "El mismo riesgo en la investigación",
-      "sub": "Qué es un hecho del artículo y qué es un relato.",
+      "sub": "Lo que el artículo mide y el atajo que él mismo cuenta.",
       "passos": [
         {
           "titulo": "Darwin Gödel Machine",
@@ -111,11 +111,11 @@
           ]
         },
         {
-          "titulo": "El relato del atajo",
-          "sub": "fuente secundaria",
+          "titulo": "El atajo en el propio artículo",
+          "sub": "Apéndice H",
           "texto": [
-            "Hay un relato, no confirmado por la investigación de la formación, de que una variante eliminó marcadores de detección de alucinaciones para subir la nota.",
-            "Se confirme o no, esa es la lección: el ciclo que mejora al agente también optimiza contra su propio medidor."
+            "El artículo (Apéndice H, \"Solving Hallucination\") relata un caso de objective hacking: el detector de alucinación usa marcadores insertados cuando la herramienta corre de verdad, y el loop optimizó la nota en lugar de resolver el problema.",
+            "El mismo apéndice dice que el atajo aparece más cuando las funciones de verificación no quedan ocultas al agente. Es la guarda de esta clase: el medidor fuera de su alcance."
           ]
         },
         {
@@ -150,15 +150,15 @@
           "id": "e17",
           "titulo": "E17 · Congela tu medidor",
           "min": "20 min",
-          "texto": "En tu sistema, separa lo que mide (casos, script de medición, pruebas) de lo que el agente cambia. Congela lo que mide con hashes.py en un manifiesto fuera del repo.",
+          "texto": "En tu sistema, separa lo que mide (casos, script de medición, pruebas) de lo que el agente cambia. Congela lo que mide en un manifiesto fuera del repo: en la carpeta del repo, <code>python3 $K/hashes.py congelar [manifiesto fuera del repo] [archivos que miden]</code>, o <code>bash $K/experimento.sh --congelar . [manifiesto]</code> con MEDIDOR exportado (clase 2, \"Adaptar a tu repo\").",
           "pronto": "<code>python3 $K/hashes.py conferir [manifesto]; echo $?</code> → <code>0</code>; cambia un caso a propósito → <code>MUDOU: …</code> y <code>1</code>; deshaz el cambio."
         },
         {
           "id": "e18",
           "titulo": "E18 · Tus ocultos",
           "min": "30 min",
-          "texto": "Separa al menos el 20% de tus casos reales en un archivo fuera del repo, que nunca entra en lo que le pides al agente. Corre tu último keep contra ellos.",
-          "pronto": "<code>python3 $K/medir.py [repo] --casos [escondidos]</code> imprime <code>acerto:</code> y tú anotaste, en results.tsv o en el ledger, si el último keep acompaña en los ocultos."
+          "texto": "Separa al menos el 20% de tus casos reales en un archivo fuera del repo, que nunca entra en lo que le pides al agente. Corre tu último keep contra ellos. Con un medidor tuyo, ESCONDIDOS solo funciona si el comando de MEDIR acepta <code>--casos [archivo]</code>.",
+          "pronto": "<code>python3 $K/medir.py [repo] --casos [ocultos]</code> (o tu MEDIR con <code>--casos</code>) imprime el acierto en los ocultos, y anotaste, en results.tsv o en el ledger, si el último keep acompaña en los ocultos."
         }
       ]
     },
@@ -193,15 +193,15 @@
           "cert": true
         },
         {
-          "p": "Sobre la eliminación de marcadores de detección en la Darwin Gödel Machine, el curso lo trata como:",
+          "p": "Sobre el atajo en el detector de alucinación de la Darwin Gödel Machine, el curso lo trata como:",
           "opcoes": [
-            "Hecho medido por INEMA",
-            "Hecho descrito en el artículo, con el número de veces medido",
-            "Relato de fuente secundaria, sin confirmación",
-            "Rumor sin importancia"
+            "Un hecho medido por INEMA en el ensayo de esta clase",
+            "Un rumor de foro, sin fuente que se pueda citar",
+            "Una hipótesis del curso, aún no probada por nadie",
+            "Un caso relatado en el propio artículo, en el Apéndice H"
           ],
-          "certa": 2,
-          "explica": "Los números de SWE-bench y Polyglot son del artículo; el episodio de los marcadores solo aparece en una fuente secundaria.",
+          "certa": 3,
+          "explica": "El artículo describe el caso (objective hacking) y agrega que es más frecuente cuando las funciones de verificación quedan visibles para el agente. El error común es tratarlo como rumor: está en la fuente primaria, y refuerza la guarda de ocultar el medidor.",
           "ref": "passos"
         },
         {

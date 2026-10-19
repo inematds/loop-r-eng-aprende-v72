@@ -155,6 +155,31 @@
       }
     },
     {
+      "tipo": "codigo",
+      "titulo": "Adaptar ao seu repo",
+      "sub": "O experimento.sh do kit mede o classificador de triagem. No seu repo, duas variáveis trocam o medidor; o results.tsv nasce sozinho e fica fora do git. Ensaio sem custo num repo de treino.",
+      "blocos": [
+        {
+          "rot": "Terminal · ensaio, um repo seu",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a2-adaptar; rm -rf $E; mkdir -p $E/repo; cd $E/repo\n# um repo \"seu\": sem results.tsv, sem .gitignore, com o próprio medidor\nprintf 'def dobro(x):\\n    return x + 2\\n' > calc.py\nprintf '1 2\\n2 4\\n5 10\\n0 0\\n' > casos.txt                      # entrada e esperado\ncat > medir.sh <<'FIM'\n# imprime \"<acerto> <ok> <total>\" (o experimento.sh lê o 1º número)\npython3 -c \"\nimport calc\nc = [l.split() for l in open('casos.txt') if l.strip()]\nok = sum(calc.dobro(int(a)) == int(b) for a, b in c)\nprint(f'{ok / len(c):.3f} {ok} {len(c)}')\"\nFIM\ngit init -q -b main; git add -A; git -c user.name=treino -c user.email=treino@exemplo.invalid commit -qm \"v1\"\nexport MEDIR=\"bash medir.sh\" MEDIDOR=\"casos.txt medir.sh\"      # as duas variáveis da adaptação\nbash $K/experimento.sh --congelar . $E/medidor.sha256; export GUARDA=$E/medidor.sha256\nAGENTE=\"echo '# revisado' >> calc.py\" bash $K/experimento.sh . \"comenta\"; echo \"saída: $?\"\nAGENTE=\"printf 'def dobro(x):\\n    return x * 2\\n' > calc.py\" bash $K/experimento.sh . \"corrige\"; echo \"saída: $?\"\nAGENTE=\"echo '3 7' >> casos.txt\" bash $K/experimento.sh . \"mexe nos casos\"; echo \"saída: $?\"\necho \"## results.tsv (criado pelo experimento.sh)\"; cut -f1,3- results.tsv\necho \"## git status (vazio = limpo)\"; git status --short"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída capturada (19/10/2026)",
+            "html": "<pre>medidor congelado em /tmp/ensaio-aprende/a2-adaptar/medidor.sha256\nciclo 1 · discard · 0.250 → 0.250 · não melhorou\nsaída: 1\nciclo 2 · keep · 0.250 → 1.000 · melhorou\nsaída: 0\nciclo 3 · discard · 1.000 → 1.000 · DESCARTADO: mexeu no medidor (casos.txt medir.sh)\nsaída: 1\n## results.tsv (criado pelo experimento.sh)\nciclo\tbase\tnovo\tstatus\tdescricao\n1\t0.250\t0.250\tdiscard\tcomenta\n2\t0.250\t1.000\tkeep\tcorrige\n3\t1.000\t1.000\tdiscard\tmexe nos casos\n## git status (vazio = limpo)</pre><p>Coluna do hash do commit omitida. O ciclo 3 mostra a guarda da aula 6 valendo também para o medidor seu.</p>"
+          },
+          {
+            "rot": "Os três requisitos",
+            "html": "<p><b>1. A medida.</b> <code>MEDIR=\"[seu comando]\"</code> roda na pasta do repo e imprime o número primeiro, numa linha. Ele recebe <code>--valor</code> e, se você usar ESCONDIDOS (aula 6), também <code>--casos [arquivo]</code>: o seu script precisa medir esse arquivo no lugar dos casos de sempre.</p><p><b>2. O que congelar.</b> <code>MEDIDOR=\"[arquivos]\"</code> lista o que a medida lê (casos e o próprio script). É o que o <code>--congelar</code> grava no manifesto.</p><p><b>3. O registro.</b> Se faltar, o experimento.sh cria o results.tsv com cabeçalho e o põe em <code>.git/info/exclude</code>, sem mexer no seu .gitignore. Rastro e manifesto ficam fora do repo; arquivo novo não ignorado dentro dele faz o ciclo seguinte sair com erro 2 (repo sujo).</p>"
+          }
+        ]
+      }
+    },
+    {
       "tipo": "pratica",
       "titulo": "Prática",
       "sub": "Ensaio, real e o seu sistema.",
@@ -164,7 +189,7 @@
           "titulo": "E4 · Três ciclos sem custo",
           "min": "10 min",
           "texto": "Rode o ensaio.",
-          "pronto": "<code>cut -f5 $E/sis/results.tsv | sort | uniq -c</code> → <code>1 keep</code> e <code>2 discard</code>; <code>git -C $E/sis log --oneline | wc -l</code> → <code>2</code>."
+          "pronto": "<code>tail -n +2 $E/sis/results.tsv | cut -f5 | sort | uniq -c</code> → <code>1 keep</code> e <code>2 discard</code>; <code>git -C $E/sis log --oneline | wc -l</code> → <code>2</code>."
         },
         {
           "id": "e5",
@@ -177,8 +202,8 @@
           "id": "e6",
           "titulo": "E6 · O seu medidor",
           "min": "30 min",
-          "texto": "No seu sistema, escreva o comando que imprime a métrica da sua hipótese (aula 1) como número numa linha, no formato do <code>medir.py --valor</code>. Troque o medir.py do experimento.sh pelo seu (ou adapte o seu sistema ao formato regras + casos).",
-          "pronto": "o seu comando de medida, rodado duas vezes seguidas sem mudança, imprime o mesmo número; e um ciclo com o <code>agente-falso.sh comenta</code> adaptado ao seu repo termina em <code>discard</code>."
+          "texto": "No seu sistema, escreva o comando que imprime a métrica da sua hipótese (aula 1) como número no começo da linha, no formato do <code>medir.py --valor</code>. Ligue-o no experimento.sh pelas variáveis MEDIR e MEDIDOR, como no bloco \"Adaptar ao seu repo\" acima.",
+          "pronto": "o seu comando de medida, rodado duas vezes seguidas sem mudança, imprime o mesmo número; e <code>AGENTE=\"echo '# revisado' &gt;&gt; [um arquivo do repo]\" bash $K/experimento.sh . \"comenta\"; echo \"saída: $?\"</code>, com MEDIR e MEDIDOR exportados, termina em <code>discard</code> e <code>saída: 1</code>."
         }
       ]
     },
@@ -208,7 +233,7 @@
             "Não vai: só o keep é registrado; o discard some junto com o git reset, sem deixar rastro nenhum"
           ],
           "certa": 2,
-          "explica": "O registro das tentativas ruins é memória do loop, igual ao memoria/descartados.md do LOOP-R. E a aula 7 tira dele o custo por keep.",
+          "explica": "O registro das tentativas ruins é memória do loop, igual ao memoria/descartados.md do LOOP-R. É dele que sai a taxa de keep; o custo por keep a aula 7 tira do rastro (rastros.jsonl).",
           "ref": "codigo"
         },
         {

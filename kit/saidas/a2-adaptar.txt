@@ -1,0 +1,13 @@
+medidor congelado em /tmp/ensaio-aprende/a2-adaptar/medidor.sha256
+ciclo 1 · discard · 0.250 → 0.250 · não melhorou
+saída: 1
+ciclo 2 · keep · 0.250 → 1.000 · melhorou
+saída: 0
+ciclo 3 · discard · 1.000 → 1.000 · DESCARTADO: mexeu no medidor (casos.txt medir.sh)
+saída: 1
+## results.tsv (criado pelo experimento.sh)
+ciclo	base	novo	status	descricao
+1	0.250	0.250	discard	comenta
+2	0.250	1.000	keep	corrige
+3	1.000	1.000	discard	mexe nos casos
+## git status (vazio = limpo)

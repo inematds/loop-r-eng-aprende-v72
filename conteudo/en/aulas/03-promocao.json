@@ -215,8 +215,8 @@
           "id": "e9",
           "titulo": "E9 · Your test card",
           "min": "20 min",
-          "texto": "For the lesson 1 hypothesis, write the tolerances for each \"do not worsen\" and the minimum N before you run. For a rare event, use at least 2 standard errors of the base rate in the planned sample (loop-r/docs/05 §2).",
-          "pronto": "<code>git log -1 --format=%cs -- hipotese.md</code> shows a date earlier than the first cycle in your results.tsv, and hipotese.md has a numeric tolerance for each \"do not worsen\"."
+          "texto": "For the lesson 1 hypothesis, write the tolerances for each \"do not worsen\" and the minimum N before you run. For a rare event, use at least 2 standard errors of the base rate in the planned sample (loop-r/docs/05 §2). Commit hipotese.md with the tolerances before the next cycle.",
+          "pronto": "<code>H=$(git log --diff-filter=A --format=%ct -- hipotese.md | tail -1); C=$(git log --reverse --format=%ct --grep='^keep:' | head -1); [ -n \"$H\" ] &amp;&amp; { [ -z \"$C\" ] || [ \"$H\" -lt \"$C\" ]; }; echo \"saída: $?\"</code> → <code>saída: 0</code> (hipotese.md entered git before the first keep), and the committed hipotese.md has a numeric tolerance for each \"do not worsen\"."
         }
       ]
     },
