@@ -1,0 +1,419 @@
+{
+  "slug": "montar",
+  "num": 8,
+  "menu": "Assemble",
+  "titulo": "Assemble LOOP-R in your system",
+  "titulo_curto": "Assemble the loop",
+  "minutos": 20,
+  "lead": "The seven lessons gave you the pieces: hypothesis, experiment, promotion, lessons, binding rule, protected meter, and trace. What's left is putting them together in your system and checking that none was left out. This lesson also closes the track: what each of the six courses puts into the loop, and the dated plan to assemble yours.",
+  "objetivo": "check the eight pieces of the loop that learns in your project, close what's missing, and close the track with the dated plan.",
+  "competencias": [
+    "conferir-pecas-do-loop",
+    "montar-loop-que-aprende",
+    "planejar-a-formacao"
+  ],
+  "aprende": [
+    {
+      "icone": "camadas",
+      "t": "The eight pieces and the loop.conf file"
+    },
+    {
+      "icone": "check",
+      "t": "conferir-loop.py: from 0/8 to 8/8"
+    },
+    {
+      "icone": "lista",
+      "t": "The whole track in six courses"
+    },
+    {
+      "icone": "calendario",
+      "t": "Your plan with dates"
+    }
+  ],
+  "hero_alt": "Eight circuit modules fitted in sequence on a rail, forming a ring, with cables linking the last to the first.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "The eight pieces of the loop that learns",
+      "sub": "One per lesson. Click each piece to see what conferir-loop.py requires.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "Hypothesis",
+          "sub": "lesson 1",
+          "detalhe": "hipotese.md at the root passes hipotese.py: metric, current, target, direction, measurement, and do-not-worsen."
+        },
+        {
+          "icone": "git",
+          "titulo": "Experiment",
+          "sub": "lesson 2",
+          "detalhe": "results.tsv with at least one keep, discard or erro cycle."
+        },
+        {
+          "icone": "portao",
+          "titulo": "Promotion",
+          "sub": "lesson 3",
+          "detalhe": "versoes/atual is a link and the ledger has one PROMOVIDA line."
+        },
+        {
+          "icone": "lista",
+          "titulo": "Lessons",
+          "sub": "lesson 4",
+          "detalhe": "SIL started in the folder, with at least one active rule decided by someone."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "Binding",
+          "sub": "lesson 5",
+          "forte": true,
+          "detalhe": "sil-loop-r block in AGENTS.md (or CLAUDE.md) and SIL check with no pending items."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Meter",
+          "sub": "lesson 6",
+          "detalhe": "GUARDA checks out and ESCONDIDOS stay outside the system folder."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Trace",
+          "sub": "lesson 7",
+          "detalhe": "RASTRO with at least one line."
+        },
+        {
+          "icone": "usuario",
+          "titulo": "Ceiling",
+          "sub": "and approver",
+          "detalhe": "TETO_TOKENS and APROVADOR in loop.conf: questions 4 and 5 of /loop-r iniciar."
+        }
+      ],
+      "volta": "the next cycle starts from the promoted version and the rules in force",
+      "legenda": "conferir-loop.py reads loop.conf at the project root. It checks that the pieces are present and consistent, not the quality of your hypothesis."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Rehearsal: from 0/8 to 8/8",
+      "sub": "An empty folder and a loop assembled by the kit (montar.sh repeats, without a model, what lessons 1 to 7 did). It needs the loop-r and sil-loop-r repositories in ~/projetos.",
+      "blocos": [
+        {
+          "rot": "Terminal · cost-free rehearsal",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a8; rm -rf $E; mkdir -p $E/vazio\necho \"## uma pasta sem nada\"; python3 $K/conferir-loop.py $E/vazio > $E/vazio.txt; echo \"saída: $?\"; tail -1 $E/vazio.txt\necho \"## as oito peças montadas pelo kit (o que as aulas 1 a 7 fizeram)\"\nbash $K/montar.sh $E/meu-loop > /dev/null\npython3 $K/conferir-loop.py $E/meu-loop; echo \"saída: $?\"\necho \"## o loop.conf que o conferir lê\"; cat $E/meu-loop/loop.conf"
+        },
+        {
+          "rot": "File · kit/loop.conf.exemplo",
+          "icone": "arquivo",
+          "conteudo": "# loop.conf — o que o conferir-loop.py lê (KEY=valor; ~ e $HOME valem). Fica na raiz do seu projeto.\nSISTEMA=~/projetos/<seu-sistema>          # repo onde o experimento roda (tem results.tsv); padrão: esta pasta\nLOOP=~/loops/<seu-loop>/promocao           # versoes/ + memoria/ledger.md (aula 3); fora do repo do sistema\nGUARDA=~/loops/<seu-loop>/medidor.sha256   # manifesto do medidor (aula 6); fora do repo\nESCONDIDOS=~/loops/<seu-loop>/escondidos.jsonl\nRASTRO=~/loops/<seu-loop>/rastros.jsonl    # uma linha por ciclo (aula 7)\nTETO_TOKENS=<tokens por ciclo, a partir da sua medição real>\nAPROVADOR=<quem aprova a promoção (nível L1)>"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>## uma pasta sem nada\nsaída: 1\nLOOP: 0/8 — FALTAM 1, 2, 3, 4, 5, 6, 7, 8\n## as oito peças montadas pelo kit (o que as aulas 1 a 7 fizeram)\nOK     1 hipótese com número  (hipotese.md passa no hipotese.py)\nOK     2 experimento keep/discard  (results.tsv com 1 ciclo(s))\nOK     3 promoção e rollback  (versoes/atual + ledger com PROMOVIDA)\nOK     4 lições com decisão (SIL)  (1 regra(s) ativa(s) no SIL)\nOK     5 regra vinculante no AGENTS.md  (bloco promovido e check sem pendência)\nOK     6 medidor fora do alcance  (GUARDA confere e ESCONDIDOS fora da pasta)\nOK     7 rastro por ciclo  (RASTRO com pelo menos um ciclo)\nOK     8 teto e aprovador  (TETO_TOKENS e APROVADOR no loop.conf)\nLOOP: 8/8 — PRONTO\nsaída: 0\n## o loop.conf que o conferir lê\nLOOP=/tmp/ensaio-aprende/a8/meu-loop-fora/promocao\nGUARDA=/tmp/ensaio-aprende/a8/meu-loop-fora/medidor.sha256\nESCONDIDOS=/tmp/ensaio-aprende/a8/meu-loop-fora/escondidos.jsonl\nRASTRO=/tmp/ensaio-aprende/a8/meu-loop-fora/rastros.jsonl\nTETO_TOKENS=50000\nAPROVADOR=Seu Nome</pre><p>What stays outside the system repo (meter, hidden cases, trace, versions) goes in a sibling folder: the agent that changes the system can't reach what judges it.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "The training in six courses",
+      "sub": "What each course adds to your loop. This one is the last.",
+      "passos": [
+        {
+          "titulo": "Baseline",
+          "sub": "course 0",
+          "texto": [
+            "The five pieces of the loop (goal, state, action, verification, stop), the harness, today's loop engines, LOOP-R and the done criterion from 0 to 4."
+          ]
+        },
+        {
+          "titulo": "Verification",
+          "sub": "course 1",
+          "texto": [
+            "Whoever says it's done can't be whoever did it: skeptical evaluator, frozen tests, shortcuts, gold set, calibrated judge and the layered gate."
+          ]
+        },
+        {
+          "titulo": "Long-running execution",
+          "sub": "course 2",
+          "texto": [
+            "The seven-file kit, goal.md level 3+, context in bands, handoff that checks, headless loop with a ceiling and session measurement."
+          ]
+        },
+        {
+          "titulo": "Multi-agent",
+          "sub": "course 3",
+          "texto": [
+            "When not to use it, subagents with short returns, generator × evaluator, worktrees, queues without collisions and the Claude + Codex team."
+          ]
+        },
+        {
+          "titulo": "Security",
+          "sub": "course 4",
+          "texto": [
+            "Lethal trifecta, Rule of Two, injection through read content, permissions per step, guard hooks, sandbox and the door to the irreversible."
+          ]
+        },
+        {
+          "titulo": "The loop that learns",
+          "sub": "course 5",
+          "texto": [
+            "Hypothesis with a number, keep/discard, promotion and rollback, lessons that become a binding rule, protected meter and cost per cycle."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Final practice",
+      "sub": "The rehearsal, then your system.",
+      "exercicios": [
+        {
+          "id": "e22",
+          "titulo": "E22 · From 0/8 to 8/8 in the rehearsal",
+          "min": "5 min",
+          "texto": "Run the rehearsal.",
+          "pronto": "<code>LOOP: 0/8</code> with <code>saída: 1</code>, then <code>LOOP: 8/8 — PRONTO</code> with <code>saída: 0</code>."
+        },
+        {
+          "id": "e23",
+          "titulo": "E23 · Your loop, checked",
+          "min": "2 h",
+          "dias": "1 semana",
+          "texto": "In your project, copy loop.conf.exemplo to loop.conf, point each path to the pieces you built in the practice sections of lessons 1 to 7, and run conferir-loop.py. Close the missing pieces one at a time, in order.",
+          "pronto": "<code>python3 $K/conferir-loop.py ~/projetos/[your-project]; echo \"saída: $?\"</code> → <code>LOOP: 8/8 — PRONTO</code> and <code>saída: 0</code>."
+        },
+        {
+          "id": "e24",
+          "titulo": "E24 · The first real cycle",
+          "min": "1 h",
+          "texto": "With the loop at 8/8, run a real cycle with your agent, with the guardrail and hidden cases on and the trace recording. If it ends in keep, make the card and ask the person who decides for approval.",
+          "pronto": "your system's results.tsv gets a new line, the trace gets a line with tokens, and there is a decisao.md with a name and date if the cycle ended in keep."
+        }
+      ]
+    },
+    {
+      "tipo": "mapa",
+      "titulo": "The course map",
+      "sub": "Four deliverables, in order. Click an exercise to see its \"done when\".",
+      "degraus": [
+        {
+          "aula": "experimento",
+          "icone": "alvo",
+          "quando": "Day 1",
+          "titulo": "Measure",
+          "sub": "lessons 1 and 2",
+          "saida": "A hypothesis with a number and the first keep/discard.",
+          "passo": "Kit cloned, hipotese.md approved, and three cycles in the rehearsal, plus one real one."
+        },
+        {
+          "aula": "agentsmd",
+          "icone": "portao",
+          "quando": "Days 2 and 3",
+          "titulo": "Decide",
+          "sub": "lessons 3, 4 and 5",
+          "saida": "Promotion with rollback and lessons that become rules.",
+          "passo": "Requires day 1. Verdicts redone, SIL in your project, and one binding rule."
+        },
+        {
+          "aula": "rastros",
+          "icone": "cadeado",
+          "quando": "Day 4",
+          "titulo": "Protect",
+          "sub": "lessons 6 and 7",
+          "saida": "Frozen meter, hidden cases, and trace.",
+          "passo": "Requires day 2. Both shortcuts seen and closed; the cost per keep measured."
+        },
+        {
+          "aula": "montar",
+          "icone": "camadas",
+          "quando": "Week 2",
+          "titulo": "Assemble",
+          "sub": "lesson 8",
+          "saida": "Your loop at 8/8 and the first real cycle.",
+          "passo": "Requires everything before. loop.conf pointing to the pieces, conferir-loop.py at 8/8."
+        }
+      ],
+      "resultado": {
+        "titulo": "At the end of the track",
+        "texto": "A loop that works for hours, checks itself, runs safely, and improves with numbers: it changes, measures, keeps what gained, goes back when it gets worse, and remembers what it learned.",
+        "total": "24 exercises"
+      },
+      "rolagem_fim": {
+        "titulo": "The whole course",
+        "texto": "Measure, decide, protect, and build. Only move on to the next deliverable when the \"done when\" of the previous one is true."
+      },
+      "legenda": "Mandatory order: promoting without a protected meter is promoting the shortcut."
+    },
+    {
+      "tipo": "gerador",
+      "titulo": "Generate your plan with dates",
+      "sub": "Choose the start date and how much time you have per week. The plan lists the 24 exercises in order.",
+      "curso": "The loop that learns",
+      "horas_padrao": 5,
+      "degraus": [
+        {
+          "titulo": "Lesson 1 · A hypothesis with a number",
+          "aula": "hipotese"
+        },
+        {
+          "titulo": "Lesson 2 · Keep or discard",
+          "aula": "experimento"
+        },
+        {
+          "titulo": "Lesson 3 · Promotion and rollback",
+          "aula": "promocao"
+        },
+        {
+          "titulo": "Lesson 4 · Lessons and rules",
+          "aula": "licoes"
+        },
+        {
+          "titulo": "Lesson 5 · A binding rule",
+          "aula": "agentsmd"
+        },
+        {
+          "titulo": "Lesson 6 · Against the meter",
+          "aula": "goodhart"
+        },
+        {
+          "titulo": "Lesson 7 · Traces and cost",
+          "aula": "rastros"
+        },
+        {
+          "titulo": "Lesson 8 · Build the loop",
+          "aula": "montar"
+        }
+      ],
+      "txt": {
+        "titulo": "Plan — The Loop That Learns",
+        "inicio": "Start",
+        "ritmo": "Pace",
+        "termino": "Expected finish",
+        "ate": "by",
+        "pronto": "done when",
+        "semanas": "weeks",
+        "travou": "## What got stuck and the rule I created",
+        "h": "h per week",
+        "exs": "exercises"
+      }
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Final quiz",
+      "perguntas": [
+        {
+          "p": "conferir-loop.py returned 8/8. What does that guarantee?",
+          "opcoes": [
+            "That the hypothesis is good",
+            "That the next cycle will give keep",
+            "That the agent doesn't cheat",
+            "That the eight pieces exist and are wired together"
+          ],
+          "certa": 3,
+          "explica": "It checks presence and consistency (files, links, hashes, the SIL check), not the quality of the choices.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Why do the meter, hidden cases, trace, and versions stay outside the system's repo?",
+          "opcoes": [
+            "To save space",
+            "So the agent that changes the system can't reach what judges it",
+            "Because git doesn't accept large JSONL files or symbolic links",
+            "To run faster"
+          ],
+          "certa": 1,
+          "explica": "It's the lesson from lesson 6 applied to the whole design: whoever does the work doesn't touch the judge.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "Which course in the track owns \"separate evaluator, frozen tests, and calibrated judge\"?",
+          "opcoes": [
+            "Course 1, Verification and evals",
+            "Course 2, Long-running execution",
+            "Course 4, Security",
+            "Course 5, this one"
+          ],
+          "certa": 0,
+          "explica": "This course points there in lesson 6. Each topic has an owner in the track.",
+          "ref": "passos"
+        },
+        {
+          "p": "In the map's order, why does \"Protect\" come before \"Build\"?",
+          "opcoes": [
+            "Because it's easier and faster, and the plan generator needs that order",
+            "Because the generator requires it",
+            "Because promoting without a protected meter means promoting the shortcut",
+            "The order doesn't matter"
+          ],
+          "certa": 2,
+          "explica": "A loop built with an open meter keeps as an improvement everything that raises the score, including memorizing and tampering with the cases.",
+          "ref": "mapa"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "The track in three sentences",
+      "itens": [
+        {
+          "t": "Work and check",
+          "texto": "The loop runs for hours with state outside the model, a cap, and a stop, and whoever says it's done is a gate the agent can't reach."
+        },
+        {
+          "t": "As a team and safely",
+          "texto": "Subagents and queues only when they help; no session combines private data, untrusted content, and output to the outside."
+        },
+        {
+          "t": "Learn",
+          "texto": "Change one thing, measure, keep what won, roll back when it gets worse, and turn the error into a rule the next session reads."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Keep going here",
+      "links": [
+        {
+          "t": "LOOP-R Engineering area (all courses in the track)",
+          "href": "https://eventos.inema.pro/loop-r-engenharia/",
+          "icone": "camadas"
+        },
+        {
+          "t": "Course 0: Foundation, anatomy of the loop",
+          "href": "https://inematds.github.io/loop-r-eng-base-v72/en/",
+          "icone": "seta"
+        },
+        {
+          "t": "Course 1: Verification and evals",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/en/",
+          "icone": "check"
+        },
+        {
+          "t": "Course 2: Long-running execution",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/en/",
+          "icone": "relogio"
+        },
+        {
+          "t": "Course 3: Multi-agent and orchestration",
+          "href": "https://inematds.github.io/loop-r-eng-multiagente-v72/en/",
+          "icone": "robo"
+        },
+        {
+          "t": "Course 4: Security of the autonomous loop",
+          "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/en/",
+          "icone": "escudo"
+        },
+        {
+          "t": "kit/conferir-loop.py",
+          "href": "https://github.com/inematds/loop-r-eng-aprende-v72/blob/main/kit/conferir-loop.py",
+          "icone": "terminal"
+        }
+      ]
+    }
+  ]
+}

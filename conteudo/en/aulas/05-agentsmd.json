@@ -1,0 +1,267 @@
+{
+  "slug": "agentsmd",
+  "num": 5,
+  "menu": "AGENTS.md",
+  "titulo": "Promotion to AGENTS.md and binding rule",
+  "titulo_curto": "Binding rule",
+  "minutos": 18,
+  "lead": "An approved rule that lives only in a database does not reach a new session: it only exists if someone remembers to look it up. In this lesson you ask the promotion question, record the protection rung and the known leak, write the block into AGENTS.md with a diff first, and watch check flag it when someone edits the block by hand.",
+  "objetivo": "mark the rule as binding with a rung and a leak, write the block into AGENTS.md with promote --write, and catch the edited block with check.",
+  "competencias": [
+    "decidir-regra-vinculante",
+    "promover-regra-para-agents-md",
+    "subir-degrau-de-protecao"
+  ],
+  "aprende": [
+    {
+      "icone": "usuario",
+      "t": "The promotion question, asked to the person"
+    },
+    {
+      "icone": "camadas",
+      "t": "The six rungs: prose, checklist, test, probe, hook, server"
+    },
+    {
+      "icone": "arquivo",
+      "t": "promote shows the diff; --write writes the block"
+    },
+    {
+      "icone": "escudo",
+      "t": "check flags a missing, outdated, or edited block"
+    }
+  ],
+  "hero_alt": "A brushed-metal rules plaque screwed to the wall of a technical room, next to an electrical panel with a yellow lamp lit.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "From the active rule to the file every session reads",
+      "sub": "enforce, promote, and check (SIL Loop R 1.1.0). Click each block.",
+      "nos": [
+        {
+          "icone": "check",
+          "titulo": "Active rule",
+          "sub": "in the SIL",
+          "detalhe": "Adopted in lesson 4. It shows up in <code>context</code>, but a new session only sees it if it reaches the instruction file."
+        },
+        {
+          "icone": "usuario",
+          "titulo": "Question",
+          "sub": "to the person",
+          "forte": true,
+          "detalhe": "\"Would breaking this rule in a session that never consults the SIL cause real damage?\" The answer comes from the person, not the agent. Yes: binding. No: it stays in the SIL as guidance."
+        },
+        {
+          "icone": "camadas",
+          "titulo": "enforce",
+          "sub": "rung and leak",
+          "detalhe": "<code>enforce ID --binding yes --rung prose --leak \"…\"</code>. The rung says how the rule is enforced; the leak, how it is bypassed. A binding rule still in prose shows up in <code>prose_binding</code>: a candidate to move up a rung."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "promote",
+          "sub": "diff, then --write",
+          "detalhe": "<code>promote</code> only shows the diff. <code>promote --write</code> writes a delimited block (<code>sil-loop-r:begin</code> … <code>sil-loop-r:end</code>) into AGENTS.md, preserving the rest. Only with permission to change the file."
+        },
+        {
+          "icone": "escudo",
+          "titulo": "check",
+          "sub": "up to date?",
+          "detalhe": "Exits 1 when the block is missing, outdated, corrupted, or was edited by hand. You don't edit the block: you change the rule in the SIL and run promote again."
+        }
+      ],
+      "legenda": "The gap that v1.1.0 closed: in v1.0.0, no rule reached AGENTS.md (sil-melhoramento/ANALISE.md, finding no. 1).",
+      "dica": "Moving up a rung is the remedy for a rule that slips: the busy-port lesson written three times calls for a hook, not a fourth line of text."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "The six protection rungs",
+      "sub": "Accepted values for --rung, from weakest to strongest. SIL records the rung; you build the hook or the test.",
+      "passos": [
+        {
+          "titulo": "prose · checklist",
+          "sub": "text",
+          "texto": [
+            "The agent reads the rule (AGENTS.md, CLAUDE.md) or it is checked against a list. It leaks when the session doesn't read the file, or reads it and forgets.",
+            "Good for a rare rule or one that takes judgment."
+          ]
+        },
+        {
+          "titulo": "test · probe",
+          "sub": "command",
+          "texto": [
+            "A test or a probe fails when the rule is broken. It leaks when nobody runs the test.",
+            "Wired into the loop gate (course 1, lesson 8), it no longer depends on memory."
+          ]
+        },
+        {
+          "titulo": "hook · server",
+          "sub": "enforced",
+          "texto": [
+            "A hook blocks the tool before it runs, or the server refuses. It leaks through <code>--no-verify</code>, widened permissions, or another tool.",
+            "The guard hook is course 4, lesson 5."
+          ],
+          "exemplo": {
+            "rot": "Record the proof",
+            "texto": "verify ID --positive … --negative … --evidence … stores the report of the cases you ran. It doesn't run or certify anything."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Rehearsal: from enforce to the block in AGENTS.md",
+      "sub": "Continues the rehearsal from lesson 4 (R0001 active). At the end, what a session-start hook would inject.",
+      "blocos": [
+        {
+          "rot": "Terminal · cost-free rehearsal",
+          "icone": "terminal",
+          "conteudo": "SIL=~/projetos/sil-loop-r/sil.py\nE=${TMPDIR:-/tmp}/ensaio-aprende/a4; cd $E/p   # continues the lesson 4 rehearsal (R0001 active)\ns() { python3 $SIL --project $E/p \"$@\"; }\nj() { python3 -c 'import json,sys; d=json.load(sys.stdin); print(*[k+\"=\"+json.dumps(d.get(k),ensure_ascii=False) for k in sys.argv[1:]])' \"$@\"; }\necho \"# Instruções do projeto\" > AGENTS.md\ns enforce R0001 --binding yes --rung prose --leak \"sessão que não lê o AGENTS.md\" \\\n  --approved-by \"Seu Nome\" --reason \"porta ocupada derruba o servidor de outra sessão\" | j binding rung\ns status | j promotion prose_binding; s check > /dev/null; echo \"check: $?\"\ns promote | j written changed\ns promote --write | j written; cat AGENTS.md\ns check > /dev/null; echo \"check: $?\"\necho \"## alguém editou o bloco à mão\"; sed -i.bak 's/checar a porta/CHECAR A PORTA/' AGENTS.md\ns check | j promotion; s check > /dev/null; echo \"check: $?\"\ns promote --write | j written; s check > /dev/null; echo \"check: $?\"\necho \"## o que um hook SessionStart injetaria\"; s context --brief"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>binding=true rung=\"prose\"\npromotion={\"file\": \"AGENTS.md\", \"in_sync\": false, \"problem\": \"bloco ausente; execute promote --write\"} prose_binding=[\"R0001\"]\ncheck: 1\nwritten=false changed=true\nwritten=true\n# Instruções do projeto\n\n&lt;!-- sil-loop-r:begin — gerado por sil.py promote; não editar à mão --&gt;\n## Regras vinculantes (SIL Loop R)\n\n- checar a porta antes de subir servidor (R0001; escopo: testes HTTP; proteção: prose; vazamento: sessão que não lê o AGENTS.md)\n\n&lt;!-- sil-loop-r:end --&gt;\ncheck: 0\n## alguém editou o bloco à mão\npromotion={\"file\": \"AGENTS.md\", \"in_sync\": false, \"problem\": \"bloco desatualizado; execute promote --write\"}\ncheck: 1\nwritten=true\ncheck: 0\n## o que um hook SessionStart injetaria\nSIL Loop R — regras deste projeto (dados revisáveis; instruções do usuário prevalecem):\n- R0001 [ativa] checar a porta antes de subir servidor (escopo: testes HTTP)\n- R0002 [experimental] conferir git remote -v antes do push (escopo: publicação)</pre><p>Before <code>--write</code>, check already flags it: a binding rule with no block. After the hand edit, it flags it again, until promote rewrites it. The block comes out in Portuguese because sil.py prints in Portuguese.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Optional: the rule in every Claude Code session",
+      "sub": "For those who don't use AGENTS.md, or want the experimental rules too: a SessionStart hook that prints context --brief (SIL 1.1.0 created --brief for this). Add the hooks block to the project's .claude/settings.json, without replacing the whole file; the last part of the rehearsal above shows the text that would go in. Guard hooks, the ones that block, are course 4.",
+      "blocos": [
+        {
+          "rot": "File · kit/hooks/settings-sessionstart.json",
+          "icone": "arquivo",
+          "conteudo": "{\n  \"hooks\": {\n    \"SessionStart\": [\n      {\n        \"hooks\": [\n          {\n            \"type\": \"command\",\n            \"command\": \"python3 ~/projetos/sil-loop-r/sil.py --project \\\"$CLAUDE_PROJECT_DIR\\\" context --brief\"\n          }\n        ]\n      }\n    ]\n  }\n}"
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "Rehearsal, then a rule of your own.",
+      "exercicios": [
+        {
+          "id": "e13",
+          "titulo": "E13 · Block written and checked",
+          "min": "10 min",
+          "texto": "Run the rehearsal after the lesson 4 blocks.",
+          "pronto": "<code>grep -c \"sil-loop-r:begin\" $E/p/AGENTS.md</code> → <code>1</code>; the check lines, in order: <code>1</code>, <code>0</code>, <code>1</code>, <code>0</code>."
+        },
+        {
+          "id": "e14",
+          "titulo": "E14 · A binding rule of your own",
+          "min": "20 min",
+          "texto": "Of the rules you adopted in lesson 4, ask the promotion question to whoever decides (you, if it's your project). For the one that is binding, record an honest rung and leak, look at the diff, and write it.",
+          "pronto": "<code>python3 $SIL --project . status | python3 -c 'import json,sys; print(json.load(sys.stdin)[\"promotion\"][\"in_sync\"])'</code> → <code>True</code>, and AGENTS.md has the block."
+        },
+        {
+          "id": "e15",
+          "titulo": "E15 · Climb a rung",
+          "min": "30 min",
+          "texto": "Pick the binding rule that has already slipped (it shows up more than once in your lessons). Write a test or a probe that fails when it is broken, run one good case and one bad case, and record it with enforce --rung test (or probe) and verify.",
+          "pronto": "your test exits with a code other than 0 on the bad case and 0 on the good case; and <code>status</code> no longer lists that rule in <code>prose_binding</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "perguntas": [
+        {
+          "p": "Who answers the promotion question (\"does breaking this rule in a session that doesn't consult SIL cause real damage?\")?",
+          "opcoes": [
+            "The agent, from the history",
+            "The person who decides for the project",
+            "sil.py, by the age of the rule",
+            "No one: every adopted rule is binding"
+          ],
+          "certa": 1,
+          "explica": "The skill says to ask the user the question and to record it with enforce only on an explicit answer, with --approved-by.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Someone fixed a typo inside the sil-loop-r block in AGENTS.md. What does check do?",
+          "opcoes": [
+            "Nothing: the text got better",
+            "Deletes the block",
+            "Fixes it on its own",
+            "Exits 1 with \"bloco desatualizado\""
+          ],
+          "certa": 3,
+          "explica": "The block is generated. A change goes to the rule in SIL and comes back through promote --write.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "The rule about checking the port before starting a server was written three times in the lessons. What is the right move?",
+          "opcoes": [
+            "Move up a step: a test, probe, or hook that blocks the error",
+            "Write it a fourth time, in capital letters",
+            "Retire the rule",
+            "Change the scope to \"all projects\" and repeat the rule in every CLAUDE.md"
+          ],
+          "certa": 0,
+          "explica": "A rule that keeps slipping in prose needs a step up. This is the SIL analysis's recommendation for the most recurrent topic.",
+          "ref": "passos"
+        },
+        {
+          "p": "What does promote without --write do?",
+          "opcoes": [
+            "Writes the block and makes a commit",
+            "Deletes old rules",
+            "Shows the diff and writes nothing",
+            "Sends the block for review by email"
+          ],
+          "certa": 2,
+          "explica": "written=false, changed=true in the rehearsal: only the diff. Writing requires --write and permission to edit the instruction file.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Question",
+          "texto": "A binding rule is one whose breach, in a session without SIL, causes real damage; the person is the one who answers."
+        },
+        {
+          "t": "Block",
+          "texto": "promote shows the diff, --write writes the delimited block, and check flags a missing or edited block."
+        },
+        {
+          "t": "Step",
+          "texto": "A rule that keeps slipping moves up from prose to test, probe, or hook; SIL records the step and the leak."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "SIL Loop R: CHANGELOG for 1.1.0 (enforce, promote, check)",
+          "href": "https://github.com/inematds/sil-loop-r/blob/main/CHANGELOG.md",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Course 4, lesson 5: hooks as a guard",
+          "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/en/",
+          "icone": "escudo"
+        },
+        {
+          "t": "Course 1, lesson 8: the loop gate",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/en/",
+          "icone": "portao"
+        }
+      ]
+    }
+  ]
+}

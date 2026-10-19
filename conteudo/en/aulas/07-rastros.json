@@ -1,0 +1,275 @@
+{
+  "slug": "rastros",
+  "num": 7,
+  "menu": "Traces",
+  "titulo": "Observability: traces and cost per cycle",
+  "titulo_curto": "Traces and cost",
+  "minutos": 18,
+  "lead": "A loop that runs on its own must leave a trace: how long each cycle took, how many tokens it spent, what it decided and why. Without it, an error loop or a cycle that blows your quota only shows up at month's end. In this lesson you record one line per cycle and use it to get cost per cycle, cost per keep, and the alerts.",
+  "objetivo": "record a trace per cycle (time, tokens, verdict) and use it to get cost per cycle, cost per keep, and the meta-agent's alerts.",
+  "competencias": [
+    "gravar-rastro-por-ciclo",
+    "medir-custo-por-keep",
+    "alertar-laco-de-erro"
+  ],
+  "aprende": [
+    {
+      "icone": "lista",
+      "t": "One JSON line per cycle: the minimum worth keeping"
+    },
+    {
+      "icone": "grafico",
+      "t": "Cost per cycle and cost per keep"
+    },
+    {
+      "icone": "relogio",
+      "t": "Alerts: ceiling, cycles without a keep, repeated identical errors"
+    },
+    {
+      "icone": "chip",
+      "t": "Real tokens from a Claude Code call"
+    }
+  ],
+  "hero_alt": "A panel with several analog gauges and a continuous paper recorder drawing lines, with a needle with a yellow tip.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "From the cycle to the alert",
+      "sub": "The same role as the LOOP-R Meta-agent: it watches the system, not the problem, and only reports. Click each block.",
+      "nos": [
+        {
+          "icone": "robo",
+          "titulo": "Cycle",
+          "sub": "experimento.sh",
+          "detalhe": "With <code>RASTRO=arquivo.jsonl</code>, each cycle writes one line when it finishes, whether it's a keep, discard, or error."
+        },
+        {
+          "icone": "lista",
+          "titulo": "Trace",
+          "sub": "one line",
+          "forte": true,
+          "detalhe": "cycle, description, seconds, input and output tokens (if the agent reports them), status, and reason. Names and numbers, never the text of the request or the response."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Cost",
+          "sub": "per cycle and per keep",
+          "detalhe": "Total tokens divided by the keeps: how much one improvement that stuck costs. It is the Meta-agent's \"cost per promoted hypothesis.\""
+        },
+        {
+          "icone": "megafone",
+          "titulo": "Alerts",
+          "sub": "report only",
+          "detalhe": "A cycle above 80% of the ceiling; N cycles in a row without a keep (the LOOP-R example uses 5); N errors in a row with the same reason (error loop: session limit, credential, broken tool)."
+        }
+      ],
+      "legenda": "The alert does not stop the loop: what stops it is the course 2 ceiling (loop-longrun.sh) or the person. Here, it is reading the trace.",
+      "dica": "A trace without tokens is still useful: time, status, and reason already show an error loop and stagnation."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Rehearsal: six cycles, two problems",
+      "sub": "Fake agents with made-up tokens: one expensive cycle and three identical failures (like an agent with no response because of the session limit).",
+      "blocos": [
+        {
+          "rot": "Terminal · cost-free rehearsal",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a7; rm -rf $E; mkdir -p $E\nbash $K/novo-sistema.sh $E/sis > /dev/null; export RASTRO=$E/rastros.jsonl\nc() { TOKENS_FALSOS=\"$2\" AGENTE=\"bash $K/agente-falso.sh $1\" bash $K/experimento.sh $E/sis \"$1\" > /dev/null; }\nc comenta \"8000 500\"; c sinonimos \"9000 700\"; c estraga \"41000 3000\"   # made-up tokens for the rehearsal\nc falha \"0 0\"; c falha \"0 0\"; c falha \"0 0\"\necho \"## uma linha do rastro\"; sed -n 2p $RASTRO\necho \"## custo por ciclo\"; python3 $K/custo-ciclo.py $RASTRO --teto 50000; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>## uma linha do rastro\n{\"ciclo\": 2, \"descricao\": \"sinonimos\", \"segundos\": 0, \"tokens_entrada\": 9000, \"tokens_saida\": 700, \"status\": \"keep\", \"motivo\": \"melhorou\"}\n## custo por ciclo\nciclo  status   segundos  tokens(ent+saída)  motivo\n    1  discard         0               8500  não melhorou\n    2  keep            0               9700  melhorou\n    3  discard         0              44000  não melhorou\n    4  erro            0                  0  agente falhou (saída 1): ERRO: sem resposta do m\n    5  erro            0                  0  agente falhou (saída 1): ERRO: sem resposta do m\n    6  erro            0                  0  agente falhou (saída 1): ERRO: sem resposta do m\ntotal: 6 ciclos · 1 keep · 62200 tokens\ncusto por keep: 62200 tokens\nALERTA: ciclo 3 usou 88% do teto de 50000 tokens\nALERTA: 3 erros seguidos iguais: agente falhou (saída 1): ERRO: sem resposta do modelo (limit\nsaída: 1</pre><p>The tokens in this rehearsal are made up (the <code>TOKENS_FALSOS</code> variable); time, status, and alerts come from the real script. The error loop is the case that costs the most without showing up: in course 1, the real judge stopped at the session limit from the 16th call on.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The tokens of a real call",
+      "sub": "agente-claude.sh asks claude -p --output-format json and writes to the trace the sum of input (with cache) and output. One call through your subscription.",
+      "blocos": [
+        {
+          "rot": "Terminal · real, one call",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a7      # the rehearsal above\nRASTRO=$E/rastros.jsonl AGENTE=\"bash $K/agente-claude.sh\" bash $K/experimento.sh $E/sis \"claude\"; echo \"saída: $?\"\ntail -1 $E/rastros.jsonl | python3 -c 'import json,sys; d=json.load(sys.stdin); print(\"tokens:\", \"sim\" if (d[\"tokens_entrada\"] or 0) > 0 else \"não\", \"·\", d[\"status\"])'"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>ciclo 7 · keep · 0.800 → 1.000 · melhorou\nsaída: 0\ntokens: sim · keep</pre><p>The line written to the trace in this run: 10 seconds, <b>247,492 input tokens</b> (adding cache reads and writes) and 364 output tokens. The request is under 2 KB: almost all of the input is the context that the Claude Code session loads on this machine. One measurement, Claude Code 2.1.303; yours changes with your instructions, plugins, and MCPs.</p>"
+          },
+          {
+            "rot": "The common mistake",
+            "html": "<p>Estimating the loop's cost from the size of the request. The calculation that counts is the trace's, per cycle, with the entire context the tool loads. Cache and resume cost are covered in course 2, lesson 4.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "What is already measured at INEMA",
+      "sub": "Two local cases, with the date of each number.",
+      "passos": [
+        {
+          "titulo": "LOOP-R example",
+          "sub": "custo.md per cycle",
+          "texto": [
+            "Each cycle of vendas-whatsapp has one custo.md per agent. The four cycles add up to about 1.7 million tokens for one promotion (the example's README).",
+            "Synthetic sales data, real agents: the cost is real, the effect was designed."
+          ]
+        },
+        {
+          "titulo": "Local telemetry",
+          "sub": "ccdashboard, 10/13/2026",
+          "texto": [
+            "Claude Code hooks write events to a local SQLite (session, tool, error, subagent) and a dashboard shows what is running. Measured: 3 to 5 thousand tool calls per day, about 10 thousand events and 2 MB per day.",
+            "The project's golden rule: store names and numbers, never the text of a prompt, response, or command."
+          ]
+        },
+        {
+          "titulo": "OpenTelemetry",
+          "sub": "standard in the making",
+          "texto": [
+            "There are OpenTelemetry conventions for agents (agent spans, model-call spans, and tool spans, with tokens), described as experimental in secondary sources.",
+            "Before adopting, check the status in the OpenTelemetry documentation. One JSON line per cycle already covers what this lesson asks for."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "Rehearsal, real, and your loop.",
+      "exercicios": [
+        {
+          "id": "e19",
+          "titulo": "E19 · The two alerts",
+          "min": "10 min",
+          "texto": "Run the rehearsal.",
+          "pronto": "<code>ALERTA: ciclo 3 usou 88% do teto</code>, <code>ALERTA: 3 erros seguidos iguais</code>, and <code>saída: 1</code>."
+        },
+        {
+          "id": "e20",
+          "titulo": "E20 · Real tokens",
+          "min": "5 min",
+          "texto": "Run the real block right after the rehearsal.",
+          "pronto": "the last printed line starts with <code>tokens: sim</code>; if it comes out as <code>tokens: não · erro</code>, the agent got no response (session limit): wait and run again."
+        },
+        {
+          "id": "e21",
+          "titulo": "E21 · Trace in your loop",
+          "min": "20 min",
+          "texto": "Hook RASTRO into your experiment (or write the same JSON line at the end of each cycle of your loop) and set the per-cycle token ceiling from the real measurement in E20.",
+          "pronto": "<code>python3 $K/custo-ciclo.py [your trace] --teto [your ceiling]</code> lists one cycle per line and ends in <code>sem alerta</code> or in an <code>ALERTA:</code> that you can explain."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "perguntas": [
+        {
+          "p": "Six cycles, one keep, 62,200 tokens in total. What is the cost per keep?",
+          "opcoes": [
+            "10,366 tokens",
+            "62,200 tokens",
+            "9,700 tokens",
+            "Can't tell"
+          ],
+          "certa": 1,
+          "explica": "Total divided by the keeps: 62,200 / 1. The cost per keep includes the attempts that didn't stay.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "Three cycles in a row end in an error with the same reason. What is this usually?",
+          "opcoes": [
+            "Three bad hypotheses",
+            "Statistical noise",
+            "An error loop: session limit, credential, or broken tool",
+            "A sign the loop has converged and there is nothing left to improve in the system"
+          ],
+          "certa": 2,
+          "explica": "A bad hypothesis gives a discard, not an error. The same repeated error is infrastructure, and every round costs time and quota.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "What should the trace keep?",
+          "opcoes": [
+            "Names and numbers: cycle, time, tokens, status, reason",
+            "The full text of the request and the response, so you can reproduce the cycle later",
+            "The API key used",
+            "Only the keeps"
+          ],
+          "certa": 0,
+          "explica": "Numbers are enough for cost and alerts, and prompt and response text may hold sensitive data. This is the INEMA local telemetry rule.",
+          "ref": "passos"
+        },
+        {
+          "p": "In the real call that was measured, the request was under 2 KB and the input went over 247 thousand tokens. Why?",
+          "opcoes": [
+            "The model read the internet",
+            "Measurement error",
+            "The trace added up the previous ten calls by mistake",
+            "The session carries a lot of context beyond the request"
+          ],
+          "certa": 3,
+          "explica": "Instructions, memory, and the rest of the harness go into every call. That is why you measure cost in the trace, not in the size of the request.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "One line",
+          "texto": "Each cycle records time, tokens, status, and reason; no prompt text."
+        },
+        {
+          "t": "Cost per keep",
+          "texto": "Total tokens over the improvements that stayed; it includes the attempts that didn't stay."
+        },
+        {
+          "t": "Alerts",
+          "texto": "Ceiling, cycles without a keep, and repeated errors in a row; the alert reports, and the ceiling and the person stop."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "kit/custo-ciclo.py",
+          "href": "https://github.com/inematds/loop-r-eng-aprende-v72/blob/main/kit/custo-ciclo.py",
+          "icone": "terminal"
+        },
+        {
+          "t": "LOOP-R meta-agent (contract)",
+          "href": "https://github.com/inematds/loop-r/blob/main/.claude/agents/meta-agente.md",
+          "icone": "robo"
+        },
+        {
+          "t": "Course 2: measuring the session, cache, and resume cost",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/en/",
+          "icone": "relogio"
+        },
+        {
+          "t": "Agent observability: what to track first (secondary source)",
+          "href": "https://aaif.io/blog/agent-observability-what-to-track-first",
+          "icone": "lupa"
+        }
+      ]
+    }
+  ]
+}

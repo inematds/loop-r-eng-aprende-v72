@@ -1,0 +1,315 @@
+{
+  "slug": "licoes",
+  "num": 4,
+  "menu": "Lessons",
+  "titulo": "Lessons and rules: batch approval and review of an expired rule",
+  "titulo_curto": "Lessons and rules",
+  "minutos": 20,
+  "lead": "The other side of the loop that learns is not a number: it is the lesson the agent draws from a mistake. Written straight into CLAUDE.md, it only grows, and nobody decides on it or reviews it. In this lesson you use SIL Loop R: occurrence, proposal, batch approval with an explicit decision, and automatic review when the rule's file changes.",
+  "objetivo": "record an occurrence and a proposal in SIL Loop R, approve in batch with an explicit decision, and reopen the rule when the watched file changes.",
+  "competencias": [
+    "registrar-ocorrencia-e-proposta",
+    "aprovar-em-lote",
+    "revisar-regra-vencida"
+  ],
+  "aprende": [
+    {
+      "icone": "lista",
+      "t": "Occurrence, proposal and rule: three different things"
+    },
+    {
+      "icone": "usuario",
+      "t": "Approval batch: the agent proposes, the person decides"
+    },
+    {
+      "icone": "relogio",
+      "t": "Rule on trial with a date and a criterion"
+    },
+    {
+      "icone": "lupa",
+      "t": "Review by changed file, age and lack of use"
+    }
+  ],
+  "hero_alt": "Open metal card file with cards organized by dividers and one pulled-out card with a yellow border.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "The path of a lesson in SIL Loop R",
+      "sub": "sil.py 1.1.0, local SQLite in the project's .sil folder. No command sends a message or calls a model. Click each block.",
+      "nos": [
+        {
+          "icone": "x",
+          "titulo": "Occurrence",
+          "sub": "the fact",
+          "detalhe": "What happened, with evidence, probable cause and correction. <code>occurrence --title --evidence --cause --correction</code>. Observed fact, hypothesis about the cause and proven correction go in separate fields."
+        },
+        {
+          "icone": "caneta",
+          "titulo": "Proposal",
+          "sub": "the lesson",
+          "detalhe": "The generalizable rule, with scope and, if you want, watched files: <code>lesson --occurrence O0001 --proposal --scope --watch serve.sh</code>. It starts as <code>proposed</code>."
+        },
+        {
+          "icone": "fila",
+          "titulo": "Batch",
+          "sub": "time to decide",
+          "detalhe": "<code>status</code> says <code>approval_due</code> when the batch arrives (by number of proposals, days or releases). <code>request</code> prepares the batch to show to the person in the same turn."
+        },
+        {
+          "icone": "usuario",
+          "titulo": "Decision",
+          "sub": "explicit",
+          "forte": true,
+          "detalhe": "<code>decide ID adopt|trial|defer|reject --approved-by --reason</code>. Trial and defer require a future date; trial requires a criterion. The agent does not invent the approver. Silence is never approval."
+        },
+        {
+          "icone": "check",
+          "titulo": "Rule",
+          "sub": "active",
+          "detalhe": "Once adopted, the proposal becomes a rule (R0001) and shows up in <code>context</code>. It is not in the instruction file yet: that is lesson 5."
+        },
+        {
+          "icone": "lupa",
+          "titulo": "Review",
+          "sub": "expired?",
+          "detalhe": "The rule goes back to review when a watched file changes (SHA-256), when it passes review_days (30) or after 5 releases without being cited. <code>review ID keep|revise|retire</code>, again with an explicit decision."
+        }
+      ],
+      "volta": "a review can keep, rewrite or retire the rule",
+      "legenda": "Source: sil-loop-r/skills/sil-loop-r/SKILL.md and sil.py --help (v1.1.0, commit 63746bd, 10/05/2026)."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Rehearsal: two occurrences, one batch",
+      "sub": "Rehearsal project in /tmp. The <code>j</code> only prints the JSON fields that sil.py returns.",
+      "blocos": [
+        {
+          "rot": "Terminal · cost-free rehearsal",
+          "icone": "terminal",
+          "conteudo": "SIL=~/projetos/sil-loop-r/sil.py   # git clone https://github.com/inematds/sil-loop-r ~/projetos/sil-loop-r\nE=${TMPDIR:-/tmp}/ensaio-aprende/a4; rm -rf $E; mkdir -p $E/p; cd $E/p && git init -q\necho 'python3 -m http.server 8000' > serve.sh\ns() { python3 $SIL --project $E/p \"$@\"; }\nj() { python3 -c 'import json,sys; d=json.load(sys.stdin); print(*[k+\"=\"+json.dumps(d.get(k),ensure_ascii=False) for k in sys.argv[1:]])' \"$@\"; }\ns init | j version; s config --approval-batch 2 | j approval_batch\ns occurrence --title \"porta ocupada\" --evidence \"teste HTTP falhou: address already in use\" \\\n  --cause \"servidor de outra sessão na mesma porta\" --correction \"checar a porta antes\" | j id\ns lesson --occurrence O0001 --proposal \"checar a porta antes de subir servidor\" --scope \"testes HTTP\" --watch serve.sh | j id status\ns occurrence --title \"push no remoto errado\" --evidence \"git push foi para origin, não para o remoto da conta\" | j id\ns lesson --occurrence O0002 --proposal \"conferir git remote -v antes do push\" --scope \"publicação\" | j id status\necho \"## fim da tarefa: chegou a hora do lote?\"; s status | j approval_due approval_reasons\ns request | j requested"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>version=\"1.1.0\"\napproval_batch=2\nid=\"O0001\"\nid=\"L0001\" status=\"proposed\"\nid=\"O0002\"\nid=\"L0002\" status=\"proposed\"\n## fim da tarefa: chegou a hora do lote?\napproval_due=true approval_reasons=[\"lote de novas propostas\"]\nrequested=true</pre><p>With the batch set to 2, the second proposal turns on <code>approval_due</code>. From here on, the agent shows the person the ID, proposal, evidence, scope and suggested decision, and waits.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Decide, and watch the rule go back to review",
+      "sub": "Continues the previous block. One proposal adopted, another on trial for 14 days; then the watched file changes.",
+      "blocos": [
+        {
+          "rot": "Terminal · cost-free rehearsal",
+          "icone": "terminal",
+          "conteudo": "SIL=~/projetos/sil-loop-r/sil.py\nE=${TMPDIR:-/tmp}/ensaio-aprende/a4; cd $E/p   # continua o bloco anterior\ns() { python3 $SIL --project $E/p \"$@\"; }\nj() { python3 -c 'import json,sys; d=json.load(sys.stdin); print(*[k+\"=\"+json.dumps(d.get(k),ensure_ascii=False) for k in sys.argv[1:]])' \"$@\"; }\nATE=$(python3 -c 'import datetime; print(datetime.date.today() + datetime.timedelta(days=14))')\ns decide L0001 adopt --approved-by \"Seu Nome\" --reason \"falhou duas vezes; correção comprovada\" | j status rule\ns decide L0002 trial --until $ATE --criterion \"nenhum push no remoto errado em 14 dias\" \\\n  --approved-by \"Seu Nome\" --reason \"uma ocorrência só\" | j status\ns check > /dev/null; echo \"check: $?\"\necho \"## o arquivo vigiado mudou\"; echo 'python3 -m http.server 8080' > serve.sh\ns check | j reviews; s check > /dev/null; echo \"check: $?\"\ns review R0001 keep --approved-by \"Seu Nome\" --reason \"a porta mudou; a regra continua valendo\" | j status\ns check > /dev/null; echo \"check: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>status=\"adopted\" rule=\"R0001\"\nstatus=\"trial\"\ncheck: 0\n## o arquivo vigiado mudou\nreviews=[{\"id\": \"R0001\", \"reasons\": [\"arquivo alterado: serve.sh\"]}]\ncheck: 1\nstatus=\"active\"\ncheck: 0</pre><p><code>check</code> exits 0 with nothing pending, 1 with something pending (here, the review) and 2 on error. Exit 0 does not prove the rules are true; only that nothing is overdue.</p>"
+          },
+          {
+            "rot": "The common mistake",
+            "html": "<p>Trial with a past date: <code>decide L0002 trial --until 2026-10-01</code> answers <code>{\"error\": \"Teste e adiamento exigem data futura.\"}</code> (captured on 10/19/2026). That is why the block calculates the date with Python.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Real case: this machine's lesson loop",
+      "sub": "INEMA uses LESSONS.md, FALHAS.md and LIMITES.md in the wifi project (the monitoring hub). Counts only; no line from the files appears here.",
+      "passos": [
+        {
+          "titulo": "05/10/2026",
+          "sub": "diagnosis",
+          "texto": [
+            "The sil-melhoramento/ANALISE.md analysis counted 37 lessons in wifi's CLAUDE.md, 101 lines in FALHAS.md and 255 in LIMITES.md, 49 still \"aberto\".",
+            "Its conclusion: 100% \"prose\" rung, no triage, no ID, no citation and no pruning. The lesson about a busy port had been written three times on different dates."
+          ]
+        },
+        {
+          "titulo": "19/10/2026",
+          "sub": "count",
+          "texto": [
+            "contar-licoes.py, run in the wifi folder: 164 lessons in LESSONS.md (9 marked as repeated, none with an ID), 167 failures and 424 limits, 115 still \"aberto\".",
+            "In 14 days the open ones more than doubled. That is what happens when a lesson comes in without a decision and without a review date."
+          ]
+        },
+        {
+          "titulo": "What the analysis proposed",
+          "sub": "progress",
+          "texto": [
+            "Of the analysis recommendations, only the SIL promotion was done (v1.1.0, 10/05). The others (gates hook, clock in LIMITES, IDs on lessons, post-translation probe) remain proposals.",
+            "SIL has not been started in wifi yet: the case serves as a diagnosis, not a showcase."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Measure yours",
+      "sub": "Run it in your project folder. The script only counts lines and marks; it does not print content.",
+      "blocos": [
+        {
+          "rot": "Terminal · in your project",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\ncd ~/projetos/<seu-projeto>   # a pasta onde ficam o seu CLAUDE.md/AGENTS.md e as suas lições\npython3 $K/contar-licoes.py ."
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026, wifi folder)",
+            "html": "<pre>CLAUDE.md: 82 linhas, 19 lições na seção Lessons\nAGENTS.md: 10 linhas, 0 lições na seção Lessons\nLESSONS.md: 164 lições · 9 marcadas como repetidas · 0 com ID\nFALHAS.md: 167 falhas · 90 prompt · 85 infra (as duas contam quando a linha diz as duas)\nLIMITES.md: 424 limites · 115 ainda 'aberto'\nSIL Loop R: não iniciado nesta pasta\ndegrau: prosa — sem decisão registrada, sem data de revisão, sem citação</pre><p>The prompt and infra columns add up to more than the total because 8 lines say both.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "Rehearsal first, then your project.",
+      "exercicios": [
+        {
+          "id": "e10",
+          "titulo": "E10 · The batch in the rehearsal",
+          "min": "10 min",
+          "texto": "Run both rehearsal blocks.",
+          "pronto": "the first shows <code>approval_due=true</code> and <code>requested=true</code>; the second ends with <code>check: 0</code>, <code>check: 1</code> (after changing serve.sh) and <code>check: 0</code>."
+        },
+        {
+          "id": "e11",
+          "titulo": "E11 · Diagnosis of your lessons loop",
+          "min": "10 min",
+          "texto": "Run contar-licoes.py in your project and note how many lessons exist, how many are repeated, and whether any has an ID or review date.",
+          "pronto": "<code>python3 $K/contar-licoes.py .</code> prints the <code>SIL Loop R:</code> line and at least one count line."
+        },
+        {
+          "id": "e12",
+          "titulo": "E12 · Three real lessons in the SIL",
+          "min": "30 min",
+          "texto": "Start the SIL in your project, take the three lessons that repeat the most, and record each one as occurrence + proposal, with --watch on the file the rule protects. When the batch kicks in, decide yourself, with a reason.",
+          "pronto": "<code>python3 $SIL --project . export | python3 -c 'import json,sys; print(len(json.load(sys.stdin)[\"rules\"]))'</code> → at least <code>1</code>, and <code>python3 $SIL --project . check; echo $?</code> → <code>0</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "perguntas": [
+        {
+          "p": "The approval batch arrived and the person did not respond. What does the agent do?",
+          "opcoes": [
+            "Adopts everything, because the deadline passed",
+            "Rejects everything",
+            "Adopts only the low-risk ones",
+            "Decides nothing: silence is not approval"
+          ],
+          "certa": 3,
+          "explica": "The deadline controls when to ask for a decision; it does not authorize. Nothing is executed until there is an explicit decision for the IDs presented.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Which of these sends an active rule back to review in the SIL?",
+          "opcoes": [
+            "The file watched with --watch changed",
+            "Another session read the rule",
+            "The agent disagreed with the rule",
+            "The project got any commit"
+          ],
+          "certa": 0,
+          "explica": "The SIL stores the SHA-256 of the watched files; if it changed, the rule goes into reviews. It also reviews by age and by releases without citation.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "What does a trial require that adoption does not?",
+          "opcoes": [
+            "Two approvers",
+            "A future date and a success criterion",
+            "A release",
+            "A watched file"
+          ],
+          "certa": 1,
+          "explica": "trial requires --until with a future date and --criterion. Without a criterion, a trial becomes a rule out of fatigue.",
+          "ref": "codigo"
+        },
+        {
+          "p": "The check exited with 0. What does that guarantee?",
+          "opcoes": [
+            "That all the rules are still true and were followed by the agent in the last session",
+            "That the agent followed the rules",
+            "That there is no overdue decision, flagged review, or outdated promotion",
+            "That AGENTS.md was read"
+          ],
+          "certa": 2,
+          "explica": "The skill itself warns: exit 0 does not prove the rules are true. It only says there is nothing pending.",
+          "ref": "codigo"
+        },
+        {
+          "p": "In the wifi case, what shows that a lesson in prose alone does not close the loop?",
+          "opcoes": [
+            "Open limits more than doubled in 14 days, with no decision date",
+            "The LESSONS.md is small and almost all the lessons have already been turned into hooks",
+            "There are no recorded failures",
+            "All lessons have an ID"
+          ],
+          "certa": 0,
+          "explica": "From 49 to 115 open between 10/05 and 10/19. Without a dated decision and review, the list only grows.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Separate",
+          "texto": "An occurrence is the fact, a proposal is the lesson, a rule is the approved lesson; each one with an ID."
+        },
+        {
+          "t": "Decide in batches",
+          "texto": "The agent proposes and prepares the batch; the person decides with a name and a reason; silence does not approve."
+        },
+        {
+          "t": "Review",
+          "texto": "A changed file, age, or lack of use reopens the rule; check tells you when something is pending."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "SIL Loop R: repository and guide",
+          "href": "https://github.com/inematds/sil-loop-r",
+          "icone": "git"
+        },
+        {
+          "t": "SIL Loop R skill",
+          "href": "https://github.com/inematds/sil-loop-r/blob/main/skills/sil-loop-r/SKILL.md",
+          "icone": "arquivo"
+        },
+        {
+          "t": "kit/contar-licoes.py",
+          "href": "https://github.com/inematds/loop-r-eng-aprende-v72/blob/main/kit/contar-licoes.py",
+          "icone": "terminal"
+        }
+      ]
+    }
+  ]
+}

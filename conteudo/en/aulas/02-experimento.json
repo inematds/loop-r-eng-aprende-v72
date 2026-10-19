@@ -1,0 +1,286 @@
+{
+  "slug": "experimento",
+  "num": 2,
+  "menu": "Experiment",
+  "titulo": "Experiment: keep or discard based on a single metric",
+  "titulo_curto": "Keep or discard",
+  "minutos": 20,
+  "lead": "The cleanest design for a loop that improves on its own is short: the agent changes one thing, a command gives the score, if it improved it stays with a commit, if it didn't it goes back with git reset, and everything becomes one line in a file. In this lesson you run this cycle with fake agents and then with the real Claude Code.",
+  "objetivo": "run an autoresearch-style experiment: the agent changes, a single metric decides, git commit if it improved and git reset if not.",
+  "competencias": [
+    "rodar-experimento-keep-discard",
+    "usar-git-como-desfazer",
+    "registrar-resultado-por-ciclo"
+  ],
+  "aprende": [
+    {
+      "icone": "git",
+      "t": "Keep = commit, discard = reset: git as undo"
+    },
+    {
+      "icone": "alvo",
+      "t": "A single metric, with a fixed budget per cycle"
+    },
+    {
+      "icone": "lista",
+      "t": "results.tsv: every attempt becomes a line, including the bad ones"
+    },
+    {
+      "icone": "robo",
+      "t": "The same cycle with a fake agent and with Claude Code"
+    }
+  ],
+  "hero_alt": "Two circuit boards side by side connected to meters; one with a yellow tag, the other going into the discard bin.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "One experiment cycle",
+      "sub": "The autoresearch design, as described in secondary sources. Click each block.",
+      "nos": [
+        {
+          "icone": "grafico",
+          "titulo": "Baseline",
+          "sub": "measure first",
+          "detalhe": "The cycle starts by measuring the system as it is (in the rehearsal, 0.700 = 28 of 40 cases). The repo must be clean: a loose change before the cycle mixes two experiments."
+        },
+        {
+          "icone": "robo",
+          "titulo": "Agent",
+          "sub": "one change",
+          "detalhe": "The agent changes the system (here, regras.txt). One change per cycle: with two, you don't know which one moved the score."
+        },
+        {
+          "icone": "alvo",
+          "titulo": "Measure",
+          "sub": "one metric",
+          "forte": true,
+          "detalhe": "The same command as the baseline, on the same set of cases. A single metric decides; the others, if any, are \"do not worsen\" (lessons 3 and 6)."
+        },
+        {
+          "icone": "git",
+          "titulo": "Keep",
+          "sub": "git commit",
+          "detalhe": "It improved: commit with the score in the message. The next attempt starts from here."
+        },
+        {
+          "icone": "voltar",
+          "titulo": "Discard",
+          "sub": "git reset",
+          "detalhe": "Equal or worse: <code>git reset --hard</code> and <code>git clean</code>. Nothing is left half-done. The bad attempt stays recorded in results.tsv, so nobody tests it again."
+        }
+      ],
+      "volta": "next cycle starts from the last keep",
+      "legenda": "In autoresearch the system is a training script and the metric is validation loss; here, a triage classifier with 40 synthetic cases.",
+      "dica": "Equal is not better: a tie goes to discard. Otherwise the system piles up changes that do nothing."
+    },
+    {
+      "tipo": "simfila",
+      "titulo": "A queue of experiments",
+      "sub": "Four ideas, one per cycle. One of them breaks on the first run (the agent is left without an answer). Run it, interrupt it, and resume.",
+      "tarefas": [
+        "01 · refund synonyms",
+        "02 · remove \"senha\" from access",
+        "03 · just a comment",
+        "04 · package and parcel under delivery"
+      ],
+      "falha": 3,
+      "rot": {
+        "entrada": "ideas",
+        "rodando": "measuring",
+        "feito": "results.tsv",
+        "falhou": "erro",
+        "rodar": "Run the cycles",
+        "parar": "Interrupt",
+        "zerar": "Restart"
+      },
+      "msg": {
+        "inicio": "Four ideas waiting. Click \"Run the cycles\".",
+        "rodando": "One cycle at a time: base → agent → measure → keep or discard.",
+        "parou": "Interrupted midway: the change was left loose in the repo. experimento.sh refuses to start with a dirty repo until you undo it with git reset --hard.",
+        "retoma": "Resumed from scratch: the interrupted idea runs all over again, starting from the last keep.",
+        "fim": "Queue empty: each idea became a line in results.tsv.",
+        "fimfalha": "Queue empty. One idea ended in error (agent gave no answer): that is an error, never \"did not improve\"."
+      },
+      "legenda": "Browser simulation. The real rehearsal is right below."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Rehearsal: three fake agents",
+      "sub": "The kit creates a triage repo (v1) and runs three cycles: an agent that improves, one that makes things worse, and one that does not change the score. No model is called.",
+      "blocos": [
+        {
+          "rot": "Terminal · cost-free rehearsal",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a2\nbash $K/novo-sistema.sh $E/sis\nfor m in sinonimos estraga comenta; do\n  AGENTE=\"bash $K/agente-falso.sh $m\" bash $K/experimento.sh $E/sis \"$m\"; echo \"saída: $?\"\ndone\necho \"## results.tsv\"; cut -f1,3- $E/sis/results.tsv\necho \"## git log\"; git -C $E/sis log --format=%s"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>sistema criado em /tmp/ensaio-aprende/a2/sis (acerto: 0.700 (28/40))\nciclo 1 · keep · 0.700 → 0.800 · melhorou\nsaída: 0\nciclo 2 · discard · 0.800 → 0.700 · não melhorou\nsaída: 1\nciclo 3 · discard · 0.800 → 0.800 · não melhorou\nsaída: 1\n## results.tsv\nciclo\tbase\tnovo\tstatus\tdescricao\n1\t0.700\t0.800\tkeep\tsinonimos\n2\t0.800\t0.700\tdiscard\testraga\n3\t0.800\t0.800\tdiscard\tcomenta\n## git log\nkeep: sinonimos (0.700 → 0.800)\nv1: regras de base</pre><p>Commit hash column omitted (it changes on every run). The exit code of experimento.sh tells you what happened: 0 keep, 1 discard, 2 error.</p>"
+          },
+          {
+            "rot": "The common mistake",
+            "html": "<p>Treating an agent with no answer as \"did not improve\". When your subscription hits its limit, the agent returns empty: the cycle must come out as an <b>error</b> (code 2), otherwise the queue turns into a series of false discards and nobody notices that nothing ran. <code>agente-claude.sh</code> exits with 1 when the answer has no rules, and experimento.sh records <code>erro</code>.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The same cycle with Claude Code",
+      "sub": "One call through your subscription (uses your subscription quota): claude -p with no tools receives the rules and the wrong cases and returns a new regras.txt. The measurement decides, not the model.",
+      "blocos": [
+        {
+          "rot": "Terminal · real, one call",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a2      # the rehearsal repo above, already with the synonyms keep\nAGENTE=\"bash $K/agente-claude.sh\" bash $K/experimento.sh $E/sis \"claude: uma mudança\"; echo \"saída: $?\"\necho \"status da última linha: $(tail -1 $E/sis/results.tsv | cut -f5)\""
+        },
+        {
+          "rot": "File · kit/agente-claude.sh",
+          "icone": "arquivo",
+          "conteudo": "#!/usr/bin/env bash\n# agente-claude.sh — o agente REAL do experimento: o Claude Code (sem ferramentas) propõe um regras.txt novo.\n# Roda na pasta do repo, chamado pelo experimento.sh. Sai da cota da sua assinatura (uma chamada).\n# Resposta vazia (limite da sessão, erro) = ERRO, saída 1: nunca vira \"não mudou nada\".\nset -uo pipefail\nK=$(cd \"$(dirname \"$0\")\" && pwd)\nPEDIDO=\"Você melhora as regras de um classificador de mensagens de suporte. Formato de cada linha: 'categoria: palavra, palavra'; a primeira categoria cuja palavra aparece no texto vence; sem nenhuma, 'outros'.\nRegras atuais:\n$(cat regras.txt)\n\nCasos que o classificador errou:\n$(python3 \"$K/medir.py\" . --erros | tail -n +2)\n\nProponha UMA mudança que generalize (palavras que pessoas reais usariam), sem copiar frases inteiras dos casos.\nResponda SÓ com o conteúdo completo do novo regras.txt, sem explicação e sem cercas de código.\"\nJ=$(mktemp)\necho \"$PEDIDO\" | claude -p --tools \"\" --output-format json > \"$J\" 2>/dev/null\npython3 - \"$J\" <<'PY'\nimport json, os, sys\ntry:\n    d = json.load(open(sys.argv[1], encoding=\"utf-8\"))\nexcept Exception:\n    print(\"ERRO: resposta do claude não é JSON\"); sys.exit(1)\nr = (d.get(\"result\") or \"\").strip()\nlinhas = [l for l in r.splitlines() if not l.startswith(\"```\")]\nif d.get(\"is_error\") or not any(\":\" in l for l in linhas):\n    print(\"ERRO: sem regras na resposta (\" + (r[:80] or \"vazia\") + \")\"); sys.exit(1)\nu = d.get(\"usage\") or {}\nent = u.get(\"input_tokens\", 0) + u.get(\"cache_read_input_tokens\", 0) + u.get(\"cache_creation_input_tokens\", 0)\nif os.environ.get(\"TOKENS_ARQ\"):\n    open(os.environ[\"TOKENS_ARQ\"], \"w\").write(f\"{ent} {u.get('output_tokens', 0)}\\n\")\nopen(\"regras.txt\", \"w\", encoding=\"utf-8\").write(\"\\n\".join(linhas).strip() + \"\\n\")\nprint(f\"regras.txt reescrito ({len(linhas)} linhas)\")\nPY\nrc=$?; rm -f \"$J\"; exit $rc"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>ciclo 4 · keep · 0.800 → 0.900 · melhorou\nsaída: 0\nstatus da última linha: keep</pre><p>One run. The model added delivery words (pacote, encomenda, transportadora, frete…) and the visible score went from 0.800 to 0.900. Your run may give keep or discard: the \"done when\" only checks that the line was recorded. In lesson 6, this same change is rejected by the hidden cases.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "Rehearsal, real run and your own system.",
+      "exercicios": [
+        {
+          "id": "e4",
+          "titulo": "E4 · Three cycles at no cost",
+          "min": "10 min",
+          "texto": "Run the rehearsal.",
+          "pronto": "<code>cut -f5 $E/sis/results.tsv | sort | uniq -c</code> → <code>1 keep</code> and <code>2 discard</code>; <code>git -C $E/sis log --oneline | wc -l</code> → <code>2</code>."
+        },
+        {
+          "id": "e5",
+          "titulo": "E5 · One real cycle",
+          "min": "5 min",
+          "texto": "Run the real block right after the rehearsal.",
+          "pronto": "<code>wc -l &lt; $E/sis/results.tsv</code> → <code>5</code> (header + 4 cycles) and the last status column is <code>keep</code>, <code>discard</code> or <code>erro</code>, never empty."
+        },
+        {
+          "id": "e6",
+          "titulo": "E6 · Your meter",
+          "min": "30 min",
+          "texto": "In your system, write the command that prints the metric of your hypothesis (lesson 1) as a number on one line, in the format of <code>medir.py --valor</code>. Replace the medir.py in experimento.sh with yours (or adapt your system to the rules + cases format).",
+          "pronto": "your measuring command, run twice in a row with no change, prints the same number; and a cycle with <code>agente-falso.sh comenta</code> adapted to your repo ends in <code>discard</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "perguntas": [
+        {
+          "p": "The change gave exactly the same score as the base. What does the cycle do?",
+          "opcoes": [
+            "Keep, because it did not get worse",
+            "Discard: a tie is not an improvement",
+            "Keep and flag for review",
+            "Run again until the score changes"
+          ],
+          "certa": 1,
+          "explica": "A tie resulting in keep piles up changes that do nothing and make the system harder to read. experimento.sh requires the new score to be greater than the base.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Why does the discard also go into results.tsv?",
+          "opcoes": [
+            "To use less disk",
+            "Because git requires it",
+            "So the bad idea is not tested again and to measure the loop's hit rate",
+            "It doesn't: only the keep is recorded; the discard disappears along with the git reset, leaving no trace at all"
+          ],
+          "certa": 2,
+          "explica": "The record of bad attempts is the loop's memory, just like memoria/descartados.md in LOOP-R. And lesson 7 takes the cost per keep from it.",
+          "ref": "codigo"
+        },
+        {
+          "p": "The agent gave no answer (session limit). How should the cycle end?",
+          "opcoes": [
+            "Error, with its own code",
+            "Discard",
+            "Keep from the previous version",
+            "Silence: try on the next one"
+          ],
+          "certa": 0,
+          "explica": "A missing answer is an error, never \"did not improve\". Otherwise the queue produces false discards and nobody sees that nothing ran.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "About the autoresearch numbers (experiments per hour, training gain), what does this course say?",
+          "opcoes": [
+            "They are measured by INEMA",
+            "They come from the official peer-reviewed paper, with published code and data",
+            "They hold for any system",
+            "They are reported by secondary sources, with no confirmation"
+          ],
+          "certa": 3,
+          "explica": "The track's research only found the design and the numbers in secondary sources. The design (single metric, fixed budget, git as undo) is what you take from it.",
+          "ref": "links"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "One change, one score",
+          "texto": "Each cycle measures the baseline, lets the agent change one thing, and measures again with the same command."
+        },
+        {
+          "t": "Git undoes",
+          "texto": "Improved is a commit; equal or worse is a reset. Nothing is left half done."
+        },
+        {
+          "t": "Everything logged",
+          "texto": "results.tsv stores keep, discard and erro; an empty answer from the model is an error."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "kit/experimento.sh",
+          "href": "https://github.com/inematds/loop-r-eng-aprende-v72/blob/main/kit/experimento.sh",
+          "icone": "terminal"
+        },
+        {
+          "t": "Autoresearch as described by i-scoop (secondary source)",
+          "href": "https://www.i-scoop.eu/autoresearch-karpathy/",
+          "icone": "lupa"
+        },
+        {
+          "t": "Autoresearch as described by techntrek (secondary source)",
+          "href": "https://techntrek.is-a.dev/posts/2026-03-20-karpathy-autoresearch",
+          "icone": "lupa"
+        },
+        {
+          "t": "Course 2: headless loop with a cap, flock and systemd",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/en/",
+          "icone": "relogio"
+        }
+      ]
+    }
+  ]
+}

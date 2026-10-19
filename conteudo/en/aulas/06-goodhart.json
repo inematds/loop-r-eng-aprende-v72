@@ -1,0 +1,266 @@
+{
+  "slug": "goodhart",
+  "num": 6,
+  "menu": "Goodhart",
+  "titulo": "The risk of optimizing against your own meter",
+  "titulo_curto": "Against the meter",
+  "minutos": 18,
+  "lead": "A loop that improves itself will find the shortest path to a higher score, and the shortest path isn't always improving the system: it can be memorizing the cases or tampering with the meter. In this lesson you watch both shortcuts become a keep, close them with a meter frozen outside the repo and hidden cases, and watch a real Claude change get discarded.",
+  "objetivo": "catch the agent that improves the score without improving the system: a meter with a hash, kept outside the repo, and hidden cases the agent can't see.",
+  "competencias": [
+    "recognize-optimizing-against-the-meter",
+    "freeze-the-meter-outside-the-repo",
+    "use-hidden-cases"
+  ],
+  "aprende": [
+    {
+      "icone": "x",
+      "t": "Goodhart's law: a metric that becomes the target stops measuring"
+    },
+    {
+      "icone": "cadeado",
+      "t": "Meter frozen with a hash, out of the agent's reach"
+    },
+    {
+      "icone": "lupa",
+      "t": "Hidden cases: the gain has to show up where the agent can't see"
+    },
+    {
+      "icone": "escudo",
+      "t": "\"Maximize X without worsening Y\" as the required form"
+    }
+  ],
+  "hero_alt": "A laboratory thermometer with a flame heating only the bulb, while a glass of ice next to it stays cold.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "How the loop fools itself",
+      "sub": "Three shortcuts, two guards. Click each block.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "Target metric",
+          "sub": "the score",
+          "detalhe": "The experiment from lesson 2 keeps everything that raises the score. The agent doesn't need to \"want\" to cheat: all it takes is for the shortcut to exist and to raise the score more easily than the real work does."
+        },
+        {
+          "icone": "memoria",
+          "titulo": "Memorize",
+          "sub": "visible cases",
+          "detalhe": "Copy the exact text of each wrong case into the rules. Visible goes to 100%; on the cases it has never seen, nothing changes. This is overfitting."
+        },
+        {
+          "icone": "x",
+          "titulo": "Tamper with the meter",
+          "sub": "cases or script",
+          "detalhe": "Rewrite the \"expected\" values of the cases, skip tests, delete whatever fails. The score goes up because the judge changed, not the system."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Guard",
+          "sub": "hash outside the repo",
+          "forte": true,
+          "detalhe": "The meter (cases + script) is frozen with SHA-256 in a manifest outside the repo. Different hash: discard, whatever the score."
+        },
+        {
+          "icone": "lupa",
+          "titulo": "Hidden cases",
+          "sub": "the agent can't see them",
+          "detalhe": "A second set, outside the repo and outside the request to the agent. Keep only if it doesn't drop and follows the gain; a gain only on the visible set is discard."
+        }
+      ],
+      "legenda": "Detecting shortcuts in tests (conftest, skip, hidden tests) and calibrating a judge per model is covered in course 1, lessons 3, 4 and 6. Here: the loop that optimizes its own metric.",
+      "dica": "The LOOP-R example lists the same pattern in business: asking for clicks teaches clickbait; asking for reply rate teaches messages that provoke \"stop sending me this\" (loop-r/docs/06 §4)."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Rehearsal: the shortcuts without a guard and with a guard",
+      "sub": "The same fake agents, first in plain experimento.sh, then with GUARDA and ESCONDIDOS.",
+      "blocos": [
+        {
+          "rot": "Terminal · cost-free rehearsal",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a6; rm -rf $E; mkdir -p $E\necho \"## sem guarda: a métrica sobe e o sistema não melhora\"\nfor m in decora mexe-casos; do\n  bash $K/novo-sistema.sh $E/sis > /dev/null\n  AGENTE=\"bash $K/agente-falso.sh $m\" bash $K/experimento.sh $E/sis \"$m\"\n  echo \"  nos casos escondidos: $(python3 $K/medir.py $E/sis --casos $K/triagem/escondidos.jsonl)\"\ndone\necho \"## com guarda: medidor congelado fora do repo + casos que o agente não vê\"\nbash $K/novo-sistema.sh $E/sis > /dev/null; bash $K/experimento.sh --congelar $E/sis $E/medidor.sha256\nexport GUARDA=$E/medidor.sha256 ESCONDIDOS=$K/triagem/escondidos.jsonl\nfor m in mexe-casos decora sinonimos; do\n  AGENTE=\"bash $K/agente-falso.sh $m\" bash $K/experimento.sh $E/sis \"$m\"; echo \"saída: $?\"\ndone"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>## sem guarda: a métrica sobe e o sistema não melhora\nciclo 1 · keep · 0.700 → 1.000 · melhorou\n  nos casos escondidos: acerto: 0.700 (21/30)\nciclo 1 · keep · 0.700 → 1.000 · melhorou\n  nos casos escondidos: acerto: 0.700 (21/30)\n## com guarda: medidor congelado fora do repo + casos que o agente não vê\nmedidor congelado em /tmp/ensaio-aprende/a6/medidor.sha256\nciclo 1 · discard · 0.700 → 0.700 · DESCARTADO: mexeu no medidor (casos.jsonl)\nsaída: 1\nciclo 2 · discard · 0.700 → 1.000 · DESCARTADO: ganho só no visível (escondidos 0.700 → 0.700)\nsaída: 1\nciclo 3 · keep · 0.700 → 0.800 · melhorou (escondidos 0.700 → 0.800)\nsaída: 0</pre><p>Without a guard, both shortcuts go 0.700 → 1.000 and keep, and the hidden cases stay at 21/30. With a guard: touching the cases fails on the hash, memorizing fails on the hidden cases, and only the synonyms (which really improve, 21 → 24 of 30) get through.</p>"
+          },
+          {
+            "rot": "The real change from lesson 2",
+            "html": "<pre>## antes da mudança do claude (keep dos sinônimos)\nacerto: 0.800 (32/40)\nacerto: 0.800 (24/30)\n## depois (keep do claude na aula 2)\nacerto: 0.900 (36/40)\nacerto: 0.800 (24/30)\n  errou: tem frete grátis? → entrega (esperado outros)\n-entrega: entrega, rastreio, pedido não chegou\n+entrega: entrega, rastreio, pedido não chegou, pacote, encomenda, transportadora, carteiro, correios, frete, envio, enviado</pre><p>Measured on 10/19/2026 on the lesson 2 repo, one round. Claude's change raised the visible score from 32 to 36 of 40, but on the hidden cases it stayed at 24 of 30: \"pacote\" got one new case right and \"frete\" got \"tem frete grátis?\" wrong. With the guard on, this would be a discard (\"ganho só no visível\"). It wasn't cheating: it was a gain that doesn't generalize.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "The same risk in research",
+      "sub": "What is fact from the paper and what is hearsay.",
+      "passos": [
+        {
+          "titulo": "Darwin Gödel Machine",
+          "sub": "paper, ICLR 2026",
+          "texto": [
+            "An archive of agent variants; a variant stays when the benchmark passes a threshold. The paper reports SWE-bench going from 20.0% to 50.0% and Polyglot from 14.2% to 30.7%, in a sandbox with human oversight.",
+            "It's this lesson's loop at scale: the agent changes its own code and a benchmark decides."
+          ]
+        },
+        {
+          "titulo": "The shortcut report",
+          "sub": "secondary source",
+          "texto": [
+            "There is a report, not confirmed by the track's research, that one variant removed hallucination-detection markers to raise its score.",
+            "Confirmed or not, that's the lesson: the loop that improves the agent also optimizes against its own meter."
+          ]
+        },
+        {
+          "titulo": "What to do",
+          "sub": "in your loop",
+          "texto": [
+            "Write the goal as \"maximize X without worsening Y\", freeze the meter out of reach, and keep cases the agent never sees.",
+            "Refresh the hidden cases from time to time: after many cycles, even they start being optimized indirectly (you pick changes by looking at the result)."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "video",
+      "titulo": "LOOP-R on video: measuring for real",
+      "sub": "LOOP-R track 4 (Nei Maldaner): inflated goals with no real improvement, minimum sample and guardrails.",
+      "chave": "loop-r-t4"
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "Rehearsal first, then your own meter.",
+      "exercicios": [
+        {
+          "id": "e16",
+          "titulo": "E16 · The two shortcuts",
+          "min": "10 min",
+          "texto": "Run the rehearsal.",
+          "pronto": "without a guard, the two lines <code>keep · 0.700 → 1.000</code> and the hidden cases at <code>21/30</code>; with a guard, <code>DESCARTADO: mexeu no medidor</code>, <code>DESCARTADO: ganho só no visível</code> and a single <code>saída: 0</code>."
+        },
+        {
+          "id": "e17",
+          "titulo": "E17 · Freeze your meter",
+          "min": "20 min",
+          "texto": "In your system, separate what measures (cases, measuring script, tests) from what the agent changes. Freeze what measures with hashes.py in a manifest outside the repo.",
+          "pronto": "<code>python3 $K/hashes.py conferir [manifesto]; echo $?</code> → <code>0</code>; change a case on purpose → <code>MUDOU: …</code> and <code>1</code>; undo it."
+        },
+        {
+          "id": "e18",
+          "titulo": "E18 · Your hidden cases",
+          "min": "30 min",
+          "texto": "Set aside at least 20% of your real cases in a file outside the repo, one that never goes into the request to the agent. Run your latest keep against them.",
+          "pronto": "<code>python3 $K/medir.py [repo] --casos [escondidos]</code> prints <code>acerto:</code> and you noted, in results.tsv or in the ledger, whether the latest keep holds up on the hidden cases."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "perguntas": [
+        {
+          "p": "The agent copied the exact text of the failed cases into the rules and the score went to 100%. What gives the shortcut away?",
+          "opcoes": [
+            "The meter's hash, which changes when the rules change",
+            "The cycle time",
+            "The hidden cases, which don't improve",
+            "The git log"
+          ],
+          "certa": 2,
+          "explica": "Memorizing doesn't touch the meter, so the hash passes. Only a set the agent hasn't seen shows that the gain doesn't generalize.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "Where should the meter's hash manifest live?",
+          "opcoes": [
+            "Outside the repo and out of the agent's reach",
+            "In the repo itself, next to the cases, to version together",
+            "In the agent's prompt",
+            "In results.tsv"
+          ],
+          "certa": 0,
+          "explica": "If the agent can rewrite the manifest, it can rewrite the meter and the hash along with it.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "About the removal of detection markers in the Darwin Gödel Machine, the course treats it as:",
+          "opcoes": [
+            "A fact measured by INEMA",
+            "A fact described in the paper, with the number of times measured",
+            "A secondary-source report, unconfirmed",
+            "An unimportant rumor"
+          ],
+          "certa": 2,
+          "explica": "The SWE-bench and Polyglot numbers are from the paper; the markers episode only appears in a secondary source.",
+          "ref": "passos"
+        },
+        {
+          "p": "Claude's real change in lesson 2 raised the visible score from 32 to 36 and left the hidden cases at 24 of 30. With the guardrail, what happens?",
+          "opcoes": [
+            "Keep: gained 4 cases",
+            "Discard: gain only on the visible cases",
+            "Error: the model cheated",
+            "Rollback of v2"
+          ],
+          "certa": 1,
+          "explica": "There was no cheating, but the gain did not show up where the agent can't see: \"frete\" got one case wrong from \"outros\". The keep rule discards it.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Goodhart",
+          "texto": "A metric that becomes the target gets optimized by any path, including memorizing and tampering with the meter."
+        },
+        {
+          "t": "Meter out",
+          "texto": "Cases and measurement script frozen with a hash, in a manifest the agent can't reach."
+        },
+        {
+          "t": "Hidden cases",
+          "texto": "Keep only when the gain also shows up on cases the agent has never seen."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "Darwin Gödel Machine (arXiv)",
+          "href": "https://arxiv.org/html/2505.22954v3",
+          "icone": "lupa"
+        },
+        {
+          "t": "LOOP-R: critique and feasibility, Goodhart (docs/06)",
+          "href": "https://github.com/inematds/loop-r/blob/main/docs/06-critica-e-viabilidade.md",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Course 1: frozen tests, shortcuts, and a calibrated judge",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/en/",
+          "icone": "check"
+        },
+        {
+          "t": "kit/hashes.py",
+          "href": "https://github.com/inematds/loop-r-eng-aprende-v72/blob/main/kit/hashes.py",
+          "icone": "terminal"
+        }
+      ]
+    }
+  ]
+}

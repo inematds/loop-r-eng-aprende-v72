@@ -1,0 +1,319 @@
+{
+  "slug": "promocao",
+  "num": 3,
+  "menu": "Promoción",
+  "titulo": "Tarjeta de decisión, promoción y rollback",
+  "titulo_curto": "Promoción y rollback",
+  "minutos": 20,
+  "lead": "Un keep en el laboratorio todavía no es la versión oficial. En producción, la versión nueva solo sube cuando el veredicto dice que B ganó sin empeorar nada, alguien la aprueba con la tarjeta de cinco líneas y existe un camino de vuelta que no borra nada. En esta clase rehaces los veredictos publicados del ejemplo de LOOP-R, promueves y revierto.",
+  "objetivo": "leer un veredicto A/B con barandillas (guardrails), mostrar la tarjeta de 5 líneas, promover solo con aprobación y revertir sin borrar la versión.",
+  "competencias": [
+    "ler-veredito-com-guarda-corpos",
+    "promover-com-aprovacao",
+    "reverter-sem-apagar"
+  ],
+  "aprende": [
+    {
+      "icone": "grafico",
+      "t": "Veredicto: B_GANHOU, A_SEGUE o AMOSTRA_INSUFICIENTE"
+    },
+    {
+      "icone": "lista",
+      "t": "La tarjeta de decisión de cinco líneas"
+    },
+    {
+      "icone": "portao",
+      "t": "Promover: veredicto + aprobación, con commit"
+    },
+    {
+      "icone": "voltar",
+      "t": "Rollback: el enlace vuelve, la carpeta se queda"
+    }
+  ],
+  "hero_alt": "Llave selectora industrial de dos posiciones en un panel oscuro, una posición marcada con un punto amarillo, junto a una palanca de retorno.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Del veredicto a la versión oficial, y de vuelta",
+      "sub": "Los comandos decidir, promover y reverter del runner LOOP-R. Haz clic en cada bloque.",
+      "nos": [
+        {
+          "icone": "grafico",
+          "titulo": "Veredicto",
+          "sub": "A contra B",
+          "detalhe": "Prueba z de dos proporciones sobre la métrica de la prueba, con N mínimo por variante. B solo gana si mejora con significancia <b>y</b> ninguna métrica \"sin empeorar\" pasa de la tolerancia. Por debajo del N mínimo: AMOSTRA_INSUFICIENTE, sin \"pero va ganando\"."
+        },
+        {
+          "icone": "lista",
+          "titulo": "Tarjeta",
+          "sub": "5 líneas",
+          "detalhe": "Hipótesis, resultado con N y p, métricas vigiladas, costo y las tres salidas: aprobar, rechazar, esperar. Es todo lo que el aprobador necesita leer, como máximo una vez por semana."
+        },
+        {
+          "icone": "usuario",
+          "titulo": "Aprobador",
+          "sub": "nivel L1",
+          "forte": true,
+          "detalhe": "En L1, nada sube sin decisao.md = aprovado. Sin respuesta en el plazo: pendiente, no se promueve. El silencio nunca es aprobación. L2 (promoción automática) solo después de 5 promociones en L1 sin rollback (loop-r/docs/05 §7)."
+        },
+        {
+          "icone": "portao",
+          "titulo": "Promover",
+          "sub": "atual → v2",
+          "detalhe": "La candidata pasa a ser v2, el enlace versoes/atual apunta a ella, el ledger gana una línea PROMOVIDA y todo va en un commit. El runner rechaza sin B_GANHOU y sin aprobación."
+        },
+        {
+          "icone": "voltar",
+          "titulo": "Revertir",
+          "sub": "atual → v1",
+          "detalhe": "Disparador: en el 1.er ciclo después de la promoción, la métrica de la prueba o un \"sin empeorar\" cae por debajo de la versión anterior más allá de la tolerancia. El enlace vuelve, el ledger registra el motivo, y la carpeta v2 <b>se queda</b>: es memoria."
+        }
+      ],
+      "legenda": "Invariantes del runner: nunca promover sin B_GANHOU + aprobación, nunca borrar un ciclo, una versión o una línea de memoria, nunca dos experimentos al mismo tiempo.",
+      "dica": "Rollback no es deshacer el commit: es un commit nuevo que cambia el enlace. Toda la historia sigue en git."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Los dos veredictos publicados del ejemplo",
+      "sub": "El ejemplo vendas-whatsapp de LOOP-R tiene datos SINTÉTICOS (generador con seeds elegidos para reflejar efectos diseñados) y decisiones humanas simuladas; los agentes corrieron de verdad. El kit rehace la cuenta en una copia.",
+      "blocos": [
+        {
+          "rot": "Terminal · ensayo sin costo",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nX=~/projetos/loop-r/exemplos/vendas-whatsapp   # git clone https://github.com/inematds/loop-r ~/projetos/loop-r (dados SINTÉTICOS)\nE=${TMPDIR:-/tmp}/ensaio-aprende/a3; rm -rf $E; L=$E/loop   # uma CÓPIA: nada é gravado no repo loop-r\npython3 $K/loopr.py iniciar $L --v1 $X/versoes/v1/executor.prompt.md --candidata $X/versoes/v2/executor.prompt.md\necho \"## E0001 · H2 (até 80 palavras), tolerância 0 em reclamações\"\npython3 $K/loopr.py veredito $L --csv $X/dados/execucoes.csv --de 2026-02-02 --ate 2026-04-26 \\\n  --metrica resposta --minimo 166 --vigiar reclamou:0 --vigiar optout:0.005; echo \"saída: $?\"\necho \"## E0002 · H3 (abrir citando um ponto da avaliação)\"\npython3 $K/loopr.py veredito $L --csv $X/dados/execucoes.csv --de 2026-05-04 --ate 2026-07-26 \\\n  --metrica resposta --minimo 212 --vigiar reclamou:0.01 --vigiar optout:0.005; echo \"saída: $?\""
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>loop iniciado: versoes/atual → v1\n## E0001 · H2 (até 80 palavras), tolerância 0 em reclamações\nVEREDITO: A_SEGUE\nMétrica do teste: resposta  A=0.1933 (58/300)  B=0.2967 (89/300)  z=2.9426 p=0.0033\nVigiada reclamou: A 1/300 vs B 6/300, Δ=+0.0167 tol 0 → FALHA\nVigiada optout: A 0/300 vs B 1/300, Δ=+0.0033 tol 0.005 → DENTRO\nsaída: 1\n## E0002 · H3 (abrir citando um ponto da avaliação)\nVEREDITO: B_GANHOU\nMétrica do teste: resposta  A=0.1933 (58/300)  B=0.2933 (88/300)  z=2.8543 p=0.0043\nVigiada reclamou: A 2/300 vs B 4/300, Δ=+0.0067 tol 0.01 → DENTRO\nVigiada optout: A 3/300 vs B 1/300, Δ=-0.0067 tol 0.005 → DENTRO\nsaída: 0</pre><p>Los mismos números del ledger publicado: E0001 con 58/300 contra 89/300 (z=2,94) fue descartado por reclamos (6 contra 1, tolerancia 0); E0002 con 58/300 contra 88/300 (z=2,85, p=0,004) ganó. Incluso con la tolerancia de 0,01 que el ejemplo adoptó después, E0001 todavía caería (Δ=0,0167).</p>"
+          },
+          {
+            "rot": "El error común",
+            "html": "<p>Lee solo la métrica de la prueba. E0001 tenía una ganancia mayor que E0002 y aun así no podía subir: una barandilla (guardrail) pasó de la tolerancia. Y la tolerancia se acuerda <b>antes</b>; cambiarla después de ver el número es reescribir la hipótesis.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Tarjeta, promoción y rollback",
+      "sub": "Continúa el bloque anterior. El costo de la tarjeta es la suma del custo.md del ciclo 0004 del ejemplo (5 agentes, ~392 mil tokens); el ejemplo también lo registra en reales, el curso cuenta en tokens.",
+      "blocos": [
+        {
+          "rot": "Terminal · ensayo sin costo",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a3; L=$E/loop   # continua o bloco anterior (veredito B_GANHOU gravado)\npython3 $K/loopr.py promover $L; echo \"saída: $?\"\npython3 $K/loopr.py cartao $L --hipotese \"H3 — abrir citando a avaliação\" --tokens 392000\npython3 $K/loopr.py decidir $L aprovado --por \"Seu Nome\"\npython3 $K/loopr.py promover $L; echo \"atual → $(readlink $L/versoes/atual)\"\npython3 $K/loopr.py reverter $L --motivo \"resposta caiu no 1º ciclo após a promoção\"\necho \"atual → $(readlink $L/versoes/atual) · pastas: $(ls $L/versoes | tr '\\n' ' ')\"\ngit -C $L log --format=%s"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>RECUSADO: promover exige veredito B_GANHOU e decisão aprovado (veredito: B_GANHOU; decisão: nenhuma)\nsaída: 1\nCICLO — hipótese: \"H3 — abrir citando a avaliação\"\nResultado:   resposta 0.1933 → 0.2933  ((58/300) vs (88/300), z=2.8543, p=0.0043)  [VEREDITO: B_GANHOU]\nVigiado:     reclamou ok · optout ok\nCusto:       392.000 tokens neste ciclo (sai da cota)\nDecisão:     aprovar / rejeitar / esperar mais dados\ndecisão gravada: aprovado\nPROMOVIDA: versoes/atual → v2\natual → v2\nROLLBACK: versoes/atual → v1 (a pasta v2 continua lá)\natual → v1 · pastas: atual v1 v2 \nloop-r: rollback v2 → v1\nloop-r: promote v2\nloop-r: iniciar</pre><p>El primer intento de promover es rechazado: veredicto bueno, pero nadie aprobó. Después del rollback, <code>atual</code> apunta a v1 y las dos carpetas siguen ahí.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "simconversa",
+      "titulo": "La dueña quiere promover ya",
+      "sub": "Conversación simulada. La prueba de la versión B está en la mitad de la muestra. Elige qué respondes.",
+      "personagem": {
+        "nome": "Marta",
+        "papel": "dueña de la clínica (personaje ficticio) · aprobadora L1"
+      },
+      "inicio": "abre",
+      "falas": {
+        "abre": {
+          "cliente": "Vi el panel: la versión B tiene 31% de respuesta y la A 20%. Ya son 120 propuestas de cada lado. Promuévela hoy, por favor.",
+          "opcoes": [
+            {
+              "t": "Todavía no: el mínimo es 212 por variante. Parar cuando va ganando es la forma más común de promover ruido. Con 50 por semana, faltan unas cuatro.",
+              "vai": "reclama",
+              "nota": 2,
+              "comenta": "Es la regla dura de LOOP-R: por debajo del N mínimo, AMOSTRA_INSUFICIENTE. Diste el número y el plazo."
+            },
+            {
+              "t": "La promuevo, y dejo el rollback armado por si empeora.",
+              "vai": "fim-ruim",
+              "nota": 0,
+              "comenta": "El rollback no arregla una decisión tomada sobre ruido: la versión sube sin prueba y la prueba terminó."
+            },
+            {
+              "t": "Si la diferencia sigue la semana que viene, la promuevo.",
+              "vai": "reclama",
+              "nota": 1,
+              "comenta": "Mejor que hoy, pero sigue siendo parar por ventaja parcial. El criterio es el N mínimo, no la sensación de que sigue ganando."
+            }
+          ]
+        },
+        "reclama": {
+          "cliente": "Está bien. Pero los reclamos subieron: 1 en la A y 3 en la B. ¿Eso no es motivo para parar ahora?",
+          "opcoes": [
+            {
+              "t": "Es el único motivo para parar antes: corro el veredicto con la tolerancia que está en el yaml. Si la pasa, B sale; si no, seguimos hasta 212.",
+              "vai": "fim-bom",
+              "nota": 2,
+              "comenta": "Parada anticipada solo por barandilla (guardrail) cayendo, con la tolerancia acordada antes (loop-r/docs/05 §3)."
+            },
+            {
+              "t": "Pongo la tolerancia en cero y paro: cualquier reclamo de más derriba a la B.",
+              "vai": "fim-meio",
+              "nota": 0,
+              "comenta": "Tolerancia cero en un evento raro descarta una buena hipótesis por casualidad. El ejemplo aprendió eso en el ciclo 0002 y pasó a usar 0,01."
+            },
+            {
+              "t": "Lo dejo para mirar solo al final de la prueba.",
+              "vai": "fim-meio",
+              "nota": 1,
+              "comenta": "El final también mira, pero la barandilla (guardrail) es justamente lo que se vigila durante: es la única parada anticipada permitida."
+            }
+          ]
+        },
+        "fim-bom": {
+          "fim": true,
+          "titulo": "Prueba íntegra",
+          "texto": "La B solo sube con 212 por variante, B_GANHOU con las barandillas (guardrails) dentro y tu \"aprobado\" en la tarjeta. Si una vigilada pasa de la tolerancia antes, la prueba se detiene por ella, no por la ventaja."
+        },
+        "fim-meio": {
+          "fim": true,
+          "titulo": "Prueba en pie, regla floja",
+          "texto": "Frenaste la promoción, pero trataste mal la barandilla (guardrail). La tolerancia se acuerda antes y se vigila durante."
+        },
+        "fim-ruim": {
+          "fim": true,
+          "titulo": "Promoviste ruido",
+          "texto": "Con la mitad de la muestra, 31% contra 20% puede ser suerte. La versión subió sin prueba y el experimento perdió su valor."
+        }
+      },
+      "licao": "Promover pide N mínimo, B_GANHOU con barandillas (guardrails) y aprobación explícita. La única parada anticipada es una barandilla (guardrail) cayendo más allá de la tolerancia acordada antes."
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "Todo en una copia en /tmp: el kit nunca escribe en el repositorio loop-r.",
+      "exercicios": [
+        {
+          "id": "e7",
+          "titulo": "E7 · Rehacer los veredictos",
+          "min": "10 min",
+          "texto": "Corre el primer bloque.",
+          "pronto": "E0001 → <code>VEREDITO: A_SEGUE</code> con <code>FALHA</code> en reclamou y <code>saída: 1</code>; E0002 → <code>VEREDITO: B_GANHOU</code>, <code>z=2.8543</code> y <code>saída: 0</code>."
+        },
+        {
+          "id": "e8",
+          "titulo": "E8 · Promover y revertir",
+          "min": "10 min",
+          "texto": "Ejecuta el segundo bloque.",
+          "pronto": "la primera línea empieza con <code>RECUSADO</code>; después <code>atual → v2</code>, y al final <code>atual → v1 · pastas: atual v1 v2</code>; <code>git -C $L log --oneline | wc -l</code> → <code>3</code>."
+        },
+        {
+          "id": "e9",
+          "titulo": "E9 · La tarjeta de decisión de tu prueba",
+          "min": "20 min",
+          "texto": "Para la hipótesis de la lección 1, escribe las tolerancias de cada \"sem piorar\" y la N mínima antes de ejecutar. Para un evento raro, usa al menos 2 errores estándar de la tasa base en la muestra planificada (loop-r/docs/05 §2).",
+          "pronto": "<code>git log -1 --format=%cs -- hipotese.md</code> muestra una fecha anterior a la del primer ciclo de tu results.tsv, y el hipotese.md tiene una tolerancia numérica por cada \"sem piorar\"."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la clase",
+      "perguntas": [
+        {
+          "p": "B sube la respuesta de 19% a 30% con p=0,003, pero las quejas superan la tolerancia. ¿Cuál es el veredicto?",
+          "opcoes": [
+            "B_GANHOU, porque p es bajo",
+            "AMOSTRA_INSUFICIENTE",
+            "B_GANHOU con salvedad",
+            "A_SEGUE"
+          ],
+          "certa": 3,
+          "explica": "B solo gana si mejora la métrica de la prueba y ningún \"sem piorar\" supera la tolerancia. Fue el caso de E0001 en el ejemplo.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "El veredicto fue B_GANHOU y el aprobador no respondió a tiempo. ¿Qué pasa en L1?",
+          "opcoes": [
+            "Queda pendiente y no se promueve",
+            "Se promueve solo",
+            "Vuelve a la v1",
+            "Se ejecuta otro experimento encima"
+          ],
+          "certa": 0,
+          "explica": "El silencio no es aprobación. Sin decisao.md = aprobado, el runner se niega a promover.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "En el rollback de v2 a v1, ¿qué pasa con la carpeta v2?",
+          "opcoes": [
+            "Se borra",
+            "Vuelve a ser candidata",
+            "Sigue ahí, como memoria, y el ledger registra el motivo",
+            "Se mueve fuera del repo y solo vuelve con una nueva aprobación del dueño"
+          ],
+          "certa": 2,
+          "explica": "El rollback cambia el enlace versoes/atual y registra el motivo. Nunca borrar una versión es un invariante del runner.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Cuándo se permite detener una prueba antes de la muestra mínima?",
+          "opcoes": [
+            "Cuando B va ganando con holgura",
+            "Cuando una barandilla (guardrail) cae más allá de la tolerancia",
+            "Cuando el aprobador tiene prisa",
+            "Nunca, bajo ninguna circunstancia"
+          ],
+          "certa": 1,
+          "explica": "La única parada anticipada es por barandilla (guardrail). Parar por una ventaja parcial promueve ruido.",
+          "ref": "simconversa"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Veredicto",
+          "texto": "B gana con significancia, N mínima y ninguna barandilla (guardrail) fuera de la tolerancia; si no, A sigue."
+        },
+        {
+          "t": "Aprobación",
+          "texto": "En L1, la tarjeta de cinco líneas va al humano; sin \"aprobado\", nada sube."
+        },
+        {
+          "t": "Vuelta",
+          "texto": "El rollback es un commit que cambia el enlace y anota el motivo; ninguna versión se borra."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "kit/loopr.py",
+          "href": "https://github.com/inematds/loop-r-eng-aprende-v72/blob/main/kit/loopr.py",
+          "icone": "terminal"
+        },
+        {
+          "t": "Runner LOOP-R: iniciar, ciclo, decidir, promover, revertir",
+          "href": "https://github.com/inematds/loop-r/blob/main/.claude/skills/loop-r/SKILL.md",
+          "icone": "git"
+        },
+        {
+          "t": "Ejemplo vendas-whatsapp: qué es real y qué es simulado",
+          "href": "https://github.com/inematds/loop-r/blob/main/exemplos/vendas-whatsapp/README.md",
+          "icone": "arquivo"
+        }
+      ]
+    }
+  ]
+}
