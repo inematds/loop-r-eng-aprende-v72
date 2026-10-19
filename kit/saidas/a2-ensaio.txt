@@ -1,0 +1,15 @@
+sistema criado em /tmp/ensaio-aprende/a2/sis (acerto: 0.700 (28/40))
+ciclo 1 · keep · 0.700 → 0.800 · melhorou
+saída: 0
+ciclo 2 · discard · 0.800 → 0.700 · não melhorou
+saída: 1
+ciclo 3 · discard · 0.800 → 0.800 · não melhorou
+saída: 1
+## results.tsv
+ciclo	base	novo	status	descricao
+1	0.700	0.800	keep	sinonimos
+2	0.800	0.700	discard	estraga
+3	0.800	0.800	discard	comenta
+## git log
+keep: sinonimos (0.700 → 0.800)
+v1: regras de base

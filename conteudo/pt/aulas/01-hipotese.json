@@ -1,0 +1,264 @@
+{
+  "slug": "hipotese",
+  "num": 1,
+  "menu": "Hipótese",
+  "titulo": "Hipótese com número",
+  "titulo_curto": "Hipótese com número",
+  "minutos": 15,
+  "lead": "Um loop que aprende começa por uma frase que pode dar errado. \"Melhorar a triagem\" nunca dá errado, por isso não ensina nada. Nesta aula você escreve a hipótese com processo, métrica, atual, alvo, comando de medida e o que não pode piorar, e calcula quanto tempo o teste leva antes de rodá-lo.",
+  "objetivo": "escrever uma hipótese com métrica, atual, alvo, comando de medida e sem-piorar, e calcular quanto tempo o teste leva antes de rodar.",
+  "competencias": [
+    "escrever-hipotese-com-numero",
+    "calcular-amostra-minima",
+    "escolher-metrica-de-sinal"
+  ],
+  "aprende": [
+    {
+      "icone": "alvo",
+      "t": "Os sete campos de uma hipótese testável"
+    },
+    {
+      "icone": "grafico",
+      "t": "Três velocidades de métrica: dinheiro, sinal e artefato"
+    },
+    {
+      "icone": "relogio",
+      "t": "Amostra mínima: quantas semanas o teste leva"
+    },
+    {
+      "icone": "x",
+      "t": "Por que 3% → 5% quase nunca dá para testar direto"
+    }
+  ],
+  "hero_alt": "Caderno de laboratório aberto ao lado de um paquímetro e de um mostrador com uma marca amarela no alvo.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "De uma vontade a uma hipótese testável",
+      "sub": "É a primeira pergunta do /loop-r iniciar: qual processo, e qual número quer mover de quanto para quanto. Clique em cada bloco.",
+      "nos": [
+        {
+          "icone": "chat",
+          "titulo": "Vontade",
+          "sub": "melhorar X",
+          "detalhe": "\"Melhorar as regras de triagem\". Não tem número, então qualquer resultado serve e nenhum resultado ensina. O hipotese.py reprova com a lista do que falta."
+        },
+        {
+          "icone": "alvo",
+          "titulo": "Métrica",
+          "sub": "atual → alvo",
+          "forte": true,
+          "detalhe": "Processo, métrica, valor atual, alvo e direção (maximizar ou minimizar). É o pedido 1 do iniciar do LOOP-R: \"processo + métrica + atual + alvo\"."
+        },
+        {
+          "icone": "terminal",
+          "titulo": "Medida",
+          "sub": "um comando",
+          "detalhe": "Quem mede é um comando, não uma impressão: <code>python3 kit/medir.py</code>, uma coluna do CSV, um teste. Se você não consegue escrever o comando, ainda não é métrica."
+        },
+        {
+          "icone": "escudo",
+          "titulo": "Sem piorar",
+          "sub": "guarda-corpo",
+          "detalhe": "Toda métrica-alvo vem com pelo menos uma que não pode cair: margem, reclamações, opt-out, casos escondidos. É o que o Avaliador do LOOP-R confere antes de dizer B_GANHOU (aula 3)."
+        },
+        {
+          "icone": "relogio",
+          "titulo": "Amostra",
+          "sub": "quantas semanas",
+          "detalhe": "Em teste A/B com pessoas reais, a conta da amostra mínima diz quanto tempo leva. Se passa de três meses, teste uma métrica de sinal mais rápida e vigie a lenta."
+        }
+      ],
+      "legenda": "Campos e conta vêm de loop-r/.claude/skills/loop-r/SKILL.md (iniciar) e loop-r/docs/05 (medição).",
+      "dica": "A hipótese é escrita antes do experimento, num arquivo. Depois do resultado, ninguém reescreve o alvo."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Três velocidades de métrica",
+      "sub": "O LOOP-R propõe uma de cada e testa sobre a mais rápida que ainda tem ligação plausível com a de dinheiro (loop-r/docs/05 §1).",
+      "passos": [
+        {
+          "titulo": "Dinheiro",
+          "sub": "meses",
+          "texto": [
+            "Conversão, ticket, margem. É o que importa, mas quem responde é o cliente, semanas depois.",
+            "Enquanto não há volume, ela vira um \"sem piorar\" vigiado, não o alvo do teste."
+          ]
+        },
+        {
+          "titulo": "Sinal",
+          "sub": "semanas",
+          "texto": [
+            "Taxa de resposta, agendamento, clique útil. Responde em horas ou dias.",
+            "É o que o loop otimiza no começo. No exemplo do LOOP-R, a resposta em 48h (20% → 30%) no lugar da conversão (3% → 5%)."
+          ]
+        },
+        {
+          "titulo": "Artefato",
+          "sub": "minutos",
+          "texto": [
+            "A saída cumpre a rubrica? Acerta os casos? Roda em minutos, sem esperar ninguém.",
+            "É o terreno do experimento da aula 2: um conjunto fixo de casos e um comando que dá a nota."
+          ],
+          "exemplo": {
+            "rot": "Juiz por modelo",
+            "texto": "Quando a nota do artefato vem de um modelo com rubrica, calibre antes: é o curso 1, aula 6."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "O modelo e o ensaio",
+      "sub": "A hipótese é um arquivo de texto com sete campos. O hipotese.py confere e, para teste A/B, faz a conta da amostra (teste z de duas proporções, 95% de confiança, 80% de poder).",
+      "blocos": [
+        {
+          "rot": "Arquivo · kit/hipoteses/triagem.md",
+          "icone": "arquivo",
+          "conteudo": "hipótese: incluir sinônimos de reembolso (estorno, devolução) nas regras leva o acerto de 0.70 a 0.80\nmétrica: acerto da triagem nos 40 casos de casos.jsonl\natual: 0.70\nalvo: 0.80\ndireção: maximizar\nmedida por: python3 kit/medir.py <repo>\nsem piorar: acerto nos casos escondidos (fora do repo)"
+        },
+        {
+          "rot": "Terminal · ensaio sem custo",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit   # git clone https://github.com/inematds/loop-r-eng-aprende-v72 ~/projetos/loop-r-eng-aprende-v72\nfor h in vaga triagem; do\n  echo \"## $h\"; python3 $K/hipotese.py $K/hipoteses/$h.md; echo \"saída: $?\"\ndone\necho \"## vendas: conversão 3% → 5%, 50 propostas por semana\"\npython3 $K/hipotese.py $K/hipoteses/vendas-conversao.md --por-semana 50; echo \"saída: $?\"\necho \"## vendas: resposta em 48h 20% → 30% (métrica de sinal)\"\npython3 $K/hipotese.py $K/hipoteses/vendas-resposta.md --por-semana 50 | tail -2"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída capturada (19/10/2026)",
+            "html": "<pre>## vaga\nHIPÓTESE: REPROVADA\n  falta: atual, alvo, medida por, sem piorar\n  hipótese vaga sem número\nsaída: 1\n## triagem\nHIPÓTESE: OK — acerto da triagem nos 40 casos de casos.jsonl: 0.7 → 0.8 (maximizar)\n  medida por: python3 kit/medir.py &lt;repo&gt;\n  sem piorar: acerto nos casos escondidos (fora do repo)\nsaída: 0\n## vendas: conversão 3% → 5%, 50 propostas por semana\nHIPÓTESE: OK — conversão (proposta que virou pacote pago em até 15 dias): 0.03 → 0.05 (maximizar)\n  medida por: coluna resultado de dados/execucoes.csv, A contra B\n  sem piorar: margem média, reclamações, opt-out\n  amostra mínima: 1506 por variante (95%, poder 80%) — 3012 no total\n  com 50 por semana: 61 semanas\n  AVISO: mais de 12 semanas — teste uma métrica de sinal mais rápida e vigie esta\nsaída: 0\n## vendas: resposta em 48h 20% → 30% (métrica de sinal)\n  amostra mínima: 294 por variante (95%, poder 80%) — 588 no total\n  com 50 por semana: 12 semanas</pre><p>O <code>loop-r/docs/05</code> arredonda a mesma conta para \"~1.500 por variante, 60 semanas\" (3% → 5%) e \"~300, 12 semanas\" (20% → 30%). Com 50 propostas por semana, a conversão leva mais de um ano; a resposta, três meses.</p>"
+          },
+          {
+            "rot": "O erro comum",
+            "html": "<p>Escrever o alvo depois de ver o resultado (\"subiu para 26%, então o alvo era 25%\"). A hipótese vai para um arquivo, com commit, <b>antes</b> do experimento; o git mostra a data.</p><p>E testar direto a métrica de dinheiro com pouco volume: o teste nunca acaba, e a tentação de parar \"porque está ganhando\" promove ruído (aula 3).</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática",
+      "sub": "Ensaio primeiro, depois a sua hipótese.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Reprovar e aprovar",
+          "min": "5 min",
+          "texto": "Clone o repositório do curso e rode o ensaio acima.",
+          "pronto": "a vaga termina com <code>HIPÓTESE: REPROVADA</code> e <code>saída: 1</code>; a triagem com <code>HIPÓTESE: OK</code> e <code>saída: 0</code>; a conversão mostra <code>61 semanas</code> e o <code>AVISO</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · A sua hipótese",
+          "min": "20 min",
+          "texto": "Escolha um processo seu que já tem número (taxa de acerto de um agente, tempo de build, testes que passam, respostas). Escreva hipotese.md com os sete campos, com a medida como comando que você consegue rodar hoje. Se for A/B com pessoas, rode com --por-semana e o seu volume real.",
+          "pronto": "<code>python3 $K/hipotese.py hipotese.md; echo \"saída: $?\"</code> → <code>HIPÓTESE: OK</code> e <code>saída: 0</code>; e o comando de \"medida por\", rodado agora, imprime o valor de \"atual\"."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Sinal no lugar de dinheiro",
+          "min": "10 min",
+          "texto": "Se o seu teste passou de 12 semanas, troque a métrica-alvo por uma de sinal ou de artefato e passe a de dinheiro para \"sem piorar\".",
+          "pronto": "<code>python3 $K/hipotese.py hipotese.md --por-semana [seu volume]</code> → sem a linha <code>AVISO</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste da aula",
+      "perguntas": [
+        {
+          "p": "\"Melhorar as regras de triagem para o suporte ficar mais rápido.\" O que falta para ser hipótese testável?",
+          "opcoes": [
+            "Só o prazo de entrega",
+            "Uma ferramenta de A/B e um painel com gráficos de acompanhamento",
+            "Atual, alvo, comando de medida e o que não pode piorar",
+            "Um modelo mais forte"
+          ],
+          "certa": 2,
+          "explica": "Sem número de partida e de chegada nem comando que mede, qualquer resultado serve. O hipotese.py lista exatamente esses campos como faltando.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "Com 50 propostas por semana, testar conversão de 3% para 5% leva cerca de quanto tempo?",
+          "opcoes": [
+            "Mais de um ano",
+            "Duas semanas",
+            "Um mês",
+            "Depende do modelo usado"
+          ],
+          "certa": 0,
+          "explica": "São ~1.500 por variante, 3.012 no total: 61 semanas. Por isso o LOOP-R testa uma métrica de sinal e vigia a de dinheiro.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "Qual é o papel de uma métrica de sinal no loop?",
+          "opcoes": [
+            "Substituir para sempre a métrica de dinheiro, que deixa de ser acompanhada por ser lenta demais",
+            "Ser o que o loop otimiza no começo, por responder em dias, com a de dinheiro vigiada",
+            "Medir só a qualidade do texto",
+            "Servir de desculpa para não medir"
+          ],
+          "certa": 1,
+          "explica": "Ela responde rápido e tem ligação plausível com o resultado. O elo sinal → dinheiro continua a ser provado: no exemplo do LOOP-R a resposta subiu e a conversão não se moveu com significância.",
+          "ref": "passos"
+        },
+        {
+          "p": "Quando a hipótese deve ir para um arquivo com commit?",
+          "opcoes": [
+            "Depois do resultado, para registrar",
+            "Só se o teste der certo",
+            "Quando o aprovador pedir",
+            "Antes do experimento"
+          ],
+          "certa": 3,
+          "explica": "Escrita antes, ela não pode ser ajustada ao resultado. O git guarda a data.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Em três frases",
+      "itens": [
+        {
+          "t": "Número",
+          "texto": "Hipótese tem métrica, atual, alvo, direção, comando de medida e sem-piorar; sem isso, não ensina nada."
+        },
+        {
+          "t": "Velocidade",
+          "texto": "Teste sobre a métrica mais rápida que ainda liga com a de dinheiro; vigie a lenta."
+        },
+        {
+          "t": "Conta antes",
+          "texto": "A amostra mínima diz se o teste cabe no seu volume antes de você gastar semanas."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {
+          "t": "kit/hipotese.py",
+          "href": "https://github.com/inematds/loop-r-eng-aprende-v72/blob/main/kit/hipotese.py",
+          "icone": "terminal"
+        },
+        {
+          "t": "LOOP-R: medição, evals e guarda-corpos (docs/05)",
+          "href": "https://github.com/inematds/loop-r/blob/main/docs/05-medicao-evals-guardrails.md",
+          "icone": "grafico"
+        },
+        {
+          "t": "Curso 0, aula 6: critério de pronto de 0 a 4",
+          "href": "https://inematds.github.io/loop-r-eng-base-v72/",
+          "icone": "camadas"
+        }
+      ]
+    }
+  ]
+}

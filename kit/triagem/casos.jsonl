@@ -1,0 +1,40 @@
+{"texto": "quero meu reembolso, o produto veio quebrado", "esperado": "reembolso"}
+{"texto": "como peço reembolso de uma assinatura?", "esperado": "reembolso"}
+{"texto": "preciso do dinheiro de volta urgente", "esperado": "reembolso"}
+{"texto": "o reembolso ainda não apareceu na fatura", "esperado": "reembolso"}
+{"texto": "vocês fazem reembolso no pix?", "esperado": "reembolso"}
+{"texto": "quero o estorno da compra duplicada", "esperado": "reembolso"}
+{"texto": "pode fazer a devolução do valor?", "esperado": "reembolso"}
+{"texto": "quero devolver o produto e receber o valor", "esperado": "reembolso"}
+{"texto": "o estorno vai cair no cartão?", "esperado": "reembolso"}
+{"texto": "cancelei e quero meu valor de volta", "esperado": "reembolso"}
+{"texto": "a entrega está atrasada", "esperado": "entrega"}
+{"texto": "qual o código de rastreio?", "esperado": "entrega"}
+{"texto": "meu pedido não chegou ainda", "esperado": "entrega"}
+{"texto": "entrega marcada para hoje e nada", "esperado": "entrega"}
+{"texto": "o rastreio parou faz 3 dias", "esperado": "entrega"}
+{"texto": "posso mudar o endereço de entrega?", "esperado": "entrega"}
+{"texto": "cadê meu pacote?", "esperado": "entrega"}
+{"texto": "a encomenda sumiu", "esperado": "entrega"}
+{"texto": "a transportadora não aparece", "esperado": "entrega"}
+{"texto": "o carteiro não passou aqui", "esperado": "entrega"}
+{"texto": "esqueci minha senha", "esperado": "acesso"}
+{"texto": "o login dá erro", "esperado": "acesso"}
+{"texto": "como troco a senha?", "esperado": "acesso"}
+{"texto": "não recebo o e-mail de login", "esperado": "acesso"}
+{"texto": "senha expirou", "esperado": "acesso"}
+{"texto": "login com google não funciona", "esperado": "acesso"}
+{"texto": "a senha nova não é aceita", "esperado": "acesso"}
+{"texto": "não consigo entrar na conta", "esperado": "acesso"}
+{"texto": "minha conta foi bloqueada", "esperado": "acesso"}
+{"texto": "o app pede código de acesso e não chega", "esperado": "acesso"}
+{"texto": "vocês têm loja física?", "esperado": "outros"}
+{"texto": "qual o horário de atendimento?", "esperado": "outros"}
+{"texto": "quero elogiar o atendente", "esperado": "outros"}
+{"texto": "tem cupom para primeira compra?", "esperado": "outros"}
+{"texto": "vocês emitem nota fiscal?", "esperado": "outros"}
+{"texto": "como faço para trabalhar com vocês?", "esperado": "outros"}
+{"texto": "o produto tem garantia?", "esperado": "outros"}
+{"texto": "aceitam boleto?", "esperado": "outros"}
+{"texto": "qual o tamanho da caixa do produto?", "esperado": "outros"}
+{"texto": "posso falar com um humano?", "esperado": "outros"}

@@ -1,0 +1,21 @@
+## uma pasta sem nada
+saída: 1
+LOOP: 0/8 — FALTAM 1, 2, 3, 4, 5, 6, 7, 8
+## as oito peças montadas pelo kit (o que as aulas 1 a 7 fizeram)
+OK     1 hipótese com número  (hipotese.md passa no hipotese.py)
+OK     2 experimento keep/discard  (results.tsv com 1 ciclo(s))
+OK     3 promoção e rollback  (versoes/atual + ledger com PROMOVIDA)
+OK     4 lições com decisão (SIL)  (1 regra(s) ativa(s) no SIL)
+OK     5 regra vinculante no AGENTS.md  (bloco promovido e check sem pendência)
+OK     6 medidor fora do alcance  (GUARDA confere e ESCONDIDOS fora da pasta)
+OK     7 rastro por ciclo  (RASTRO com pelo menos um ciclo)
+OK     8 teto e aprovador  (TETO_TOKENS e APROVADOR no loop.conf)
+LOOP: 8/8 — PRONTO
+saída: 0
+## o loop.conf que o conferir lê
+LOOP=/tmp/ensaio-aprende/a8/meu-loop-fora/promocao
+GUARDA=/tmp/ensaio-aprende/a8/meu-loop-fora/medidor.sha256
+ESCONDIDOS=/tmp/ensaio-aprende/a8/meu-loop-fora/escondidos.jsonl
+RASTRO=/tmp/ensaio-aprende/a8/meu-loop-fora/rastros.jsonl
+TETO_TOKENS=50000
+APROVADOR=Seu Nome

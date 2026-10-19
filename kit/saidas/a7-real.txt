@@ -1,0 +1,3 @@
+ciclo 7 · keep · 0.800 → 1.000 · melhorou
+saída: 0
+tokens: sim · keep

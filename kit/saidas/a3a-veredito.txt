@@ -1,0 +1,13 @@
+loop iniciado: versoes/atual → v1
+## E0001 · H2 (até 80 palavras), tolerância 0 em reclamações
+VEREDITO: A_SEGUE
+Métrica do teste: resposta  A=0.1933 (58/300)  B=0.2967 (89/300)  z=2.9426 p=0.0033
+Vigiada reclamou: A 1/300 vs B 6/300, Δ=+0.0167 tol 0 → FALHA
+Vigiada optout: A 0/300 vs B 1/300, Δ=+0.0033 tol 0.005 → DENTRO
+saída: 1
+## E0002 · H3 (abrir citando um ponto da avaliação)
+VEREDITO: B_GANHOU
+Métrica do teste: resposta  A=0.1933 (58/300)  B=0.2933 (88/300)  z=2.8543 p=0.0043
+Vigiada reclamou: A 2/300 vs B 4/300, Δ=+0.0067 tol 0.01 → DENTRO
+Vigiada optout: A 3/300 vs B 1/300, Δ=-0.0067 tol 0.005 → DENTRO
+saída: 0

@@ -1,0 +1,8 @@
+# loop.conf — o que o conferir-loop.py lê (KEY=valor; ~ e $HOME valem). Fica na raiz do seu projeto.
+SISTEMA=~/projetos/<seu-sistema>          # repo onde o experimento roda (tem results.tsv); padrão: esta pasta
+LOOP=~/loops/<seu-loop>/promocao           # versoes/ + memoria/ledger.md (aula 3); fora do repo do sistema
+GUARDA=~/loops/<seu-loop>/medidor.sha256   # manifesto do medidor (aula 6); fora do repo
+ESCONDIDOS=~/loops/<seu-loop>/escondidos.jsonl
+RASTRO=~/loops/<seu-loop>/rastros.jsonl    # uma linha por ciclo (aula 7)
+TETO_TOKENS=<tokens por ciclo, a partir da sua medição real>
+APROVADOR=<quem aprova a promoção (nível L1)>

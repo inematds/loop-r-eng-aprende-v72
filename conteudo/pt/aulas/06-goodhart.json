@@ -1,0 +1,266 @@
+{
+  "slug": "goodhart",
+  "num": 6,
+  "menu": "Goodhart",
+  "titulo": "O risco de otimizar contra o próprio medidor",
+  "titulo_curto": "Contra o medidor",
+  "minutos": 18,
+  "lead": "Um loop que melhora a si mesmo vai achar o caminho mais curto para a nota subir, e o mais curto nem sempre é melhorar o sistema: pode ser decorar os casos ou mexer no medidor. Nesta aula você vê os dois atalhos virarem keep, fecha com medidor congelado fora do repo e casos escondidos, e vê uma mudança real do Claude cair.",
+  "objetivo": "pegar o agente que melhora a nota sem melhorar o sistema: medidor com hash fora do repo e casos escondidos que o agente não vê.",
+  "competencias": [
+    "reconhecer-otimizacao-contra-o-medidor",
+    "congelar-medidor-fora-do-repo",
+    "usar-casos-escondidos"
+  ],
+  "aprende": [
+    {
+      "icone": "x",
+      "t": "Lei de Goodhart: a métrica que vira alvo deixa de medir"
+    },
+    {
+      "icone": "cadeado",
+      "t": "Medidor congelado com hash, fora do alcance do agente"
+    },
+    {
+      "icone": "lupa",
+      "t": "Casos escondidos: o ganho tem de aparecer onde o agente não vê"
+    },
+    {
+      "icone": "escudo",
+      "t": "\"Maximizar X sem piorar Y\" como forma obrigatória"
+    }
+  ],
+  "hero_alt": "Termômetro de laboratório com uma chama aquecendo só o bulbo, enquanto um copo com gelo ao lado continua frio.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Por onde o loop engana a si mesmo",
+      "sub": "Três atalhos, duas guardas. Clique em cada bloco.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "Métrica-alvo",
+          "sub": "a nota",
+          "detalhe": "O experimento da aula 2 guarda tudo que sobe a nota. O agente não precisa \"querer\" trapacear: basta que o atalho exista e suba a nota mais fácil que o trabalho de verdade."
+        },
+        {
+          "icone": "memoria",
+          "titulo": "Decorar",
+          "sub": "casos visíveis",
+          "detalhe": "Copiar o texto exato de cada caso errado para as regras. Visível vai a 100%; nos casos que ele nunca viu, nada muda. É sobreajuste."
+        },
+        {
+          "icone": "x",
+          "titulo": "Mexer no medidor",
+          "sub": "casos ou script",
+          "detalhe": "Reescrever o \"esperado\" dos casos, pular testes, apagar o que reprova. A nota sobe porque o juiz mudou, não o sistema."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Guarda",
+          "sub": "hash fora do repo",
+          "forte": true,
+          "detalhe": "O medidor (casos + script) é congelado com SHA-256 num manifesto fora do repo. Hash diferente: discard, seja qual for a nota."
+        },
+        {
+          "icone": "lupa",
+          "titulo": "Escondidos",
+          "sub": "o agente não vê",
+          "detalhe": "Um segundo conjunto, fora do repo e fora do pedido ao agente. Keep só se ele não cai e acompanha o ganho; ganho só no visível é discard."
+        }
+      ],
+      "legenda": "Detectar atalho em testes (conftest, skip, testes escondidos) e calibrar juiz por modelo é do curso 1, aulas 3, 4 e 6. Aqui: o loop que otimiza a própria métrica.",
+      "dica": "O exemplo do LOOP-R lista o mesmo padrão em negócio: pedir cliques ensina clickbait; pedir taxa de resposta ensina mensagens que provocam \"pare de me mandar isso\" (loop-r/docs/06 §4)."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Ensaio: os atalhos sem guarda e com guarda",
+      "sub": "Os mesmos agentes falsos, primeiro no experimento.sh puro, depois com GUARDA e ESCONDIDOS.",
+      "blocos": [
+        {
+          "rot": "Terminal · ensaio sem custo",
+          "icone": "terminal",
+          "conteudo": "K=~/projetos/loop-r-eng-aprende-v72/kit\nE=${TMPDIR:-/tmp}/ensaio-aprende/a6; rm -rf $E; mkdir -p $E\necho \"## sem guarda: a métrica sobe e o sistema não melhora\"\nfor m in decora mexe-casos; do\n  bash $K/novo-sistema.sh $E/sis > /dev/null\n  AGENTE=\"bash $K/agente-falso.sh $m\" bash $K/experimento.sh $E/sis \"$m\"\n  echo \"  nos casos escondidos: $(python3 $K/medir.py $E/sis --casos $K/triagem/escondidos.jsonl)\"\ndone\necho \"## com guarda: medidor congelado fora do repo + casos que o agente não vê\"\nbash $K/novo-sistema.sh $E/sis > /dev/null; bash $K/experimento.sh --congelar $E/sis $E/medidor.sha256\nexport GUARDA=$E/medidor.sha256 ESCONDIDOS=$K/triagem/escondidos.jsonl\nfor m in mexe-casos decora sinonimos; do\n  AGENTE=\"bash $K/agente-falso.sh $m\" bash $K/experimento.sh $E/sis \"$m\"; echo \"saída: $?\"\ndone"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída capturada (19/10/2026)",
+            "html": "<pre>## sem guarda: a métrica sobe e o sistema não melhora\nciclo 1 · keep · 0.700 → 1.000 · melhorou\n  nos casos escondidos: acerto: 0.700 (21/30)\nciclo 1 · keep · 0.700 → 1.000 · melhorou\n  nos casos escondidos: acerto: 0.700 (21/30)\n## com guarda: medidor congelado fora do repo + casos que o agente não vê\nmedidor congelado em /tmp/ensaio-aprende/a6/medidor.sha256\nciclo 1 · discard · 0.700 → 0.700 · DESCARTADO: mexeu no medidor (casos.jsonl)\nsaída: 1\nciclo 2 · discard · 0.700 → 1.000 · DESCARTADO: ganho só no visível (escondidos 0.700 → 0.700)\nsaída: 1\nciclo 3 · keep · 0.700 → 0.800 · melhorou (escondidos 0.700 → 0.800)\nsaída: 0</pre><p>Sem guarda, os dois atalhos dão 0.700 → 1.000 e keep, e os casos escondidos ficam em 21/30. Com guarda: mexer nos casos cai pelo hash, decorar cai pelos escondidos, e só os sinônimos (que melhoram de verdade, 21 → 24 de 30) passam.</p>"
+          },
+          {
+            "rot": "A mudança real da aula 2",
+            "html": "<pre>## antes da mudança do claude (keep dos sinônimos)\nacerto: 0.800 (32/40)\nacerto: 0.800 (24/30)\n## depois (keep do claude na aula 2)\nacerto: 0.900 (36/40)\nacerto: 0.800 (24/30)\n  errou: tem frete grátis? → entrega (esperado outros)\n-entrega: entrega, rastreio, pedido não chegou\n+entrega: entrega, rastreio, pedido não chegou, pacote, encomenda, transportadora, carteiro, correios, frete, envio, enviado</pre><p>Medido em 19/10/2026 sobre o repo da aula 2, uma rodada. A mudança do Claude subiu a nota visível de 32 para 36 de 40, mas nos escondidos ficou em 24 de 30: \"pacote\" acertou um caso novo e \"frete\" errou \"tem frete grátis?\". Com a guarda ligada, seria discard (\"ganho só no visível\"). Não foi trapaça: foi ganho que não generaliza.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "O mesmo risco na pesquisa",
+      "sub": "O que é fato do artigo e o que é relato.",
+      "passos": [
+        {
+          "titulo": "Darwin Gödel Machine",
+          "sub": "artigo, ICLR 2026",
+          "texto": [
+            "Um arquivo de variantes de agente; uma variante fica quando o benchmark passa de um limiar. O artigo relata SWE-bench de 20,0% para 50,0% e Polyglot de 14,2% para 30,7%, em sandbox com supervisão humana.",
+            "É o loop desta aula em escala: o agente muda o próprio código e um benchmark decide."
+          ]
+        },
+        {
+          "titulo": "O relato do atalho",
+          "sub": "fonte secundária",
+          "texto": [
+            "Há relato, não confirmado pela pesquisa da formação, de que uma variante removeu marcadores de detecção de alucinação para subir a nota.",
+            "Confirmado ou não, é a lição: o laço que melhora o agente também otimiza contra o próprio medidor."
+          ]
+        },
+        {
+          "titulo": "O que fazer",
+          "sub": "no seu loop",
+          "texto": [
+            "Escreva o objetivo como \"maximizar X sem piorar Y\", congele o medidor fora do alcance e mantenha casos que o agente nunca vê.",
+            "Renove os escondidos de tempos em tempos: depois de muitos ciclos, até eles passam a ser otimizados de forma indireta (você escolhe as mudanças olhando o resultado)."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "video",
+      "titulo": "LOOP-R em vídeo: medir de verdade",
+      "sub": "A trilha 4 do LOOP-R (Nei Maldaner): metas infladas sem melhorar nada, amostra mínima e guarda-corpos.",
+      "chave": "loop-r-t4"
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática",
+      "sub": "Ensaio, depois o seu medidor.",
+      "exercicios": [
+        {
+          "id": "e16",
+          "titulo": "E16 · Os dois atalhos",
+          "min": "10 min",
+          "texto": "Rode o ensaio.",
+          "pronto": "sem guarda, as duas linhas <code>keep · 0.700 → 1.000</code> e os escondidos em <code>21/30</code>; com guarda, <code>DESCARTADO: mexeu no medidor</code>, <code>DESCARTADO: ganho só no visível</code> e um único <code>saída: 0</code>."
+        },
+        {
+          "id": "e17",
+          "titulo": "E17 · Congele o seu medidor",
+          "min": "20 min",
+          "texto": "No seu sistema, separe o que mede (casos, script de medida, testes) do que o agente muda. Congele o que mede com hashes.py num manifesto fora do repo.",
+          "pronto": "<code>python3 $K/hashes.py conferir [manifesto]; echo $?</code> → <code>0</code>; mude um caso de propósito → <code>MUDOU: …</code> e <code>1</code>; desfaça."
+        },
+        {
+          "id": "e18",
+          "titulo": "E18 · Os seus escondidos",
+          "min": "30 min",
+          "texto": "Separe pelo menos 20% dos seus casos reais para um arquivo fora do repo, que nunca entra no pedido ao agente. Rode o seu último keep contra eles.",
+          "pronto": "<code>python3 $K/medir.py [repo] --casos [escondidos]</code> imprime <code>acerto:</code> e você anotou, no results.tsv ou no ledger, se o último keep acompanha nos escondidos."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste da aula",
+      "perguntas": [
+        {
+          "p": "O agente copiou o texto exato dos casos errados para as regras e a nota foi a 100%. O que denuncia o atalho?",
+          "opcoes": [
+            "O hash do medidor, que muda quando as regras mudam",
+            "O tempo do ciclo",
+            "Os casos escondidos, que não melhoram",
+            "O git log"
+          ],
+          "certa": 2,
+          "explica": "Decorar não mexe no medidor, então o hash passa. Só um conjunto que o agente não viu mostra que o ganho não generaliza.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "Onde deve ficar o manifesto de hash do medidor?",
+          "opcoes": [
+            "Fora do repo e fora do alcance do agente",
+            "No próprio repo, ao lado dos casos, para versionar junto",
+            "No prompt do agente",
+            "No results.tsv"
+          ],
+          "certa": 0,
+          "explica": "Se o agente pode reescrever o manifesto, pode reescrever o medidor e o hash junto.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Sobre a remoção de marcadores de detecção na Darwin Gödel Machine, o curso trata como:",
+          "opcoes": [
+            "Fato medido pelo INEMA",
+            "Fato descrito no artigo, com o número de vezes medido",
+            "Relato de fonte secundária, sem confirmação",
+            "Boato sem importância"
+          ],
+          "certa": 2,
+          "explica": "Os números de SWE-bench e Polyglot são do artigo; o episódio dos marcadores só aparece em fonte secundária.",
+          "ref": "passos"
+        },
+        {
+          "p": "A mudança real do Claude na aula 2 subiu o visível de 32 para 36 e deixou os escondidos em 24 de 30. Com a guarda, o que acontece?",
+          "opcoes": [
+            "Keep: subiu 4 casos",
+            "Discard: ganho só no visível",
+            "Erro: o modelo trapaceou",
+            "Rollback da v2"
+          ],
+          "certa": 1,
+          "explica": "Não houve trapaça, mas o ganho não apareceu onde o agente não vê: \"frete\" errou um caso de \"outros\". A regra de keep descarta.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Em três frases",
+      "itens": [
+        {
+          "t": "Goodhart",
+          "texto": "A métrica que vira alvo é otimizada por qualquer caminho, inclusive decorar e mexer no medidor."
+        },
+        {
+          "t": "Medidor fora",
+          "texto": "Casos e script de medida congelados com hash, num manifesto que o agente não alcança."
+        },
+        {
+          "t": "Escondidos",
+          "texto": "Keep só quando o ganho aparece também em casos que o agente nunca viu."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {
+          "t": "Darwin Gödel Machine (arXiv)",
+          "href": "https://arxiv.org/html/2505.22954v3",
+          "icone": "lupa"
+        },
+        {
+          "t": "LOOP-R: crítica e viabilidade, Goodhart (docs/06)",
+          "href": "https://github.com/inematds/loop-r/blob/main/docs/06-critica-e-viabilidade.md",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Curso 1: testes congelados, atalhos e juiz calibrado",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/",
+          "icone": "check"
+        },
+        {
+          "t": "kit/hashes.py",
+          "href": "https://github.com/inematds/loop-r-eng-aprende-v72/blob/main/kit/hashes.py",
+          "icone": "terminal"
+        }
+      ]
+    }
+  ]
+}

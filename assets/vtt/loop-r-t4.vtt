@@ -1,0 +1,2277 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.880
+Olá, eu sou Nei Maldaner,
+
+2
+00:00:01.880 --> 00:00:03.660
+e esta é a trilha quatro do
+
+3
+00:00:03.660 --> 00:00:04.720
+curso LOOP-R.
+
+4
+00:00:04.720 --> 00:00:07.420
+O tema é medir de verdade.
+
+5
+00:00:07.420 --> 00:00:09.800
+Agora vem a parte que separa melhoria
+
+6
+00:00:09.800 --> 00:00:10.420
+de ilusão.
+
+7
+00:00:10.420 --> 00:00:12.340
+Você vai aprender a ver como uma
+
+8
+00:00:12.340 --> 00:00:15.420
+meta pode ser inflada sem melhorar nada,
+
+9
+00:00:15.420 --> 00:00:17.860
+a dizer quantas execuções um teste precisa
+
+10
+00:00:17.860 --> 00:00:18.840
+antes de começar,
+
+11
+00:00:18.840 --> 00:00:21.100
+e a escrever uma lista de conferência
+
+12
+00:00:21.100 --> 00:00:22.640
+de sim ou não.
+
+13
+00:00:22.640 --> 00:00:26.100
+Depois, vai decidir sobre um cartão real:
+
+14
+00:00:26.160 --> 00:00:28.120
+aprovar, rejeitar ou esperar,
+
+15
+00:00:28.120 --> 00:00:31.100
+com o botão de voltar na mão.
+
+16
+00:00:31.220 --> 00:00:34.360
+No fim, uma aula de honestidade sobre
+
+17
+00:00:34.360 --> 00:00:35.780
+o que o loop não garante.
+
+18
+00:00:35.780 --> 00:00:38.160
+Vamos acompanhar a clínica de estética da
+
+19
+00:00:38.160 --> 00:00:41.000
+Renata, o corretor Marcos e a Paula,
+
+20
+00:00:41.000 --> 00:00:42.280
+gestora de suporte.
+
+21
+00:00:42.280 --> 00:00:44.200
+Cada aula tem uma prática curta.
+
+22
+00:00:44.200 --> 00:00:45.020
+Quando eu pedir,
+
+23
+00:00:45.020 --> 00:00:46.420
+pause e faça.
+
+24
+00:00:46.420 --> 00:00:48.900
+Existe uma regra antiga em qualquer empresa:
+
+25
+00:00:48.900 --> 00:00:50.420
+quando uma medida vira meta,
+
+26
+00:00:50.420 --> 00:00:52.580
+ela deixa de medir.
+
+27
+00:00:52.760 --> 00:00:54.920
+Um sistema que aprende faz a mesma
+
+28
+00:00:54.920 --> 00:00:57.180
+coisa, só que mais rápido e sem
+
+29
+00:00:57.180 --> 00:00:58.120
+culpa.
+
+30
+00:00:58.120 --> 00:01:00.900
+No LOOP-R, a métrica-alvo é o número
+
+31
+00:01:00.900 --> 00:01:02.240
+que você mandou o loop subir.
+
+32
+00:01:02.240 --> 00:01:03.800
+Se for o único que ele olha,
+
+33
+00:01:03.800 --> 00:01:05.440
+ele acha o caminho mais curto,
+
+34
+00:01:05.440 --> 00:01:07.460
+e esse caminho quase nunca passa por
+
+35
+00:01:07.460 --> 00:01:08.320
+atender melhor.
+
+36
+00:01:08.320 --> 00:01:10.260
+A dona da clínica de estética pediu
+
+37
+00:01:10.260 --> 00:01:11.980
+para aumentar a taxa de resposta das
+
+38
+00:01:11.980 --> 00:01:12.760
+propostas.
+
+39
+00:01:12.760 --> 00:01:14.000
+Três ciclos depois,
+
+40
+00:01:14.000 --> 00:01:16.507
+foi de vinte para trinta e quatro
+
+41
+00:01:16.507 --> 00:01:17.020
+por cento.
+
+42
+00:01:17.020 --> 00:01:19.740
+A versão nova mandava uma segunda mensagem
+
+43
+00:01:19.740 --> 00:01:20.580
+no dia seguinte,
+
+44
+00:01:20.580 --> 00:01:22.440
+e boa parte das respostas era:
+
+45
+00:01:22.440 --> 00:01:24.780
+por favor, pare de me mandar isso.
+
+46
+00:01:24.780 --> 00:01:26.540
+O ponteiro subiu.
+
+47
+00:01:26.540 --> 00:01:28.120
+A clínica, não.
+
+48
+00:01:28.120 --> 00:01:29.440
+As trapaças se repetem.
+
+49
+00:01:29.440 --> 00:01:31.620
+Peça mais cliques e o loop aprende
+
+50
+00:01:31.620 --> 00:01:33.140
+a fazer título-isca.
+
+51
+00:01:33.140 --> 00:01:35.720
+Peça menos tempo de atendimento e ele
+
+52
+00:01:35.720 --> 00:01:37.200
+encerra sem resolver.
+
+53
+00:01:37.200 --> 00:01:39.740
+Peça mais vendas e ele dá desconto
+
+54
+00:01:39.740 --> 00:01:41.500
+até a margem sumir.
+
+55
+00:01:41.500 --> 00:01:43.940
+Peça mais respostas e ele aprende a
+
+56
+00:01:43.940 --> 00:01:44.460
+provocar.
+
+57
+00:01:44.460 --> 00:01:46.560
+A trapaça está no que ficou de
+
+58
+00:01:46.560 --> 00:01:47.060
+fora.
+
+59
+00:01:47.020 --> 00:01:49.420
+A gestora de suporte quis baixar o
+
+60
+00:01:49.420 --> 00:01:51.260
+tempo médio por chamado de dezoito para
+
+61
+00:01:51.260 --> 00:01:52.560
+dez minutos.
+
+62
+00:01:52.940 --> 00:01:54.820
+Em duas semanas chegou a nove.
+
+63
+00:01:54.820 --> 00:01:58.200
+Só que chamados encerrados em dois minutos
+
+64
+00:01:58.220 --> 00:01:59.880
+reabriam no dia seguinte,
+
+65
+00:01:59.880 --> 00:02:02.180
+e a satisfação caiu de quatro vírgula
+
+66
+00:02:02.180 --> 00:02:03.325
+três para
+
+67
+00:02:03.325 --> 00:02:04.360
+três vírgula seis.
+
+68
+00:02:04.360 --> 00:02:06.420
+O painel só mostrava o tempo.
+
+69
+00:02:06.420 --> 00:02:08.080
+Quando a meta ganhou a frase sem
+
+70
+00:02:08.080 --> 00:02:09.980
+piorar a reabertura em sete dias nem
+
+71
+00:02:09.980 --> 00:02:12.320
+a satisfação, o mesmo chamado passou a
+
+72
+00:02:12.320 --> 00:02:13.200
+contar contra.
+
+73
+00:02:13.200 --> 00:02:15.100
+Por isso, no LOOP-R,
+
+74
+00:02:15.100 --> 00:02:17.100
+a meta tem forma fixa:
+
+75
+00:02:17.100 --> 00:02:19.200
+maximizar X sem piorar Y,
+
+76
+00:02:19.200 --> 00:02:20.320
+Z e W.
+
+77
+00:02:20.320 --> 00:02:22.520
+Os números que não podem cair são
+
+78
+00:02:22.520 --> 00:02:23.060
+os vigiados.
+
+79
+00:02:23.060 --> 00:02:25.020
+Em vendas, margem,
+
+80
+00:02:25.020 --> 00:02:26.040
+reclamações,
+
+81
+00:02:26.040 --> 00:02:27.040
+descadastro
+
+82
+00:02:27.040 --> 00:02:28.680
+e desconto médio.
+
+83
+00:02:28.680 --> 00:02:30.960
+Em atendimento, satisfação
+
+84
+00:02:30.960 --> 00:02:33.240
+e reabertura em sete dias.
+
+85
+00:02:33.240 --> 00:02:35.200
+Vigie os que a trapaça mais provável
+
+86
+00:02:35.200 --> 00:02:35.900
+tocaria.
+
+87
+00:02:35.900 --> 00:02:37.780
+O corretor escreveu:
+
+88
+00:02:37.780 --> 00:02:40.340
+maximizar visitas agendadas por lead,
+
+89
+00:02:40.340 --> 00:02:42.880
+sem piorar as visitas em que o
+
+90
+00:02:42.880 --> 00:02:43.860
+cliente não aparece,
+
+91
+00:02:43.860 --> 00:02:45.100
+nem o desconto médio.
+
+92
+00:02:45.100 --> 00:02:47.480
+O Guardião veta a hipótese que mexa
+
+93
+00:02:47.480 --> 00:02:48.080
+num vigiado.
+
+94
+00:02:48.080 --> 00:02:50.480
+O Avaliador reprova a versão que piore
+
+95
+00:02:50.480 --> 00:02:53.060
+um vigiado além da tolerância.
+
+96
+00:02:53.060 --> 00:02:56.325
+Pense rápido: a resposta sobe quarenta por
+
+97
+00:02:56.325 --> 00:02:58.920
+cento, a margem cai um por cento,
+
+98
+00:02:58.920 --> 00:03:00.120
+tolerância
+
+99
+00:03:00.140 --> 00:03:00.820
+zero.
+
+100
+00:03:00.820 --> 00:03:03.020
+O Avaliador diz:
+
+101
+00:03:03.240 --> 00:03:04.360
+A segue.
+
+102
+00:03:04.360 --> 00:03:05.640
+Sem exceção.
+
+103
+00:03:05.640 --> 00:03:07.860
+Há uma trapaça mais silenciosa:
+
+104
+00:03:07.860 --> 00:03:09.900
+a da definição do número.
+
+105
+00:03:09.900 --> 00:03:12.640
+Se resposta contar qualquer mensagem de volta,
+
+106
+00:03:12.640 --> 00:03:15.460
+pare de me mandar isso é resposta.
+
+107
+00:03:15.460 --> 00:03:17.860
+Se resolvido contar qualquer chamado encerrado,
+
+108
+00:03:17.860 --> 00:03:20.580
+um chamado fechado à força está resolvido.
+
+109
+00:03:20.580 --> 00:03:22.380
+Por isso a definição entra na ficha
+
+110
+00:03:22.380 --> 00:03:24.280
+do loop, e o Observador confere a
+
+111
+00:03:24.280 --> 00:03:26.580
+planilha antes de somar.
+
+112
+00:03:26.580 --> 00:03:28.820
+Na clínica, a planilha ganhou a coluna
+
+113
+00:03:28.820 --> 00:03:29.940
+resposta positiva.
+
+114
+00:03:29.940 --> 00:03:33.180
+No suporte, reaberto em sete dias.
+
+115
+00:03:33.180 --> 00:03:35.500
+Agora pause, uns dez minutos.
+
+116
+00:03:35.500 --> 00:03:37.100
+Para as metas da Renata,
+
+117
+00:03:37.100 --> 00:03:38.480
+do Marcos e da Paula,
+
+118
+00:03:38.480 --> 00:03:40.800
+escreva a trapaça mais provável em uma
+
+119
+00:03:40.800 --> 00:03:42.180
+linha e dois vigiados,
+
+120
+00:03:42.180 --> 00:03:44.120
+e compare com o gabarito.
+
+121
+00:03:44.120 --> 00:03:46.620
+Depois, reescreva a meta do processo que
+
+122
+00:03:46.620 --> 00:03:49.580
+você escolheu na trilha dois nesse formato.
+
+123
+00:03:49.840 --> 00:03:52.400
+Meta sem vigiado não é meta.
+
+124
+00:03:52.400 --> 00:03:53.740
+É um convite.
+
+125
+00:03:53.740 --> 00:03:56.260
+Jogue uma moeda doze vezes.
+
+126
+00:03:56.260 --> 00:03:59.150
+Oito caras ou mais acontecem em quase
+
+127
+00:03:59.150 --> 00:04:01.540
+uma de cada cinco tentativas,
+
+128
+00:04:01.540 --> 00:04:02.660
+sem truque nenhum.
+
+129
+00:04:02.660 --> 00:04:05.460
+Troque cara por cliente que agendou.
+
+130
+00:04:05.460 --> 00:04:06.700
+Com doze clientes,
+
+131
+00:04:06.700 --> 00:04:09.320
+uma mensagem nova ganhar da antiga é
+
+132
+00:04:09.320 --> 00:04:10.480
+o que se espera do acaso,
+
+133
+00:04:10.480 --> 00:04:11.860
+não uma prova.
+
+134
+00:04:11.860 --> 00:04:13.860
+O corretor mudou a primeira mensagem aos
+
+135
+00:04:13.860 --> 00:04:14.780
+leads do portal.
+
+136
+00:04:14.780 --> 00:04:16.590
+Nos doze leads seguintes,
+
+137
+00:04:16.590 --> 00:04:17.800
+quatro agendaram
+
+138
+00:04:17.800 --> 00:04:18.300
+visita.
+
+139
+00:04:18.200 --> 00:04:19.580
+Com a mensagem antiga,
+
+140
+00:04:19.580 --> 00:04:20.500
+nos doze anteriores,
+
+141
+00:04:20.500 --> 00:04:21.470
+foram
+
+142
+00:04:21.470 --> 00:04:22.020
+dois.
+
+143
+00:04:22.020 --> 00:04:23.720
+Dobrou, ele contou na reunião,
+
+144
+00:04:23.720 --> 00:04:25.500
+e a mensagem nova virou a de
+
+145
+00:04:25.500 --> 00:04:26.000
+todo mundo.
+
+146
+00:04:25.840 --> 00:04:26.780
+Em
+
+147
+00:04:26.780 --> 00:04:28.520
+três semanas a taxa estava onde sempre
+
+148
+00:04:28.520 --> 00:04:30.160
+esteve, e ninguém sabia se a nova
+
+149
+00:04:30.160 --> 00:04:31.920
+era melhor, pior ou igual.
+
+150
+00:04:31.920 --> 00:04:34.300
+O que ele viu acontece também quando
+
+151
+00:04:34.300 --> 00:04:35.860
+não há diferença nenhuma.
+
+152
+00:04:36.200 --> 00:04:37.940
+Existe uma conta padrão para isso:
+
+153
+00:04:37.940 --> 00:04:39.480
+a quantidade que prova.
+
+154
+00:04:39.480 --> 00:04:42.100
+Quem faz é o Experimentador e ele
+
+155
+00:04:42.100 --> 00:04:43.460
+mostra antes de começar.
+
+156
+00:04:43.460 --> 00:04:45.940
+Você só precisa ler a tabela.
+
+157
+00:04:45.940 --> 00:04:47.520
+De vinte para trinta por cento,
+
+158
+00:04:47.520 --> 00:04:50.000
+cerca de trezentas execuções por versão.
+
+159
+00:04:50.000 --> 00:04:51.780
+De vinte para trinta e cinco,
+
+160
+00:04:51.780 --> 00:04:53.380
+cerca de cento e quarenta.
+
+161
+00:04:53.380 --> 00:04:54.900
+De três para cinco por cento,
+
+162
+00:04:54.900 --> 00:04:57.240
+cerca de mil e quinhentas.
+
+163
+00:04:57.240 --> 00:04:59.620
+Quanto mais baixo o ponto de partida,
+
+164
+00:04:59.620 --> 00:05:01.000
+mais execuções.
+
+165
+00:05:01.000 --> 00:05:02.560
+Quanto maior o salto,
+
+166
+00:05:02.560 --> 00:05:04.580
+menos, desde que o salto seja real,
+
+167
+00:05:04.580 --> 00:05:05.580
+e não um desejo.
+
+168
+00:05:05.580 --> 00:05:08.200
+A clínica manda cinquenta propostas por semana
+
+169
+00:05:08.200 --> 00:05:10.620
+e queria subir a conversão em venda
+
+170
+00:05:10.620 --> 00:05:12.037
+de três para cinco por cento.
+
+171
+00:05:12.037 --> 00:05:14.300
+Mil e quinhentas com cada versão:
+
+172
+00:05:14.300 --> 00:05:16.700
+sessenta semanas para um único teste.
+
+173
+00:05:16.700 --> 00:05:18.380
+Essa pergunta, nesse ritmo,
+
+174
+00:05:18.380 --> 00:05:19.540
+não dá para responder.
+
+175
+00:05:19.540 --> 00:05:21.660
+É medir um número mais rápido que
+
+176
+00:05:21.660 --> 00:05:23.500
+ainda tenha relação com o dinheiro.
+
+177
+00:05:23.500 --> 00:05:24.740
+São três tipos.
+
+178
+00:05:24.740 --> 00:05:25.940
+Dinheiro:
+
+179
+00:05:26.520 --> 00:05:28.840
+conversão, ticket, margem,
+
+180
+00:05:28.840 --> 00:05:30.020
+leva meses.
+
+181
+00:05:30.020 --> 00:05:30.980
+Sinal:
+
+182
+00:05:30.980 --> 00:05:33.760
+resposta, agendamento, clique útil,
+
+183
+00:05:33.760 --> 00:05:35.240
+leva semanas.
+
+184
+00:05:35.240 --> 00:05:37.400
+Artefato: o texto cumpre a lista de
+
+185
+00:05:37.400 --> 00:05:38.000
+conferência?
+
+186
+00:05:38.000 --> 00:05:40.140
+Isso se vê em minutos.
+
+187
+00:05:40.140 --> 00:05:42.120
+O teste roda no número mais rápido
+
+188
+00:05:42.120 --> 00:05:44.140
+com ligação plausível com o dinheiro,
+
+189
+00:05:44.140 --> 00:05:46.400
+e o dinheiro vira vigiado.
+
+190
+00:05:46.400 --> 00:05:48.380
+Na clínica, a meta passou a ser
+
+191
+00:05:48.380 --> 00:05:49.905
+a resposta de vinte para trinta por
+
+192
+00:05:49.905 --> 00:05:52.090
+cento, sem piorar a conversão.
+
+193
+00:05:52.090 --> 00:05:53.710
+Trezentas por versão,
+
+194
+00:05:53.710 --> 00:05:55.240
+doze semanas.
+
+195
+00:05:55.240 --> 00:05:58.600
+No suporte, o dinheiro é a renovação
+
+196
+00:05:58.600 --> 00:06:01.160
+do contrato, o sinal é resolvido no
+
+197
+00:06:01.160 --> 00:06:03.540
+primeiro contato, e o artefato é a
+
+198
+00:06:03.540 --> 00:06:05.420
+resposta cumprir a lista.
+
+199
+00:06:05.420 --> 00:06:07.860
+O loop gira toda semana no artefato
+
+200
+00:06:07.860 --> 00:06:08.360
+e no sinal,
+
+201
+00:06:08.320 --> 00:06:10.240
+e vigia a renovação.
+
+202
+00:06:10.240 --> 00:06:12.460
+O Avaliador só tem três respostas:
+
+203
+00:06:12.460 --> 00:06:14.120
+B ganhou com margem,
+
+204
+00:06:14.120 --> 00:06:17.380
+A segue, ou amostra insuficiente.
+
+205
+00:06:17.380 --> 00:06:19.480
+Se as execuções não chegaram à quantidade
+
+206
+00:06:19.480 --> 00:06:21.700
+que prova, a resposta é a terceira.
+
+207
+00:06:21.700 --> 00:06:22.560
+Sempre.
+
+208
+00:06:22.560 --> 00:06:25.260
+Parar cedo porque está ganhando é o
+
+209
+00:06:25.260 --> 00:06:27.520
+jeito mais comum de virar regra uma
+
+210
+00:06:27.520 --> 00:06:28.500
+coisa que era ruído.
+
+211
+00:06:28.500 --> 00:06:31.160
+A única parada antecipada é por vigiado
+
+212
+00:06:31.160 --> 00:06:31.900
+caindo.
+
+213
+00:06:31.900 --> 00:06:34.340
+Na clínica, o primeiro ciclo quase começou
+
+214
+00:06:34.340 --> 00:06:35.360
+errado:
+
+215
+00:06:35.360 --> 00:06:37.120
+com o efeito pequeno que o Otimizador
+
+216
+00:06:37.120 --> 00:06:40.140
+esperava, o teste levaria quarenta semanas.
+
+217
+00:06:40.140 --> 00:06:42.620
+A dona redimensionou pelo alvo da ficha,
+
+218
+00:06:42.620 --> 00:06:43.940
+trezentas por versão.
+
+219
+00:06:43.940 --> 00:06:45.620
+Semana cinco no corretor:
+
+220
+00:06:45.620 --> 00:06:48.127
+a mensagem B tem trinta e um
+
+221
+00:06:48.127 --> 00:06:50.190
+por cento de agendamento contra vinte e
+
+222
+00:06:50.190 --> 00:06:51.940
+dois, com cento e quarenta leads de
+
+223
+00:06:51.940 --> 00:06:52.660
+cada lado.
+
+224
+00:06:52.660 --> 00:06:54.290
+A meta é
+
+225
+00:06:54.290 --> 00:06:54.820
+trezentos.
+
+226
+00:06:54.820 --> 00:06:55.800
+Resposta:
+
+227
+00:06:55.800 --> 00:06:57.000
+continuar.
+
+228
+00:06:57.020 --> 00:06:58.600
+Amostra insuficiente.
+
+229
+00:06:58.600 --> 00:07:00.060
+Depois que o loop conta,
+
+230
+00:07:00.060 --> 00:07:01.900
+o Crítico vai querer fatiar:
+
+231
+00:07:01.900 --> 00:07:02.620
+por tipo de cliente,
+
+232
+00:07:02.620 --> 00:07:04.020
+canal, dia da semana.
+
+233
+00:07:04.020 --> 00:07:05.980
+Toda fatia obedece à mesma lei.
+
+234
+00:07:05.980 --> 00:07:08.790
+Padrão, só com trinta execuções na fatia.
+
+235
+00:07:08.790 --> 00:07:10.200
+Noventa ou mais é forte,
+
+236
+00:07:10.200 --> 00:07:11.540
+vira hipótese prioritária.
+
+237
+00:07:11.540 --> 00:07:13.060
+De trinta a oitenta e nove,
+
+238
+00:07:13.060 --> 00:07:14.640
+moderada, vira hipótese.
+
+239
+00:07:14.640 --> 00:07:15.720
+Abaixo de trinta,
+
+240
+00:07:15.720 --> 00:07:18.480
+fraca, vai para a memória como observado,
+
+241
+00:07:18.480 --> 00:07:19.640
+não testado.
+
+242
+00:07:19.640 --> 00:07:22.200
+Na clínica, o facial parecia responder mais
+
+243
+00:07:22.200 --> 00:07:22.960
+que o corporal,
+
+244
+00:07:22.960 --> 00:07:24.500
+com catorze contra onze.
+
+245
+00:07:24.500 --> 00:07:27.160
+Ficou guardado, e três meses depois,
+
+246
+00:07:27.160 --> 00:07:28.420
+com sessenta de cada,
+
+247
+00:07:28.420 --> 00:07:30.780
+virou hipótese moderada.
+
+248
+00:07:30.780 --> 00:07:32.760
+Agora pause, uns dez minutos.
+
+249
+00:07:32.760 --> 00:07:33.680
+Para
+
+250
+00:07:33.680 --> 00:07:35.620
+a clínica, o corretor e o suporte,
+
+251
+00:07:35.620 --> 00:07:36.620
+escolha
+
+252
+00:07:36.620 --> 00:07:37.580
+a métrica realista,
+
+253
+00:07:37.580 --> 00:07:40.180
+as execuções por versão e as semanas.
+
+254
+00:07:40.180 --> 00:07:41.100
+Leia
+
+255
+00:07:41.100 --> 00:07:42.920
+por versão, e não o total.
+
+256
+00:07:42.920 --> 00:07:43.980
+Quando
+
+257
+00:07:43.980 --> 00:07:45.480
+o resultado depende do cliente,
+
+258
+00:07:45.480 --> 00:07:46.740
+o teste leva semanas.
+
+259
+00:07:46.740 --> 00:07:47.800
+Mas
+
+260
+00:07:47.800 --> 00:07:49.160
+boa parte do que você quer saber
+
+261
+00:07:49.160 --> 00:07:50.660
+está no próprio texto.
+
+262
+00:07:50.660 --> 00:07:52.480
+Só que nota de um a dez
+
+263
+00:07:52.480 --> 00:07:53.400
+não serve.
+
+264
+00:07:53.400 --> 00:07:55.520
+Duas pessoas dão sete e oito,
+
+265
+00:07:55.520 --> 00:07:56.940
+e as duas estão certas,
+
+266
+00:07:56.940 --> 00:07:59.060
+porque sete não é conferível.
+
+267
+00:07:59.060 --> 00:08:01.120
+Juízes de texto preferem o mais longo,
+
+268
+00:08:01.120 --> 00:08:02.140
+o segundo que leem,
+
+269
+00:08:02.140 --> 00:08:03.340
+e mudam de opinião.
+
+270
+00:08:03.340 --> 00:08:05.000
+A saída não é achar um juiz
+
+271
+00:08:05.000 --> 00:08:05.500
+melhor.
+
+272
+00:08:05.380 --> 00:08:06.600
+É trocar a pergunta.
+
+273
+00:08:06.600 --> 00:08:07.940
+Se a proposta é boa,
+
+274
+00:08:07.940 --> 00:08:09.040
+ninguém confere.
+
+275
+00:08:09.040 --> 00:08:11.200
+Se ela tem exatamente uma pergunta de
+
+276
+00:08:11.200 --> 00:08:13.780
+fechamento, é sim ou não.
+
+277
+00:08:13.780 --> 00:08:15.700
+A dona da clínica trocou o pedido
+
+278
+00:08:15.700 --> 00:08:17.080
+de melhorar por perguntas como:
+
+279
+00:08:17.080 --> 00:08:17.980
+cita
+
+280
+00:08:17.980 --> 00:08:19.220
+algo que a cliente disse,
+
+281
+00:08:19.220 --> 00:08:21.240
+tem no máximo oitenta palavras,
+
+282
+00:08:21.240 --> 00:08:22.340
+promete prazo.
+
+283
+00:08:22.340 --> 00:08:24.740
+Ela e a recepcionista passaram a responder
+
+284
+00:08:24.740 --> 00:08:26.920
+igual pela primeira vez.
+
+285
+00:08:26.960 --> 00:08:29.740
+A lista modelo parece ficha de vistoria
+
+286
+00:08:29.740 --> 00:08:30.660
+de carro.
+
+287
+00:08:30.660 --> 00:08:33.160
+Sete perguntas para uma proposta.
+
+288
+00:08:33.160 --> 00:08:35.400
+Tem no máximo oitenta palavras?
+
+289
+00:08:35.460 --> 00:08:38.160
+A primeira frase cita algo do cliente?
+
+290
+00:08:38.160 --> 00:08:40.600
+Tem uma única pergunta de fechamento?
+
+291
+00:08:40.600 --> 00:08:42.480
+Não promete prazo?
+
+292
+00:08:42.480 --> 00:08:44.800
+Desconto de no máximo dez por cento?
+
+293
+00:08:44.800 --> 00:08:46.780
+Sem erro sobre o produto?
+
+294
+00:08:46.780 --> 00:08:48.380
+Tom sem exclamação dupla,
+
+295
+00:08:48.380 --> 00:08:50.880
+sem imperdível, sem caixa alta?
+
+296
+00:08:50.880 --> 00:08:52.860
+Duas são invariáveis,
+
+297
+00:08:52.860 --> 00:08:54.660
+vêm da resposta três da ficha,
+
+298
+00:08:54.660 --> 00:08:57.080
+e falhar nelas em um único caso
+
+299
+00:08:57.080 --> 00:08:58.260
+derruba a versão.
+
+300
+00:08:58.260 --> 00:08:59.640
+Para escrever a sua,
+
+301
+00:08:59.640 --> 00:09:03.160
+separe cinco textos aprovados e cinco refeitos.
+
+302
+00:09:03.160 --> 00:09:04.780
+Transforme o que os bons têm em
+
+303
+00:09:04.780 --> 00:09:05.460
+pergunta.
+
+304
+00:09:05.460 --> 00:09:07.380
+Corte a que pede um depende.
+
+305
+00:09:07.380 --> 00:09:09.700
+Peça a outra pessoa que responda sem
+
+306
+00:09:09.700 --> 00:09:10.400
+falar com você,
+
+307
+00:09:10.400 --> 00:09:12.680
+e reescreva onde discordarem.
+
+308
+00:09:13.120 --> 00:09:13.980
+No dia a dia,
+
+309
+00:09:13.980 --> 00:09:16.460
+quem responde a lista é o Avaliador,
+
+310
+00:09:16.460 --> 00:09:19.080
+e ele precisa ser conferido contra você,
+
+311
+00:09:19.080 --> 00:09:21.240
+porque juízes derivam.
+
+312
+00:09:21.400 --> 00:09:24.320
+É o único trabalho manual de medição
+
+313
+00:09:24.320 --> 00:09:27.120
+do loop: você responde sim ou não
+
+314
+00:09:27.120 --> 00:09:29.110
+em dez a vinte textos.
+
+315
+00:09:29.110 --> 00:09:31.060
+Vinte minutos, uma vez.
+
+316
+00:09:31.060 --> 00:09:32.200
+A cada ciclo,
+
+317
+00:09:32.200 --> 00:09:34.960
+o Avaliador responde os mesmos textos.
+
+318
+00:09:34.960 --> 00:09:37.255
+Se concordar com você em menos de
+
+319
+00:09:37.255 --> 00:09:37.755
+oitenta por cento,
+
+320
+00:09:37.720 --> 00:09:39.560
+é juiz descalibrado,
+
+321
+00:09:39.560 --> 00:09:43.120
+nada é promovido e o Meta-agente avisa.
+
+322
+00:09:43.120 --> 00:09:45.200
+Se uma pergunta ficar abaixo de oitenta,
+
+323
+00:09:45.200 --> 00:09:47.880
+ela é reescrita ou removida.
+
+324
+00:09:47.880 --> 00:09:50.140
+A gestora de suporte calibrou
+
+325
+00:09:50.140 --> 00:09:51.530
+com quinze respostas:
+
+326
+00:09:51.530 --> 00:09:52.680
+setenta e um por cento.
+
+327
+00:09:52.680 --> 00:09:53.620
+A
+
+328
+00:09:53.620 --> 00:09:55.760
+culpada era a pergunta se a resposta
+
+329
+00:09:55.760 --> 00:09:57.120
+é cordial.
+
+330
+00:09:57.440 --> 00:09:59.930
+Ela trocou, e chegou a noventa e
+
+331
+00:09:59.930 --> 00:10:00.430
+três.
+
+332
+00:10:00.180 --> 00:10:02.840
+A pontuação de um texto é
+
+333
+00:10:02.840 --> 00:10:04.300
+a quantidade de sim.
+
+334
+00:10:04.300 --> 00:10:05.780
+Para comparar versões,
+
+335
+00:10:05.780 --> 00:10:07.900
+o loop usa de vinte a cinquenta
+
+336
+00:10:07.900 --> 00:10:10.320
+casos guardados, os casos de conferência.
+
+337
+00:10:10.320 --> 00:10:11.300
+B
+
+338
+00:10:11.300 --> 00:10:13.100
+ganha se a média for pelo menos
+
+339
+00:10:13.100 --> 00:10:15.500
+um critério acima e não perder em
+
+340
+00:10:15.500 --> 00:10:17.940
+nenhuma invariável, em nenhum caso.
+
+341
+00:10:17.940 --> 00:10:20.520
+O corretor guardou trinta leads antigos.
+
+342
+00:10:20.520 --> 00:10:22.705
+A versão nova fez média cinco vírgula
+
+343
+00:10:22.705 --> 00:10:24.160
+quatro contra quatro vírgula um,
+
+344
+00:10:24.160 --> 00:10:26.500
+mas num dos trinta casos informou
+
+345
+00:10:26.500 --> 00:10:27.880
+preço abaixo da tabela.
+
+346
+00:10:27.880 --> 00:10:28.700
+Perdeu.
+
+347
+00:10:28.700 --> 00:10:30.720
+Agora pause, uns quinze minutos.
+
+348
+00:10:30.720 --> 00:10:31.660
+Pegue
+
+349
+00:10:31.660 --> 00:10:33.980
+o texto que a sua IA mais
+
+350
+00:10:33.980 --> 00:10:36.980
+produz, separe três aprovados e três devolvidos,
+
+351
+00:10:36.980 --> 00:10:39.420
+e escreva seis perguntas de sim ou
+
+352
+00:10:39.420 --> 00:10:41.100
+não, duas invariáveis.
+
+353
+00:10:41.100 --> 00:10:43.840
+Peça a outra pessoa para responder os
+
+354
+00:10:43.840 --> 00:10:44.760
+mesmos textos.
+
+355
+00:10:44.760 --> 00:10:46.940
+Está pronto quando ela preencher as trinta
+
+356
+00:10:46.940 --> 00:10:49.280
+e seis caixas sem perguntar depende de
+
+357
+00:10:49.280 --> 00:10:49.780
+quê.
+
+358
+00:10:49.660 --> 00:10:51.160
+Depois do teste,
+
+359
+00:10:51.160 --> 00:10:52.260
+alguém precisa dizer:
+
+360
+00:10:52.260 --> 00:10:53.720
+vira a versão oficial.
+
+361
+00:10:53.720 --> 00:10:56.240
+Para isso existe o cartão de decisão,
+
+362
+00:10:56.240 --> 00:10:57.940
+a única coisa que o loop pede
+
+363
+00:10:57.940 --> 00:10:58.900
+da sua atenção.
+
+364
+00:10:58.900 --> 00:11:01.240
+Chega no máximo uma vez por semana,
+
+365
+00:11:01.240 --> 00:11:02.220
+com
+
+366
+00:11:02.220 --> 00:11:04.320
+cinco linhas: hipótese,
+
+367
+00:11:05.100 --> 00:11:07.340
+resultado com quantidade e margem,
+
+368
+00:11:07.340 --> 00:11:08.380
+vigiados,
+
+369
+00:11:08.380 --> 00:11:10.760
+custo contra o teto e decisão.
+
+370
+00:11:10.760 --> 00:11:12.420
+Leia de cima para baixo.
+
+371
+00:11:12.420 --> 00:11:15.120
+Aprovar: a candidata vira oficial.
+
+372
+00:11:15.120 --> 00:11:17.020
+Rejeitar: a atual continua,
+
+373
+00:11:17.020 --> 00:11:19.160
+e a hipótese vai para a memória
+
+374
+00:11:19.160 --> 00:11:20.660
+com o motivo.
+
+375
+00:11:20.660 --> 00:11:22.380
+Esperar: o
+
+376
+00:11:22.380 --> 00:11:23.860
+teste continua.
+
+377
+00:11:23.940 --> 00:11:26.620
+Sem resposta, nada é promovido e fica
+
+378
+00:11:26.620 --> 00:11:27.160
+pendente.
+
+379
+00:11:27.160 --> 00:11:29.300
+O corretor deixou um cartão três dias
+
+380
+00:11:29.300 --> 00:11:31.340
+sem abrir, e a versão antiga seguiu
+
+381
+00:11:31.340 --> 00:11:32.040
+respondendo.
+
+382
+00:11:32.040 --> 00:11:34.280
+O erro comum é aprovar porque a
+
+383
+00:11:34.280 --> 00:11:35.520
+nova parece melhor.
+
+384
+00:11:35.520 --> 00:11:37.260
+Só se aprova quando a linha dois
+
+385
+00:11:37.260 --> 00:11:38.660
+diz B ganhou com margem,
+
+386
+00:11:38.660 --> 00:11:40.380
+com a quantidade mínima.
+
+387
+00:11:40.380 --> 00:11:41.980
+No segundo ciclo da clínica,
+
+388
+00:11:41.980 --> 00:11:43.930
+a hipótese era proposta com no máximo
+
+389
+00:11:43.930 --> 00:11:45.000
+oitenta palavras.
+
+390
+00:11:45.000 --> 00:11:47.180
+A resposta foi de dezenove vírgula três
+
+391
+00:11:47.180 --> 00:11:49.589
+para vinte e nove vírgula sete por
+
+392
+00:11:49.589 --> 00:11:51.290
+cento, trezentas de cada lado.
+
+393
+00:11:51.290 --> 00:11:53.400
+Dez pontos, e não por sorte.
+
+394
+00:11:53.400 --> 00:11:55.780
+Mas as reclamações ficaram seis contra uma,
+
+395
+00:11:55.780 --> 00:11:57.520
+com tolerância zero.
+
+396
+00:11:57.520 --> 00:11:58.900
+Veredito: A segue.
+
+397
+00:11:58.900 --> 00:12:00.820
+O erro estava na regra.
+
+398
+00:12:00.820 --> 00:12:02.300
+Reclamação é evento raro,
+
+399
+00:12:02.300 --> 00:12:03.280
+cerca de um por cento,
+
+400
+00:12:03.280 --> 00:12:05.940
+e seis contra uma em trezentas acontece
+
+401
+00:12:05.940 --> 00:12:07.680
+por acaso com facilidade.
+
+402
+00:12:07.680 --> 00:12:09.040
+Era ruído.
+
+403
+00:12:09.040 --> 00:12:10.920
+A lição não é ignorar o vigiado
+
+404
+00:12:10.920 --> 00:12:12.220
+quando o ganho é grande.
+
+405
+00:12:12.220 --> 00:12:14.600
+É que a tolerância se calcula:
+
+406
+00:12:14.600 --> 00:12:16.520
+aqui, zero vírgula zero um,
+
+407
+00:12:16.520 --> 00:12:17.840
+e não zero.
+
+408
+00:12:17.840 --> 00:12:19.580
+A dona ajustou a ficha,
+
+409
+00:12:19.580 --> 00:12:22.040
+e dois ciclos depois outra hipótese ganhou
+
+410
+00:12:22.040 --> 00:12:22.680
+de verdade.
+
+411
+00:12:22.680 --> 00:12:24.620
+A linha do custo existe porque você
+
+412
+00:12:24.620 --> 00:12:25.760
+escreveu um teto na ficha.
+
+413
+00:12:25.760 --> 00:12:27.380
+É a resposta quatro:
+
+414
+00:12:27.380 --> 00:12:29.580
+quanto um ciclo pode custar em dinheiro
+
+415
+00:12:29.580 --> 00:12:30.780
+e
+
+416
+00:12:30.860 --> 00:12:32.820
+quanto do seu tempo pede por semana.
+
+417
+00:12:32.820 --> 00:12:34.920
+O Guardião para o ciclo no teto.
+
+418
+00:12:34.920 --> 00:12:37.400
+E o Meta-agente vigia o custo por
+
+419
+00:12:37.400 --> 00:12:39.040
+hipótese promovida:
+
+420
+00:12:39.180 --> 00:12:41.340
+se em cinco ciclos nada foi promovido,
+
+421
+00:12:41.340 --> 00:12:42.820
+ele propõe rodar menos,
+
+422
+00:12:42.820 --> 00:12:45.540
+usar assistentes mais baratos ou carregar menos
+
+423
+00:12:45.540 --> 00:12:46.060
+memória.
+
+424
+00:12:46.060 --> 00:12:48.600
+A gestora de suporte fixou
+
+425
+00:12:48.687 --> 00:12:50.640
+sessenta reais por ciclo e uma hora
+
+426
+00:12:50.640 --> 00:12:51.620
+dela por semana.
+
+427
+00:12:51.620 --> 00:12:54.140
+A resposta cinco é quem aprova.
+
+428
+00:12:54.140 --> 00:12:55.300
+Em
+
+429
+00:12:55.300 --> 00:12:56.900
+L zero, o loop só relata.
+
+430
+00:12:56.900 --> 00:12:58.120
+Em L um,
+
+431
+00:12:58.120 --> 00:12:59.760
+você aprova cada cartão.
+
+432
+00:12:59.760 --> 00:13:00.880
+Em L dois,
+
+433
+00:13:00.880 --> 00:13:02.920
+ele promove sozinho e avisa,
+
+434
+00:13:02.920 --> 00:13:05.827
+só depois de cinco promoções corretas em
+
+435
+00:13:05.827 --> 00:13:06.640
+L um.
+
+436
+00:13:06.640 --> 00:13:08.220
+Comece sempre em L um.
+
+437
+00:13:08.220 --> 00:13:09.387
+O
+
+438
+00:13:09.387 --> 00:13:11.280
+L três, a próxima aula explica por
+
+439
+00:13:11.280 --> 00:13:12.420
+que ainda é pesquisa.
+
+440
+00:13:12.420 --> 00:13:14.600
+O que torna o L dois aceitável
+
+441
+00:13:14.600 --> 00:13:15.740
+é o botão de voltar.
+
+442
+00:13:15.740 --> 00:13:17.880
+No ciclo seguinte a uma promoção,
+
+443
+00:13:17.880 --> 00:13:19.680
+se o número do teste ou um
+
+444
+00:13:19.680 --> 00:13:21.360
+vigiado cair abaixo do que a versão
+
+445
+00:13:21.360 --> 00:13:22.820
+anterior fazia,
+
+446
+00:13:22.860 --> 00:13:24.360
+além da tolerância,
+
+447
+00:13:24.360 --> 00:13:25.830
+a anterior volta.
+
+448
+00:13:25.830 --> 00:13:26.620
+Em L um,
+
+449
+00:13:26.620 --> 00:13:28.510
+o cartão pede confirmação.
+
+450
+00:13:28.510 --> 00:13:29.400
+Em L dois,
+
+451
+00:13:29.400 --> 00:13:31.200
+volta sozinho e avisa.
+
+452
+00:13:31.200 --> 00:13:33.700
+O corretor promoveu uma resposta no ciclo
+
+453
+00:13:33.700 --> 00:13:34.200
+cinco.
+
+454
+00:13:33.880 --> 00:13:34.920
+No ciclo seis,
+
+455
+00:13:34.920 --> 00:13:36.480
+o agendamento caiu de trinta e um
+
+456
+00:13:36.480 --> 00:13:37.400
+para dezenove por cento,
+
+457
+00:13:37.400 --> 00:13:38.440
+abaixo
+
+458
+00:13:38.440 --> 00:13:40.340
+dos vinte e dois da antiga.
+
+459
+00:13:40.340 --> 00:13:43.060
+Ele voltou, e a versão ficou no
+
+460
+00:13:43.060 --> 00:13:44.520
+histórico como revertida.
+
+461
+00:13:44.520 --> 00:13:46.840
+Agora pause, uns doze minutos.
+
+462
+00:13:46.840 --> 00:13:49.240
+Decida sobre os três cartões da prática,
+
+463
+00:13:49.240 --> 00:13:50.880
+com o porquê em uma linha.
+
+464
+00:13:50.880 --> 00:13:53.240
+Depois escreva as respostas quatro e cinco
+
+465
+00:13:53.240 --> 00:13:54.500
+da sua ficha em números:
+
+466
+00:13:54.500 --> 00:13:55.980
+teto, tempo, nível inicial,
+
+467
+00:13:55.980 --> 00:13:58.140
+prazo para o cartão e condição para
+
+468
+00:13:58.140 --> 00:13:58.740
+subir.
+
+469
+00:13:58.800 --> 00:14:00.680
+Nenhum loop de aprendizado garante que o
+
+470
+00:14:00.680 --> 00:14:01.400
+número sobe.
+
+471
+00:14:01.400 --> 00:14:03.500
+O LOOP-R garante quatro coisas,
+
+472
+00:14:03.500 --> 00:14:04.780
+por construção.
+
+473
+00:14:04.780 --> 00:14:07.380
+Uma versão pior nunca substitui a atual
+
+474
+00:14:07.380 --> 00:14:08.820
+por decisão do sistema.
+
+475
+00:14:08.820 --> 00:14:11.020
+Toda mudança tem registro e volta.
+
+476
+00:14:11.020 --> 00:14:13.500
+O ciclo roda sempre do mesmo jeito.
+
+477
+00:14:13.500 --> 00:14:15.640
+O custo não passa do teto.
+
+478
+00:14:15.640 --> 00:14:17.820
+Cada garantia tem um limite gêmeo.
+
+479
+00:14:17.820 --> 00:14:19.680
+Não entrar uma pior não quer dizer
+
+480
+00:14:19.680 --> 00:14:21.080
+que a próxima será melhor.
+
+481
+00:14:21.080 --> 00:14:23.180
+Ter registro não quer dizer que ele
+
+482
+00:14:23.180 --> 00:14:24.300
+terá algo útil.
+
+483
+00:14:24.300 --> 00:14:26.500
+Rodar sempre não quer dizer que cada
+
+484
+00:14:26.500 --> 00:14:28.800
+ciclo traz uma boa hipótese.
+
+485
+00:14:28.800 --> 00:14:30.660
+Ficar no teto não quer dizer que
+
+486
+00:14:30.660 --> 00:14:32.460
+o custo compensa.
+
+487
+00:14:32.460 --> 00:14:34.840
+Se você ler garante mais vendas sobre
+
+488
+00:14:34.840 --> 00:14:36.900
+qualquer loop de IA,
+
+489
+00:14:36.900 --> 00:14:39.200
+inclusive este, é uma promessa que ninguém
+
+490
+00:14:39.200 --> 00:14:40.400
+pode fazer.
+
+491
+00:14:40.400 --> 00:14:42.480
+Na aula dois você trocou o dinheiro
+
+492
+00:14:42.480 --> 00:14:43.780
+pelo sinal como alvo.
+
+493
+00:14:43.780 --> 00:14:45.280
+Isso tem um preço:
+
+494
+00:14:45.280 --> 00:14:47.340
+subir o sinal não prova que o
+
+495
+00:14:47.340 --> 00:14:47.940
+dinheiro sobe.
+
+496
+00:14:47.940 --> 00:14:51.020
+É plausível, mas plausível não é provado.
+
+497
+00:14:51.020 --> 00:14:52.700
+No ciclo quatro da clínica,
+
+498
+00:14:52.700 --> 00:14:54.625
+a resposta foi de
+
+499
+00:14:54.625 --> 00:14:56.990
+dezenove vírgula três para vinte e nove
+
+500
+00:14:56.990 --> 00:14:57.740
+vírgula três por cento,
+
+501
+00:14:57.740 --> 00:15:00.260
+e a versão foi promovida com razão.
+
+502
+00:15:00.260 --> 00:15:02.780
+A conversão foi de três para
+
+503
+00:15:02.780 --> 00:15:04.080
+três vírgula sete por cento,
+
+504
+00:15:04.080 --> 00:15:05.000
+o
+
+505
+00:15:05.000 --> 00:15:06.740
+que, com trezentas de cada lado,
+
+506
+00:15:06.740 --> 00:15:08.040
+não se distingue de sorte.
+
+507
+00:15:08.040 --> 00:15:09.080
+O relatório diz:
+
+508
+00:15:09.080 --> 00:15:11.020
+o elo entre sinal e alvo segue
+
+509
+00:15:11.020 --> 00:15:12.160
+não provado.
+
+510
+00:15:12.160 --> 00:15:14.040
+A resposta subiu de verdade,
+
+511
+00:15:14.040 --> 00:15:16.240
+sobre vendas ainda não há prova,
+
+512
+00:15:16.240 --> 00:15:18.680
+e a versão pode ser promovida mesmo
+
+513
+00:15:18.680 --> 00:15:19.240
+assim.
+
+514
+00:15:19.240 --> 00:15:20.980
+O corretor vive o mesmo:
+
+515
+00:15:20.980 --> 00:15:24.160
+mais visitas ainda não provaram mais vendas.
+
+516
+00:15:24.160 --> 00:15:25.860
+O loop garante que o ciclo roda
+
+517
+00:15:25.860 --> 00:15:28.180
+toda semana, não que a semana traga
+
+518
+00:15:28.180 --> 00:15:29.060
+uma ideia boa.
+
+519
+00:15:29.060 --> 00:15:30.460
+Em negócio pequeno,
+
+520
+00:15:30.460 --> 00:15:32.860
+é comum o histórico acumular sem evidência
+
+521
+00:15:32.860 --> 00:15:34.920
+suficiente, ciclo após ciclo.
+
+522
+00:15:34.920 --> 00:15:36.700
+Isso não é o loop quebrado.
+
+523
+00:15:36.700 --> 00:15:38.980
+É o loop dizendo a verdade sobre
+
+524
+00:15:38.980 --> 00:15:40.200
+o volume que tem.
+
+525
+00:15:40.200 --> 00:15:42.700
+A gestora de suporte teve seis ciclos
+
+526
+00:15:42.700 --> 00:15:45.060
+assim, reduziu o loop para quinzenal,
+
+527
+00:15:45.060 --> 00:15:46.540
+como o Meta-agente propôs,
+
+528
+00:15:46.540 --> 00:15:48.760
+e em junho veio a primeira hipótese
+
+529
+00:15:48.760 --> 00:15:49.420
+moderada.
+
+530
+00:15:49.420 --> 00:15:51.440
+Já o loop redesenhar a si mesmo,
+
+531
+00:15:51.440 --> 00:15:52.480
+o nível L três,
+
+532
+00:15:52.480 --> 00:15:53.580
+ainda é pesquisa:
+
+533
+00:15:53.580 --> 00:15:56.940
+no produto, o Meta-agente só relata.
+
+534
+00:15:56.940 --> 00:15:58.940
+E o gargalo que nenhum assistente resolve
+
+535
+00:15:58.940 --> 00:16:00.660
+é a planilha de registro.
+
+536
+00:16:00.660 --> 00:16:03.000
+Agora pause, uns oito minutos.
+
+537
+00:16:03.000 --> 00:16:05.660
+Marque verdadeiro ou falso nas oito afirmações
+
+538
+00:16:05.660 --> 00:16:06.660
+da prática e,
+
+539
+00:16:06.660 --> 00:16:09.320
+nas falsas, escreva qual garantia real ela
+
+540
+00:16:09.320 --> 00:16:10.580
+está esticando.
+
+541
+00:16:10.580 --> 00:16:12.020
+Uma meta nunca vem sozinha:
+
+542
+00:16:12.020 --> 00:16:14.680
+é maximizar X sem piorar Y e
+
+543
+00:16:14.680 --> 00:16:16.520
+Z, com a definição do número bem
+
+544
+00:16:16.520 --> 00:16:17.060
+escrita.
+
+545
+00:16:17.060 --> 00:16:18.220
+Antes de testar,
+
+546
+00:16:18.220 --> 00:16:20.880
+você sabe quantas execuções provam e quantas
+
+547
+00:16:20.880 --> 00:16:21.780
+semanas isso leva,
+
+548
+00:16:21.780 --> 00:16:23.680
+e testa o sinal mais rápido,
+
+549
+00:16:23.680 --> 00:16:25.200
+vigiando o dinheiro.
+
+550
+00:16:25.200 --> 00:16:26.620
+Antes da linha de chegada,
+
+551
+00:16:26.620 --> 00:16:28.920
+só existe amostra insuficiente.
+
+552
+00:16:28.920 --> 00:16:29.840
+Para o texto,
+
+553
+00:16:29.840 --> 00:16:31.800
+você tem uma lista de sim ou
+
+554
+00:16:31.800 --> 00:16:33.780
+não, conferida com outra pessoa.
+
+555
+00:16:33.780 --> 00:16:35.000
+Na hora de decidir,
+
+556
+00:16:35.000 --> 00:16:37.020
+lê o cartão de cinco linhas de
+
+557
+00:16:37.020 --> 00:16:38.300
+cima para baixo,
+
+558
+00:16:38.300 --> 00:16:40.080
+começa em L um e tem sempre
+
+559
+00:16:40.080 --> 00:16:41.000
+o botão de voltar.
+
+560
+00:16:41.000 --> 00:16:42.720
+E sabe o que o loop garante,
+
+561
+00:16:42.720 --> 00:16:44.480
+e o que ninguém pode garantir.
+
+562
+00:16:44.480 --> 00:16:45.660
+Na trilha cinco,
+
+563
+00:16:45.660 --> 00:16:48.200
+você acompanha os quatro ciclos reais da
+
+564
+00:16:48.200 --> 00:16:49.600
+clínica do começo ao fim,
+
+565
+00:16:49.600 --> 00:16:50.720
+prevê
+
+566
+00:16:50.720 --> 00:16:52.740
+o quinto e entrega a sua ficha
+
+567
+00:16:52.740 --> 00:16:55.220
+completa, com o primeiro cartão de decisão
+
+568
+00:16:55.220 --> 00:16:55.780
+preenchido.
+
+569
+00:16:55.780 --> 00:16:56.767
+Até lá.

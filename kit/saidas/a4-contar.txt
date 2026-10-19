@@ -1,0 +1,7 @@
+CLAUDE.md: 82 linhas, 19 lições na seção Lessons
+AGENTS.md: 10 linhas, 0 lições na seção Lessons
+LESSONS.md: 164 lições · 9 marcadas como repetidas · 0 com ID
+FALHAS.md: 167 falhas · 90 prompt · 85 infra (as duas contam quando a linha diz as duas)
+LIMITES.md: 424 limites · 115 ainda 'aberto'
+SIL Loop R: não iniciado nesta pasta
+degrau: prosa — sem decisão registrada, sem data de revisão, sem citação

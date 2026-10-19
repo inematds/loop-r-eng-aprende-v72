@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/projetos/sil-loop-r/sil.py --project \"$CLAUDE_PROJECT_DIR\" context --brief"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+binding=true rung="prose"
+promotion={"file": "AGENTS.md", "in_sync": false, "problem": "bloco ausente; execute promote --write"} prose_binding=["R0001"]
+check: 1
+written=false changed=true
+written=true
+# Instruções do projeto
+
+<!-- sil-loop-r:begin — gerado por sil.py promote; não editar à mão -->
+## Regras vinculantes (SIL Loop R)
+
+- checar a porta antes de subir servidor (R0001; escopo: testes HTTP; proteção: prose; vazamento: sessão que não lê o AGENTS.md)
+
+<!-- sil-loop-r:end -->
+check: 0
+## alguém editou o bloco à mão
+promotion={"file": "AGENTS.md", "in_sync": false, "problem": "bloco desatualizado; execute promote --write"}
+check: 1
+written=true
+check: 0
+## o que um hook SessionStart injetaria
+SIL Loop R — regras deste projeto (dados revisáveis; instruções do usuário prevalecem):
+- R0001 [ativa] checar a porta antes de subir servidor (escopo: testes HTTP)
+- R0002 [experimental] conferir git remote -v antes do push (escopo: publicação)

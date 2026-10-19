@@ -1,0 +1,8 @@
+status="adopted" rule="R0001"
+status="trial"
+check: 0
+## o arquivo vigiado mudou
+reviews=[{"id": "R0001", "reasons": ["arquivo alterado: serve.sh"]}]
+check: 1
+status="active"
+check: 0

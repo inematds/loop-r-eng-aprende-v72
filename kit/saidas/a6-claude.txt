@@ -1,0 +1,9 @@
+## antes da mudança do claude (keep dos sinônimos)
+acerto: 0.800 (32/40)
+acerto: 0.800 (24/30)
+## depois (keep do claude na aula 2)
+acerto: 0.900 (36/40)
+acerto: 0.800 (24/30)
+  errou: tem frete grátis? → entrega (esperado outros)
+-entrega: entrega, rastreio, pedido não chegou
++entrega: entrega, rastreio, pedido não chegou, pacote, encomenda, transportadora, carteiro, correios, frete, envio, enviado

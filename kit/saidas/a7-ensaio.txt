@@ -1,0 +1,15 @@
+## uma linha do rastro
+{"ciclo": 2, "descricao": "sinonimos", "segundos": 0, "tokens_entrada": 9000, "tokens_saida": 700, "status": "keep", "motivo": "melhorou"}
+## custo por ciclo
+ciclo  status   segundos  tokens(ent+saída)  motivo
+    1  discard         0               8500  não melhorou
+    2  keep            0               9700  melhorou
+    3  discard         0              44000  não melhorou
+    4  erro            0                  0  agente falhou (saída 1): ERRO: sem resposta do m
+    5  erro            0                  0  agente falhou (saída 1): ERRO: sem resposta do m
+    6  erro            0                  0  agente falhou (saída 1): ERRO: sem resposta do m
+total: 6 ciclos · 1 keep · 62200 tokens
+custo por keep: 62200 tokens
+ALERTA: ciclo 3 usou 88% do teto de 50000 tokens
+ALERTA: 3 erros seguidos iguais: agente falhou (saída 1): ERRO: sem resposta do modelo (limit
+saída: 1

@@ -1,0 +1,197 @@
+{
+  "id": "loop-r-eng-aprende-v72",
+  "lang": "pt-BR",
+  "url": "https://inematds.github.io/loop-r-eng-aprende-v72/",
+  "nome": "O loop que aprende",
+  "sub": "Formação LOOP-R Engenharia · curso 5",
+  "volta": {
+    "t": "Área LOOP-R Engenharia",
+    "href": "https://eventos.inema.pro/loop-r-engenharia/"
+  },
+  "lado_card": {
+    "rot": "O kit deste curso",
+    "t": "kit/ no repositório do curso",
+    "texto": "Hipótese, experimento keep/discard, veredito e rollback, guarda do medidor, rastro e conferência do loop. Cada um com ensaio sem custo, testado em 19/10/2026.",
+    "link": "Abrir a pasta kit/ no GitHub",
+    "href": "https://github.com/inematds/loop-r-eng-aprende-v72/tree/main/kit"
+  },
+  "rodape": "INEMA.CLUB · conteúdo aberto e gratuito · formato INEMA Learning v7.2 · Formação LOOP-R Engenharia, curso 5 de 6 · <a href=\"https://eventos.inema.pro/loop-r-engenharia/\">eventos.inema.pro/loop-r-engenharia</a> · <a href=\"https://github.com/inematds/loop-r-eng-aprende-v72/tree/main/kit\">kit do curso no GitHub</a> · <a href=\"https://inema.club/\">inema.club</a>",
+  "videos": {
+    "loop-r-t4": {
+      "titulo": "LOOP-R, trilha 4: medir de verdade",
+      "duracao": "17 min",
+      "mp4": "https://github.com/inematds/loop-r/releases/download/video-v2.0.0/loop-r-t4-pt.mp4",
+      "vtt": "assets/vtt/loop-r-t4.vtt",
+      "poster": "assets/img/loop-r-t4.jpg",
+      "pagina": "https://inematds.github.io/loop-r/videos/",
+      "idiomas": {
+        "en": {
+          "mp4": "https://github.com/inematds/loop-r/releases/download/video-v2.0.0/loop-r-t4-en-en.mp4",
+          "vtt": "assets/vtt/loop-r-t4-en.vtt",
+          "duracao": "17 min 44 s",
+          "pagina": "https://inematds.github.io/loop-r/videos/en.html"
+        },
+        "es": {
+          "mp4": "https://github.com/inematds/loop-r/releases/download/video-v2.0.0/loop-r-t4-es-es.mp4",
+          "vtt": "assets/vtt/loop-r-t4-es.vtt",
+          "duracao": "15 min 33 s",
+          "pagina": "https://inematds.github.io/loop-r/videos/es.html"
+        }
+      }
+    }
+  },
+  "inicio": {
+    "kicker": "Formação LOOP-R Engenharia · curso 5 de 6, o último · 8 aulas",
+    "titulo": "O loop que aprende: melhorar com número, promover com aprovação e voltar atrás sem perder nada",
+    "lead": "Hipótese com número, experimento que mantém ou descarta por uma métrica só, cartão de decisão, promoção e rollback, lições que viram regra vinculante, o risco de otimizar contra o próprio medidor e o custo de cada ciclo. Tudo com scripts pequenos que você roda primeiro sem gastar cota.",
+    "cta": "Começar pela aula 1",
+    "cta2": {
+      "t": "Ver a área da formação",
+      "href": "https://eventos.inema.pro/loop-r-engenharia/"
+    },
+    "capa_alt": "Laboratório escuro com dois módulos de circuito lado a lado ligados a um mostrador analógico e um cabo em laço; título do curso à esquerda.",
+    "numeros": [
+      {"v": "8", "t": "aulas"},
+      {"v": "24", "t": "exercícios com saída esperada"},
+      {"v": "13", "t": "scripts no kit; os ensaios não chamam modelo"},
+      {"v": "2", "t": "passos reais com modelo, uma chamada cada"}
+    ],
+    "cursos": {
+      "titulo": "Os 6 cursos da formação",
+      "sub": "Este é o curso 5, o último. A aula 8 junta as peças dos seis. Ordem sugerida: 0 → 1 → 2 → 3 → 4 → 5.",
+      "abrir": "Abrir o curso",
+      "itens": [
+        {"rot": "Curso 0", "t": "Base: anatomia do loop", "l": "As cinco peças, o harness, os motores de loop, o LOOP-R, critério de pronto de 0 a 4 e tetos.", "href": "https://inematds.github.io/loop-r-eng-base-v72/", "href_idioma": true, "img": "assets/img/cursos/base.jpg"},
+        {"rot": "Curso 1", "t": "Verificação e evals", "l": "Avaliador separado e cético, testes congelados, reward hacking, conjunto de ouro e juiz calibrado.", "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/", "href_idioma": true, "img": "assets/img/cursos/verificacao.jpg"},
+        {"rot": "Curso 2", "t": "Execução longa", "l": "O kit de sete arquivos, goal.md nível 3+, contexto em faixas, handoff, loop headless e medição.", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "href_idioma": true, "img": "assets/img/cursos/execucao-longa.jpg"},
+        {"rot": "Curso 3", "t": "Multiagente e orquestração", "l": "Quando não usar, subagentes, gerador × avaliador, worktrees, filas e o time Claude + Codex.", "href": "https://inematds.github.io/loop-r-eng-multiagente-v72/", "href_idioma": true, "img": "assets/img/cursos/multiagente.jpg"},
+        {"rot": "Curso 4", "t": "Segurança do loop autônomo", "l": "Tríade letal, Regra de Dois, injeção pelo conteúdo lido, hooks de guarda e sandbox.", "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/", "href_idioma": true, "img": "assets/img/cursos/seguranca.jpg"},
+        {"rot": "Curso 5 · você está aqui", "t": "O loop que aprende", "l": "Hipótese com número, experimento, promoção e rollback, lições que viram regra e o risco de otimizar contra o medidor.", "href": "https://inematds.github.io/loop-r-eng-aprende-v72/", "href_idioma": true, "img": "assets/img/cursos/aprende.jpg"}
+      ]
+    },
+    "aulas_titulo": "As aulas",
+    "aulas_sub": "Na ordem em que o loop aprende: escrever a hipótese, testar, decidir e promover, guardar a lição, torná-la vinculante, proteger o medidor, medir o custo e montar tudo no seu sistema.",
+    "blocos": [
+      {"t": "Para quem é", "itens": [
+        "Quem já usa Claude Code ou Codex no terminal e quer que o agente melhore com o tempo, sem promover ruído.",
+        "Quem tem um processo com número (triagem, proposta, atendimento, build) e quer testar mudanças com regra clara de manter ou descartar.",
+        "Quem acumula lições num CLAUDE.md que só cresce e quer decisão, revisão e regra vinculante."
+      ]},
+      {"t": "O que você sai fazendo", "itens": [
+        "Escrever hipótese com número e saber, antes de rodar, quantas semanas o teste leva.",
+        "Rodar experimentos keep/discard com git e decidir por veredito com guarda-corpos, cartão e aprovação humana.",
+        "Promover e reverter versões sem apagar nada, e transformar lição em regra vinculante no AGENTS.md.",
+        "Pegar o agente que melhora a nota sem melhorar o sistema e medir o custo de cada ciclo."
+      ]},
+      {"t": "Antes de começar", "itens": [
+        "Linux ou macOS com git e Python 3. Os ensaios não chamam modelo nenhum.",
+        "Os repositórios públicos loop-r e sil-loop-r clonados em ~/projetos (o kit lê os dois, nunca grava neles).",
+        "Recomendado: os cursos 0 a 4 da formação. Este curso aponta para eles quando o assunto é deles."
+      ]}
+    ]
+  },
+  "ui": {
+    "pular": "Pular para o conteúdo",
+    "aulas": "Aulas",
+    "concluido": "concluído",
+    "aula": "Aula",
+    "nesta_aula": "Nesta aula, você vai aprender:",
+    "objetivo": "Objetivo:",
+    "proxima_aula": "Próxima aula",
+    "aula_anterior": "Aula anterior",
+    "voltar_inicio": "Voltar ao início do curso",
+    "marcar_concluida": "Marcar aula como concluída",
+    "dg_dica": "Clique em cada bloco do diagrama para ver o que ele faz.",
+    "copiar": "Copiar",
+    "copiado": "Copiado",
+    "selo_simulacao": "Simulação: exemplo ilustrativo",
+    "selo_real": "Exemplo do repositório",
+    "pronto_quando": "Pronto quando:",
+    "fiz": "Fiz este exercício",
+    "video_pagina": "Página do vídeo com roteiro",
+    "pergunta": "Pergunta",
+    "de": "de",
+    "cert_tag": "competência",
+    "correto": "Correto",
+    "errado": "Não é essa",
+    "quiz_aguarda": "Escolha uma alternativa. A explicação aparece depois da sua tentativa.",
+    "proxima_pergunta": "Próxima pergunta",
+    "quiz_ver": "Ver resultado",
+    "quiz_fim": "Teste concluído",
+    "quiz_total": "Você acertou {a} de {n}. Acertando todas, a aula é marcada como concluída.",
+    "aparencia": "Aparência",
+    "tamanho_texto": "Tamanho do texto",
+    "tema": "Tema",
+    "tema_escuro": "Escuro",
+    "tema_papel": "Papel claro",
+    "role_dica": "Role a página: cada etapa abaixo acende a sua parte do diagrama.",
+    "pre_requisito": "requer",
+    "ver_aula": "Ver a aula",
+    "mapa_dica": "Clique num exercício para ver o que fazer e o \"pronto quando\".",
+    "etapas": "Etapas",
+    "exercicios": "exercícios",
+    "rever": "Rever:",
+    "revisar_erradas": "Revisar as erradas",
+    "refazer": "Refazer o teste",
+    "h_semana": "h por semana",
+    "data_inicio": "Data de início",
+    "ritmo": "Tempo disponível",
+    "gerar_plano": "Gerar meu plano",
+    "baixar_md": "Baixar plano.md",
+    "baixar_ics": "Baixar para o calendário (.ics)",
+    "ind_estudo": "Estudo (aulas)",
+    "ind_pratica": "Prática declarada",
+    "ind_nota": "Prática = exercícios que você marcou como feitos. A comprovação vem na prova da certificação.",
+    "estudo": {
+      "titulo": "Seu estudo",
+      "continuar": "Continuar de onde parei",
+      "comecar": "Começar pela aula 1",
+      "cta_continuar": "Continuar a aula {n}",
+      "hoje": "hoje",
+      "ontem": "ontem",
+      "ha_dias": "há {n} dias",
+      "desempenho": "Desempenho nos testes",
+      "notas": "Minhas anotações",
+      "dados": "Copiar meus dados",
+      "sem_testes": "Nenhum teste feito ainda. O teste fica no fim de cada aula.",
+      "nao_fez": "teste ainda não feito",
+      "ultimo": "Último",
+      "melhor": "Melhor",
+      "tentativas": "tentativas",
+      "tentativa": "tentativa",
+      "tudo_certo": "Acertou tudo no último teste.",
+      "rever": "Para rever",
+      "resposta": "Resposta certa:",
+      "ir_teste": "Refazer o teste",
+      "sem_notas": "Nenhuma anotação ainda. Na aula, selecione um trecho do texto e toque em Marcar ou Anotar.",
+      "so_marcado": "(só marcado)",
+      "marcar": "Marcar",
+      "anotar": "Anotar",
+      "salvar": "Salvar",
+      "apagar": "Apagar marca",
+      "fechar": "Fechar",
+      "nota_ph": "Escreva sua anotação sobre este trecho…",
+      "um_bloco": "Marque dentro de um parágrafo só.",
+      "nao_marca": "Este trecho não pode ser marcado.",
+      "dados_exp": "Seu progresso, suas anotações e as notas dos testes ficam só neste navegador. Baixe uma cópia (.json) para guardar ou para continuar em outro computador ou navegador; lá, carregue a cópia. Carregar soma com o que já existe e não apaga nada.",
+      "exportar": "Baixar cópia",
+      "importar": "Carregar cópia",
+      "import_ok": "Cópia carregada ({n} itens). Atualizando a página…",
+      "import_erro": "Arquivo não reconhecido. Nada foi alterado.",
+      "import_outro": "Esta cópia é de outro curso. Nada foi alterado.",
+      "export_ok": "Cópia baixada."
+    },
+    "conv_dica": "Escolha a sua resposta. O comentário aparece logo depois e a conversa segue conforme a escolha.",
+    "conv_voce": "Você",
+    "conv_escolha": "Sua resposta",
+    "conv_boa": "Boa escolha",
+    "conv_meio": "Dá para melhorar",
+    "conv_ruim": "Escolha fraca",
+    "conv_fim": "Fim da conversa",
+    "conv_placar": "Você fez {p} de {m} pontos possíveis.",
+    "conv_licao": "Lição:",
+    "conv_recomecar": "Recomeçar a conversa",
+    "conv_feita": "Seu melhor placar: {p} de {m} pontos."
+  },
+  "icone": "camadas"
+}

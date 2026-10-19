@@ -1,0 +1,9 @@
+version="1.1.0"
+approval_batch=2
+id="O0001"
+id="L0001" status="proposed"
+id="O0002"
+id="L0002" status="proposed"
+## fim da tarefa: chegou a hora do lote?
+approval_due=true approval_reasons=["lote de novas propostas"]
+requested=true

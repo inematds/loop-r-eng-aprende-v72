@@ -1,0 +1,4 @@
+# categoria: palavras separadas por vírgula (a primeira categoria que casar vence; sem nenhuma = outros)
+reembolso: reembolso, dinheiro de volta
+entrega: entrega, rastreio, pedido não chegou
+acesso: senha, login

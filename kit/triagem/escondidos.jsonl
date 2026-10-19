@@ -1,0 +1,30 @@
+{"texto": "solicito reembolso integral", "esperado": "reembolso"}
+{"texto": "reembolso parcial é possível?", "esperado": "reembolso"}
+{"texto": "quando sai o reembolso?", "esperado": "reembolso"}
+{"texto": "quero o dinheiro de volta", "esperado": "reembolso"}
+{"texto": "o estorno não caiu", "esperado": "reembolso"}
+{"texto": "aceitam devolução sem nota?", "esperado": "reembolso"}
+{"texto": "vou devolver, como recebo?", "esperado": "reembolso"}
+{"texto": "cobrança indevida, quero ressarcimento", "esperado": "reembolso"}
+{"texto": "entrega expressa custa quanto?", "esperado": "entrega"}
+{"texto": "não tenho o rastreio", "esperado": "entrega"}
+{"texto": "o pedido não chegou e já passou o prazo", "esperado": "entrega"}
+{"texto": "a entrega veio errada", "esperado": "entrega"}
+{"texto": "rastreio mostra entregue mas não recebi", "esperado": "entrega"}
+{"texto": "o motoboy não apareceu", "esperado": "entrega"}
+{"texto": "pacote extraviado", "esperado": "entrega"}
+{"texto": "onde está minha compra?", "esperado": "entrega"}
+{"texto": "redefinir senha", "esperado": "acesso"}
+{"texto": "erro no login", "esperado": "acesso"}
+{"texto": "senha não funciona", "esperado": "acesso"}
+{"texto": "login travado", "esperado": "acesso"}
+{"texto": "a senha tem que ter quantos caracteres?", "esperado": "acesso"}
+{"texto": "não acesso minha conta", "esperado": "acesso"}
+{"texto": "conta suspensa", "esperado": "acesso"}
+{"texto": "vocês vendem no atacado?", "esperado": "outros"}
+{"texto": "qual o telefone?", "esperado": "outros"}
+{"texto": "tem frete grátis?", "esperado": "outros"}
+{"texto": "quero cancelar a newsletter", "esperado": "outros"}
+{"texto": "vocês abrem domingo?", "esperado": "outros"}
+{"texto": "aceitam cartão de outro país?", "esperado": "outros"}
+{"texto": "parabéns pelo site", "esperado": "outros"}

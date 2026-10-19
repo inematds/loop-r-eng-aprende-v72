@@ -1,0 +1,267 @@
+{
+  "slug": "agentsmd",
+  "num": 5,
+  "menu": "AGENTS.md",
+  "titulo": "Promoção para o AGENTS.md e regra vinculante",
+  "titulo_curto": "Regra vinculante",
+  "minutos": 18,
+  "lead": "Uma regra aprovada que mora só num banco de dados não chega à sessão nova: ela só existe se alguém lembrar de consultar. Nesta aula você faz a pergunta de promoção, registra o degrau de proteção e o vazamento conhecido, grava o bloco no AGENTS.md com diff antes, e vê o check acusar quando alguém edita o bloco à mão.",
+  "objetivo": "marcar a regra como vinculante com degrau e vazamento, gravar o bloco no AGENTS.md com promote --write e pegar o bloco editado com check.",
+  "competencias": [
+    "decidir-regra-vinculante",
+    "promover-regra-para-agents-md",
+    "subir-degrau-de-protecao"
+  ],
+  "aprende": [
+    {
+      "icone": "usuario",
+      "t": "A pergunta de promoção, feita à pessoa"
+    },
+    {
+      "icone": "camadas",
+      "t": "Os seis degraus: prosa, checklist, teste, sonda, hook, servidor"
+    },
+    {
+      "icone": "arquivo",
+      "t": "promote mostra o diff; --write grava o bloco"
+    },
+    {
+      "icone": "escudo",
+      "t": "check acusa bloco ausente, desatualizado ou editado"
+    }
+  ],
+  "hero_alt": "Placa de regras em metal escovado parafusada na parede de uma sala técnica, ao lado de um quadro elétrico com lâmpada amarela acesa.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Da regra ativa ao arquivo que toda sessão lê",
+      "sub": "enforce, promote e check (SIL Loop R 1.1.0). Clique em cada bloco.",
+      "nos": [
+        {
+          "icone": "check",
+          "titulo": "Regra ativa",
+          "sub": "no SIL",
+          "detalhe": "Adotada na aula 4. Aparece em <code>context</code>, mas uma sessão nova só a vê se ela chegar ao arquivo de instrução."
+        },
+        {
+          "icone": "usuario",
+          "titulo": "Pergunta",
+          "sub": "à pessoa",
+          "forte": true,
+          "detalhe": "\"Quebrar esta regra numa sessão que nunca consulta o SIL causa dano real?\" A resposta é da pessoa, não do agente. Sim: vinculante. Não: fica no SIL como orientação."
+        },
+        {
+          "icone": "camadas",
+          "titulo": "enforce",
+          "sub": "degrau e vazamento",
+          "detalhe": "<code>enforce ID --binding yes --rung prose --leak \"…\"</code>. O degrau diz como a regra é imposta; o vazamento, como ela é contornada. Regra vinculante ainda em prosa aparece em <code>prose_binding</code>: candidata a subir um degrau."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "promote",
+          "sub": "diff, depois --write",
+          "detalhe": "<code>promote</code> só mostra o diff. <code>promote --write</code> grava um bloco delimitado (<code>sil-loop-r:begin</code> … <code>sil-loop-r:end</code>) no AGENTS.md, preservando o resto. Só com autorização para alterar o arquivo."
+        },
+        {
+          "icone": "escudo",
+          "titulo": "check",
+          "sub": "em dia?",
+          "detalhe": "Sai 1 quando o bloco falta, está desatualizado, corrompido ou foi editado à mão. Não se edita o bloco: muda-se a regra no SIL e roda-se promote de novo."
+        }
+      ],
+      "legenda": "A lacuna que a v1.1.0 fechou: na v1.0.0, nenhuma regra chegava ao AGENTS.md (sil-melhoramento/ANALISE.md, achado nº 1).",
+      "dica": "Subir um degrau é o remédio para regra que escorrega: a lição de porta ocupada escrita três vezes pede hook, não uma quarta linha de texto."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Os seis degraus de proteção",
+      "sub": "Valores aceitos em --rung, do mais fraco ao mais forte. O SIL registra o degrau; quem constrói o hook ou o teste é você.",
+      "passos": [
+        {
+          "titulo": "prose · checklist",
+          "sub": "texto",
+          "texto": [
+            "A regra é lida pelo agente (AGENTS.md, CLAUDE.md) ou conferida numa lista. Vaza quando a sessão não lê o arquivo ou lê e esquece.",
+            "Bom para regra rara ou de julgamento."
+          ]
+        },
+        {
+          "titulo": "test · probe",
+          "sub": "comando",
+          "texto": [
+            "Um teste ou uma sonda falha quando a regra é quebrada. Vaza quando ninguém roda o teste.",
+            "Ligado ao portão do loop (curso 1, aula 8), deixa de depender de memória."
+          ]
+        },
+        {
+          "titulo": "hook · server",
+          "sub": "imposto",
+          "texto": [
+            "Um hook barra a ferramenta antes de rodar, ou o servidor recusa. Vaza por <code>--no-verify</code>, permissão alargada ou outra ferramenta.",
+            "Hook de guarda é o curso 4, aula 5."
+          ],
+          "exemplo": {
+            "rot": "Registre a prova",
+            "texto": "verify ID --positive … --negative … --evidence … guarda o relato dos casos que você rodou. Ele não executa nem certifica nada."
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Ensaio: do enforce ao bloco no AGENTS.md",
+      "sub": "Continua o ensaio da aula 4 (R0001 ativa). No fim, o que um hook de início de sessão injetaria.",
+      "blocos": [
+        {
+          "rot": "Terminal · ensaio sem custo",
+          "icone": "terminal",
+          "conteudo": "SIL=~/projetos/sil-loop-r/sil.py\nE=${TMPDIR:-/tmp}/ensaio-aprende/a4; cd $E/p   # continua o ensaio da aula 4 (R0001 ativa)\ns() { python3 $SIL --project $E/p \"$@\"; }\nj() { python3 -c 'import json,sys; d=json.load(sys.stdin); print(*[k+\"=\"+json.dumps(d.get(k),ensure_ascii=False) for k in sys.argv[1:]])' \"$@\"; }\necho \"# Instruções do projeto\" > AGENTS.md\ns enforce R0001 --binding yes --rung prose --leak \"sessão que não lê o AGENTS.md\" \\\n  --approved-by \"Seu Nome\" --reason \"porta ocupada derruba o servidor de outra sessão\" | j binding rung\ns status | j promotion prose_binding; s check > /dev/null; echo \"check: $?\"\ns promote | j written changed\ns promote --write | j written; cat AGENTS.md\ns check > /dev/null; echo \"check: $?\"\necho \"## alguém editou o bloco à mão\"; sed -i.bak 's/checar a porta/CHECAR A PORTA/' AGENTS.md\ns check | j promotion; s check > /dev/null; echo \"check: $?\"\ns promote --write | j written; s check > /dev/null; echo \"check: $?\"\necho \"## o que um hook SessionStart injetaria\"; s context --brief"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída capturada (19/10/2026)",
+            "html": "<pre>binding=true rung=\"prose\"\npromotion={\"file\": \"AGENTS.md\", \"in_sync\": false, \"problem\": \"bloco ausente; execute promote --write\"} prose_binding=[\"R0001\"]\ncheck: 1\nwritten=false changed=true\nwritten=true\n# Instruções do projeto\n\n&lt;!-- sil-loop-r:begin — gerado por sil.py promote; não editar à mão --&gt;\n## Regras vinculantes (SIL Loop R)\n\n- checar a porta antes de subir servidor (R0001; escopo: testes HTTP; proteção: prose; vazamento: sessão que não lê o AGENTS.md)\n\n&lt;!-- sil-loop-r:end --&gt;\ncheck: 0\n## alguém editou o bloco à mão\npromotion={\"file\": \"AGENTS.md\", \"in_sync\": false, \"problem\": \"bloco desatualizado; execute promote --write\"}\ncheck: 1\nwritten=true\ncheck: 0\n## o que um hook SessionStart injetaria\nSIL Loop R — regras deste projeto (dados revisáveis; instruções do usuário prevalecem):\n- R0001 [ativa] checar a porta antes de subir servidor (escopo: testes HTTP)\n- R0002 [experimental] conferir git remote -v antes do push (escopo: publicação)</pre><p>Antes do <code>--write</code>, o check já acusa: regra vinculante sem bloco. Depois da edição à mão, acusa de novo, até o promote regravar. O bloco sai em português porque o sil.py imprime em português.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Opcional: a regra em toda sessão do Claude Code",
+      "sub": "Para quem não usa AGENTS.md, ou quer as regras experimentais também: um hook SessionStart que imprime context --brief (a SIL 1.1.0 criou o --brief para isso). Junte o bloco hooks ao .claude/settings.json do projeto, sem substituir o arquivo inteiro; a última parte do ensaio acima mostra o texto que entraria. Hooks de guarda, com bloqueio, são o curso 4.",
+      "blocos": [
+        {
+          "rot": "Arquivo · kit/hooks/settings-sessionstart.json",
+          "icone": "arquivo",
+          "conteudo": "{\n  \"hooks\": {\n    \"SessionStart\": [\n      {\n        \"hooks\": [\n          {\n            \"type\": \"command\",\n            \"command\": \"python3 ~/projetos/sil-loop-r/sil.py --project \\\"$CLAUDE_PROJECT_DIR\\\" context --brief\"\n          }\n        ]\n      }\n    ]\n  }\n}"
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática",
+      "sub": "Ensaio, depois uma regra sua.",
+      "exercicios": [
+        {
+          "id": "e13",
+          "titulo": "E13 · Bloco gravado e conferido",
+          "min": "10 min",
+          "texto": "Rode o ensaio depois dos blocos da aula 4.",
+          "pronto": "<code>grep -c \"sil-loop-r:begin\" $E/p/AGENTS.md</code> → <code>1</code>; as linhas de check, na ordem: <code>1</code>, <code>0</code>, <code>1</code>, <code>0</code>."
+        },
+        {
+          "id": "e14",
+          "titulo": "E14 · Uma regra sua vinculante",
+          "min": "20 min",
+          "texto": "Das regras que você adotou na aula 4, faça a pergunta de promoção a quem decide (você mesmo, se for o seu projeto). Para a que for vinculante, registre degrau e vazamento honestos, veja o diff e grave.",
+          "pronto": "<code>python3 $SIL --project . status | python3 -c 'import json,sys; print(json.load(sys.stdin)[\"promotion\"][\"in_sync\"])'</code> → <code>True</code>, e o AGENTS.md tem o bloco."
+        },
+        {
+          "id": "e15",
+          "titulo": "E15 · Subir um degrau",
+          "min": "30 min",
+          "texto": "Escolha a regra vinculante que já escorregou (aparece mais de uma vez nas suas lições). Escreva um teste ou uma sonda que falha quando ela é quebrada, rode um caso bom e um ruim, e registre com enforce --rung test (ou probe) e verify.",
+          "pronto": "o seu teste sai com código diferente de 0 no caso ruim e 0 no caso bom; e <code>status</code> não lista mais essa regra em <code>prose_binding</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste da aula",
+      "perguntas": [
+        {
+          "p": "Quem responde à pergunta de promoção (\"quebrar esta regra numa sessão que não consulta o SIL causa dano real?\")?",
+          "opcoes": [
+            "O agente, pelo histórico",
+            "A pessoa que decide pelo projeto",
+            "O sil.py, pela idade da regra",
+            "Ninguém: toda regra adotada é vinculante"
+          ],
+          "certa": 1,
+          "explica": "A skill manda fazer a pergunta ao usuário e registrar com enforce só com resposta explícita, com --approved-by.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Alguém corrigiu um erro de digitação dentro do bloco sil-loop-r no AGENTS.md. O que o check faz?",
+          "opcoes": [
+            "Nada: o texto ficou melhor",
+            "Apaga o bloco",
+            "Corrige sozinho",
+            "Sai 1 com \"bloco desatualizado\""
+          ],
+          "certa": 3,
+          "explica": "O bloco é gerado. Mudança vai para a regra no SIL e volta pelo promote --write.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "A regra de checar a porta antes de subir servidor foi escrita três vezes nas lições. Qual é o passo certo?",
+          "opcoes": [
+            "Subir um degrau: teste, sonda ou hook que barra o erro",
+            "Escrever uma quarta vez, em maiúsculas",
+            "Aposentar a regra",
+            "Mudar o escopo para \"todos os projetos\" e repetir a regra em cada CLAUDE.md"
+          ],
+          "certa": 0,
+          "explica": "Regra que escorrega em prosa pede degrau acima. É a recomendação da análise do SIL para o tema mais reincidente.",
+          "ref": "passos"
+        },
+        {
+          "p": "O que o promote sem --write faz?",
+          "opcoes": [
+            "Grava o bloco e faz commit",
+            "Apaga regras antigas",
+            "Mostra o diff e não grava nada",
+            "Envia o bloco para revisão por e-mail"
+          ],
+          "certa": 2,
+          "explica": "written=false, changed=true no ensaio: só o diff. Gravar exige --write e autorização para mexer no arquivo de instrução.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Em três frases",
+      "itens": [
+        {
+          "t": "Pergunta",
+          "texto": "Vinculante é a regra cuja quebra, numa sessão sem SIL, causa dano real; quem responde é a pessoa."
+        },
+        {
+          "t": "Bloco",
+          "texto": "promote mostra o diff, --write grava o bloco delimitado, e o check acusa bloco faltando ou editado."
+        },
+        {
+          "t": "Degrau",
+          "texto": "Regra que escorrega sobe de prosa para teste, sonda ou hook; o SIL registra degrau e vazamento."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        {
+          "t": "SIL Loop R: CHANGELOG da 1.1.0 (enforce, promote, check)",
+          "href": "https://github.com/inematds/sil-loop-r/blob/main/CHANGELOG.md",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Curso 4, aula 5: hooks como guarda",
+          "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/",
+          "icone": "escudo"
+        },
+        {
+          "t": "Curso 1, aula 8: o portão do loop",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/",
+          "icone": "portao"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+## vaga
+HIPÓTESE: REPROVADA
+  falta: atual, alvo, medida por, sem piorar
+  hipótese vaga sem número
+saída: 1
+## triagem
+HIPÓTESE: OK — acerto da triagem nos 40 casos de casos.jsonl: 0.7 → 0.8 (maximizar)
+  medida por: python3 kit/medir.py <repo>
+  sem piorar: acerto nos casos escondidos (fora do repo)
+saída: 0
+## vendas: conversão 3% → 5%, 50 propostas por semana
+HIPÓTESE: OK — conversão (proposta que virou pacote pago em até 15 dias): 0.03 → 0.05 (maximizar)
+  medida por: coluna resultado de dados/execucoes.csv, A contra B
+  sem piorar: margem média, reclamações, opt-out
+  amostra mínima: 1506 por variante (95%, poder 80%) — 3012 no total
+  com 50 por semana: 61 semanas
+  AVISO: mais de 12 semanas — teste uma métrica de sinal mais rápida e vigie esta
+saída: 0
+## vendas: resposta em 48h 20% → 30% (métrica de sinal)
+  amostra mínima: 294 por variante (95%, poder 80%) — 588 no total
+  com 50 por semana: 12 semanas
